@@ -11,9 +11,10 @@ using namespace Chess;
 int main()
 {
 	Board * board = new Board();
+	board->Render();
 	delete board;
-	cout << COLOUR_WHITE
-	int x = 0;
+	cout << Utility::PieceColourStrings[1];
+		int x = 0;
 	cin >> x;
 
 	return 0;

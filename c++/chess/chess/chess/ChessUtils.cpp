@@ -1,4 +1,6 @@
 #include "ChessUtils.h"
+#include "literals.h"
+
 
 using namespace Chess;
 
@@ -21,3 +23,5 @@ void Utility::InitialisePieces(Piece ** pPieces, PieceColour colour){
 	pPieces[15] = new King(colour);
 	return;
 }
+
+const char * const Utility::PieceColourStrings[2] { "White", "Black" };

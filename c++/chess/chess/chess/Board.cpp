@@ -1,5 +1,6 @@
 #include "board.h"
 #include "chesspieces.h"
+#include "chessutils.h"
 #include <iostream>
 
 using namespace Chess;
@@ -18,7 +19,21 @@ Board::Board() {
 }
 
 Board::~Board() {
-	cout << "deconstructing..." << endl;
+    for(int s=0; s<64; s++){
+		squares[s] = nullptr;
+	}
+
+    for(int p=0; p<16; p++)
+    {
+        delete whitePieces[p];
+        delete blackPieces[p];
+        whitePieces[p] = blackPieces[p] = nullptr;
+    }
+
+    delete[] whitePieces;
+    delete[] blackPieces;
+    delete[] squares;
+    whitePieces = blackPieces = squares = nullptr;
 }
 
 void Board::ResetBoard() {
@@ -57,6 +72,22 @@ void Board::InitColourPieces(Piece ** pPieces, PieceColour colour){
 template <class T>
 T * Board::MakePiece(PieceColour colour){
 	T * pPiece = new T(colour);
-	cout << "Made new " << PieceColourStrings[colour] << " " << pPiece->GetName() << endl;
+	cout << "Made new " << Utility::PieceColourStrings[colour] << " " << pPiece->GetName() << endl;
 	return pPiece;
+}
+
+void Board::Render(){
+    RenderRow(0);
+}
+
+void Board::RenderRow(int offset){
+
+    for(int c=1; c<=8; c++)
+    {
+        cout << "+------";
+        if(c==8){
+            cout << "+";
+        }
+    }
+    cout << endl;
 }

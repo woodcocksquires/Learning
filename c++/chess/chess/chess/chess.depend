@@ -109,3 +109,115 @@
 	"rook.h"
 	<string>
 
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\bishop.cpp
+	"chess.h"
+	"piece.h"
+	"bishop.h"
+	<string>
+
+1394715702 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.h
+	<string>
+	"literals.h"
+
+1394716087 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\literals.h
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.h
+	"chess.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\bishop.h
+	"chess.h"
+	"piece.h"
+
+1394719181 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.cpp
+	"board.h"
+	"chesspieces.h"
+	"chessutils.h"
+	<iostream>
+
+1394718739 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.h
+	"piece.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chesspieces.h
+	"piece.h"
+	"pawn.h"
+	"rook.h"
+	"knight.h"
+	"king.h"
+	"queen.h"
+	"bishop.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\pawn.h
+	"chess.h"
+	"piece.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\rook.h
+	"chess.h"
+	"piece.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\knight.h
+	"chess.h"
+	"piece.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\king.h
+	"chess.h"
+	"piece.h"
+
+1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\queen.h
+	"chess.h"
+	"piece.h"
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.cpp
+	<string>
+	"chess.h"
+	"literals.h"
+
+1394716295 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
+	"ChessUtils.h"
+	"literals.h"
+
+1394715786 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.h
+	"chesspieces.h"
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\king.cpp
+	"chess.h"
+	"piece.h"
+	"king.h"
+	<string>
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\knight.cpp
+	"chess.h"
+	"piece.h"
+	"knight.h"
+	<string>
+
+1394715891 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\main.cpp
+	<iostream>
+	"chess.h"
+	"chesspieces.h"
+	"chessutils.h"
+	"board.h"
+	"literals.h"
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\pawn.cpp
+	"chess.h"
+	"piece.h"
+	"pawn.h"
+	<string>
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.cpp
+	"chess.h"
+	"piece.h"
+	<string>
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\queen.cpp
+	"chess.h"
+	"piece.h"
+	"queen.h"
+	<string>
+
+1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\rook.cpp
+	"chess.h"
+	"piece.h"
+	"rook.h"
+	<string>
+

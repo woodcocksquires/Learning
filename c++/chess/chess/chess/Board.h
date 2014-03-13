@@ -8,6 +8,7 @@ using namespace Chess;
 namespace Chess {
 	class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
+		void RenderRow(int offset);
 	  public:
 		Board();
 		~Board();
@@ -17,6 +18,7 @@ namespace Chess {
 		template <class T>
 		T * MakePiece(PieceColour colour);
 	  	void ResetBoard();
+	  	void Render();
 	};
 }
 
