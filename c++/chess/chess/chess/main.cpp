@@ -15,7 +15,7 @@ int main()
 {
 	Board * board = new Board();
 	BaseRenderer * renderer = new ConsoleChessRenderer();
-	renderer->RenderBoard(board);
+	renderer->RenderBoard(board, false);
 
     int x = 0;
 	cin >> x;

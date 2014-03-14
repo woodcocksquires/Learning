@@ -5,6 +5,4 @@
 using namespace std;
 using namespace Chess;
 
-Rook::Rook(Colour _colour): Piece(5, _colour) {}
-
-string Rook::GetName() { return "Rook"; }
+Rook::Rook(Colour _colour): Piece(5, _colour, "Rook", 'R') {}

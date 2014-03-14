@@ -8,7 +8,6 @@ namespace Chess {
 	class Queen: public Piece {
 	  public:
 		Queen(Colour _colour);
-		virtual string GetName();
 	};
 }
 

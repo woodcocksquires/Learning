@@ -51,22 +51,28 @@ void Board::InitPieces() {
 }
 
 void Board::InitColourPieces(Piece ** pPieces, Colour colour){
-	pPieces[0] = MakePiece<Pawn>(colour);
-	pPieces[1] = MakePiece<Pawn>(colour);
-	pPieces[2] = MakePiece<Pawn>(colour);
-	pPieces[3] = MakePiece<Pawn>(colour);
-	pPieces[4] = MakePiece<Pawn>(colour);
-	pPieces[5] = MakePiece<Pawn>(colour);
-	pPieces[6] = MakePiece<Pawn>(colour);
-	pPieces[7] = MakePiece<Pawn>(colour);
+    int modifier = (colour == Colour::White) ? 1 : -1;
+    int baseRow = (colour == Colour::White) ? 0 : 7;
+	for(int p = 0; p<8; p++){
+        pPieces[p] = MakePiece<Pawn>(colour);
+        squares[GetBoardPosition(baseRow+modifier,p)] = pPieces[p];
+	}
 	pPieces[8] = MakePiece<Knight>(colour);
+	squares[GetBoardPosition(baseRow,1)] = pPieces[1];
 	pPieces[9] = MakePiece<Knight>(colour);
+	squares[GetBoardPosition(baseRow,6)] = pPieces[6];
 	pPieces[10] = MakePiece<Rook>(colour);
+	squares[GetBoardPosition(baseRow,0)] = pPieces[0];
 	pPieces[11] = MakePiece<Rook>(colour);
+	squares[GetBoardPosition(baseRow,7)] = pPieces[7];
 	pPieces[12] = MakePiece<Bishop>(colour);
+	squares[GetBoardPosition(baseRow,2)] = pPieces[2];
 	pPieces[13] = MakePiece<Bishop>(colour);
+	squares[GetBoardPosition(baseRow,5)] = pPieces[5];
 	pPieces[14] = MakePiece<Queen>(colour);
+	squares[GetBoardPosition(baseRow,3)] = pPieces[3];
 	pPieces[15] = MakePiece<King>(colour);
+	squares[GetBoardPosition(baseRow,4)] = pPieces[4];
 }
 
 template <class T>
@@ -74,4 +80,12 @@ T * Board::MakePiece(Colour colour){
 	T * pPiece = new T(colour);
 	//cout << "Made new " << Utility::ColourStrings[colour] << " " << pPiece->GetName() << endl;
 	return pPiece;
+}
+
+Piece * Board::PieceAtPosition(int row, int col){
+    return squares[GetBoardPosition(row, col)];
+}
+
+int Board::GetBoardPosition(int row, int col){
+    return row*8+col;
 }

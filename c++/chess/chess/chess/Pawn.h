@@ -8,8 +8,7 @@ namespace Chess {
 	class Pawn: public Piece {
 	  public:
 		Pawn(Colour _colour);
-		virtual string GetName();
-	};
+    };
 }
 
 #endif

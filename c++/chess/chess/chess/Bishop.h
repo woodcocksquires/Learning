@@ -8,7 +8,6 @@ namespace Chess {
 	class Bishop: public Piece {
 	  public:
 		Bishop(Colour _colour);
-		virtual string GetName();
 	};
 }
 

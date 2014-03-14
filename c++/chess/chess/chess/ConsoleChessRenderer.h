@@ -9,11 +9,14 @@ namespace Chess {
         class ConsoleChessRenderer: public BaseRenderer {
           private:
             void RenderBoardRowBorder();
-            void RenderBoardRowInner(ConsoleRowInnerType type);
+            void RenderBoardRowInner(ConsoleRowInnerType type, Board * board, int offset, bool inverse);
+            void RenderBoardRowNonContent(int offset, bool inverse, bool isSpacer);
+            void RenderBoardRowContent(Board * board, int offset, bool inverse);
+            Colour GetSquareColour(int rowOffset, int colOffset);
           protected:
-            void RenderBoardRow(int offset);
+            void RenderBoardRow(Board * board, int offset, bool inverse);
           public:
-            virtual void RenderBoard(Board * board);
+            virtual void RenderBoard(Board * board, bool inverse);
         };
     }
 }

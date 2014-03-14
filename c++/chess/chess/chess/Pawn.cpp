@@ -5,6 +5,4 @@
 using namespace std;
 using namespace Chess;
 
-Pawn::Pawn(Colour _colour): Piece(1, _colour) {}
-
-string Pawn::GetName() { return "Pawn"; }
+Pawn::Pawn(Colour _colour): Piece(1, _colour, "Pawn", 'P') {}

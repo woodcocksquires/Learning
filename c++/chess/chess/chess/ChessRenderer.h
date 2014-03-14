@@ -7,7 +7,7 @@ namespace Chess {
     namespace Renderer {
         class BaseRenderer {
           public:
-            virtual void RenderBoard(Board * board) = 0;
+            virtual void RenderBoard(Board * board, bool inverse) = 0;
         };
     }
 }

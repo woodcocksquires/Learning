@@ -6,6 +6,4 @@
 using namespace std;
 using namespace Chess;
 
-Bishop::Bishop(Colour _colour): Piece(0, _colour) {}
-
-string Bishop::GetName() { return "Bishop"; }
+Bishop::Bishop(Colour _colour): Piece(0, _colour, "Bishop", 'B') {}
