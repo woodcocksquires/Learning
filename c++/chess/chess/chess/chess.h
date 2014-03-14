@@ -7,7 +7,7 @@
 using namespace std;
 
 namespace Chess {
-	enum PieceColour: int { Black, White };
+	enum Colour: int { Black, White };
 }
 
 #endif

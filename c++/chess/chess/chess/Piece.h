@@ -6,9 +6,9 @@
 namespace Chess {
 	class Piece {
 		int value;
-		PieceColour colour;
+		Colour colour;
 	  public:
-		Piece(int _value, PieceColour _colour);
+		Piece(int _value, Colour _colour);
 		int GetValue();
 		virtual string GetName() = 0;
 	};

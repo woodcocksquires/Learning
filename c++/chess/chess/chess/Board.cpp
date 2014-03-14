@@ -46,11 +46,11 @@ void Board::InitPieces() {
 		blackPieces[p] = nullptr;
 	}
 
-	InitColourPieces(whitePieces, PieceColour::White);
-	InitColourPieces(whitePieces, PieceColour::Black);
+	InitColourPieces(whitePieces, Colour::White);
+	InitColourPieces(whitePieces, Colour::Black);
 }
 
-void Board::InitColourPieces(Piece ** pPieces, PieceColour colour){
+void Board::InitColourPieces(Piece ** pPieces, Colour colour){
 	pPieces[0] = MakePiece<Pawn>(colour);
 	pPieces[1] = MakePiece<Pawn>(colour);
 	pPieces[2] = MakePiece<Pawn>(colour);
@@ -70,24 +70,8 @@ void Board::InitColourPieces(Piece ** pPieces, PieceColour colour){
 }
 
 template <class T>
-T * Board::MakePiece(PieceColour colour){
+T * Board::MakePiece(Colour colour){
 	T * pPiece = new T(colour);
-	cout << "Made new " << Utility::PieceColourStrings[colour] << " " << pPiece->GetName() << endl;
+	//cout << "Made new " << Utility::ColourStrings[colour] << " " << pPiece->GetName() << endl;
 	return pPiece;
-}
-
-void Board::Render(){
-    RenderRow(0);
-}
-
-void Board::RenderRow(int offset){
-
-    for(int c=1; c<=8; c++)
-    {
-        cout << "+------";
-        if(c==8){
-            cout << "+";
-        }
-    }
-    cout << endl;
 }

@@ -4,7 +4,7 @@
 using namespace std;
 using namespace Chess;
 
-Piece::Piece(int _value, PieceColour _colour): value(_value), colour(_colour) {}
+Piece::Piece(int _value, Colour _colour): value(_value), colour(_colour) {}
 
 int Piece::GetValue(){
 	return value;

@@ -45,8 +45,11 @@
 		<Unit filename="Board.h" />
 		<Unit filename="Chess.cpp" />
 		<Unit filename="ChessPieces.h" />
+		<Unit filename="ChessRenderer.h" />
 		<Unit filename="ChessUtils.cpp" />
 		<Unit filename="ChessUtils.h" />
+		<Unit filename="ConsoleChessRenderer.cpp" />
+		<Unit filename="ConsoleChessRenderer.h" />
 		<Unit filename="King.cpp" />
 		<Unit filename="King.h" />
 		<Unit filename="Knight.cpp" />

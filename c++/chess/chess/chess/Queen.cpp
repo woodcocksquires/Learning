@@ -5,6 +5,6 @@
 using namespace std;
 using namespace Chess;
 
-Queen::Queen(PieceColour _colour): Piece(9, _colour) {}
+Queen::Queen(Colour _colour): Piece(9, _colour) {}
 
 string Queen::GetName() { return "Queen"; }

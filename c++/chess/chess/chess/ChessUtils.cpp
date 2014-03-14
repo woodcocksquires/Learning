@@ -4,7 +4,7 @@
 
 using namespace Chess;
 
-void Utility::InitialisePieces(Piece ** pPieces, PieceColour colour){
+void Utility::InitialisePieces(Piece ** pPieces, Colour colour){
 	pPieces[0] = new Pawn(colour);
 	pPieces[1] = new Pawn(colour);
 	pPieces[2] = new Pawn(colour);
@@ -24,4 +24,4 @@ void Utility::InitialisePieces(Piece ** pPieces, PieceColour colour){
 	return;
 }
 
-const char * const Utility::PieceColourStrings[2] { "White", "Black" };
+const char * const Utility::ColourStrings[2] { "White", "Black" };

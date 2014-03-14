@@ -4,19 +4,24 @@
 #include "chessutils.h"
 #include "board.h"
 #include "literals.h"
+#include "ChessRenderer.h"
+#include "ConsoleChessRenderer.h"
 
 using namespace std;
 using namespace Chess;
+using namespace Chess::Renderer;
 
 int main()
 {
 	Board * board = new Board();
-	board->Render();
-	delete board;
-	cout << Utility::PieceColourStrings[1];
-		int x = 0;
+	BaseRenderer * renderer = new ConsoleChessRenderer();
+	renderer->RenderBoard(board);
+
+    int x = 0;
 	cin >> x;
 
+    delete board;
+	delete renderer;
 	return 0;
 }
 

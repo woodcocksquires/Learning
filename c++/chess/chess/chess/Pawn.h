@@ -7,7 +7,7 @@
 namespace Chess {
 	class Pawn: public Piece {
 	  public:
-		Pawn(PieceColour _colour);
+		Pawn(Colour _colour);
 		virtual string GetName();
 	};
 }

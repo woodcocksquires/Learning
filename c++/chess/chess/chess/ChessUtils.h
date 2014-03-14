@@ -6,8 +6,8 @@
 namespace Chess {
 	class Utility {
 	  public:
-		static void InitialisePieces(Piece ** pPieces, PieceColour colour);
-		static const char * const PieceColourStrings[2];
+		static void InitialisePieces(Piece ** pPieces, Colour colour);
+		static const char * const ColourStrings[2];
 	};
 }
 

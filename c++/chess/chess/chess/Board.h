@@ -8,17 +8,16 @@ using namespace Chess;
 namespace Chess {
 	class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
-		void RenderRow(int offset);
 	  public:
 		Board();
 		~Board();
 		void InitPieces();
-		void InitColourPieces(Piece ** pPieces, PieceColour colour);
+		void InitColourPieces(Piece ** pPieces, Colour colour);
+        void ResetBoard();
 
 		template <class T>
-		T * MakePiece(PieceColour colour);
-	  	void ResetBoard();
-	  	void Render();
+		T * MakePiece(Colour colour);
+
 	};
 }
 

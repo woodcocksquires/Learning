@@ -1,29 +1,30 @@
 # depslib dependency file v1.0
-1394630780 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\bishop.cpp
+1394759445 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\bishop.cpp
 	"chess.h"
 	"piece.h"
 	"bishop.h"
 	<string>
 
-1394657050 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.h
+1394759437 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.h
 	<string>
 	"literals.h"
 
-1394629968 c:\users\andy\documents\github\learning\c++\chess\chess\chess\literals.h
+1394751254 c:\users\andy\documents\github\learning\c++\chess\chess\chess\literals.h
 
-1394544351 c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.h
+1394759547 c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.h
 	"chess.h"
 
-1394568018 c:\users\andy\documents\github\learning\c++\chess\chess\chess\bishop.h
+1394759485 c:\users\andy\documents\github\learning\c++\chess\chess\chess\bishop.h
 	"chess.h"
 	"piece.h"
 
-1394656517 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.cpp
+1394759547 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.cpp
 	"board.h"
 	"chesspieces.h"
+	"chessutils.h"
 	<iostream>
 
-1394628658 c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.h
+1394759546 c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.h
 	"piece.h"
 
 1394568671 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chesspieces.h
@@ -35,75 +36,78 @@
 	"queen.h"
 	"bishop.h"
 
-1394567661 c:\users\andy\documents\github\learning\c++\chess\chess\chess\pawn.h
+1394759547 c:\users\andy\documents\github\learning\c++\chess\chess\chess\pawn.h
 	"chess.h"
 	"piece.h"
 
-1394567972 c:\users\andy\documents\github\learning\c++\chess\chess\chess\rook.h
+1394759547 c:\users\andy\documents\github\learning\c++\chess\chess\chess\rook.h
 	"chess.h"
 	"piece.h"
 
-1394567991 c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.h
+1394759546 c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.h
 	"chess.h"
 	"piece.h"
 
-1394567999 c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.h
+1394759547 c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.h
 	"chess.h"
 	"piece.h"
 
-1394568009 c:\users\andy\documents\github\learning\c++\chess\chess\chess\queen.h
+1394759546 c:\users\andy\documents\github\learning\c++\chess\chess\chess\queen.h
 	"chess.h"
 	"piece.h"
 
-1394656455 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.cpp
+1394657039 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.cpp
 	<string>
 	"chess.h"
 	"literals.h"
 
-1394569106 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
+1394759547 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
 	"ChessUtils.h"
+	"literals.h"
 
-1394569073 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.h
+1394759547 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.h
 	"chesspieces.h"
 
-1394568100 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.cpp
+1394759455 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.cpp
 	"chess.h"
 	"piece.h"
 	"king.h"
 	<string>
 
-1394568078 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.cpp
+1394759459 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.cpp
 	"chess.h"
 	"piece.h"
 	"knight.h"
 	<string>
 
-1394631251 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\main.cpp
+1394757601 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\main.cpp
 	<iostream>
 	"chess.h"
 	"chesspieces.h"
 	"chessutils.h"
 	"board.h"
 	"literals.h"
+	"ChessRenderer.h"
+	"ConsoleChessRenderer.h"
 
-1394568064 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\pawn.cpp
+1394759464 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\pawn.cpp
 	"chess.h"
 	"piece.h"
 	"pawn.h"
 	<string>
 
-1394544795 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.cpp
+1394759471 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.cpp
 	"chess.h"
 	"piece.h"
 	<string>
 
-1394568156 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\queen.cpp
+1394759476 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\queen.cpp
 	"chess.h"
 	"piece.h"
 	"queen.h"
 	<string>
 
-1394568176 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\rook.cpp
+1394759479 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\rook.cpp
 	"chess.h"
 	"piece.h"
 	"rook.h"
@@ -220,4 +224,17 @@
 	"piece.h"
 	"rook.h"
 	<string>
+
+1394756683 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechesshandler.cpp
+
+1394758456 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.cpp
+	<iostream>
+	"ConsoleChessRenderer.h"
+	"Board.h"
+
+1394759630 c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.h
+	"ChessRenderer.h"
+
+1394758752 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
+	"Board.h"
 
