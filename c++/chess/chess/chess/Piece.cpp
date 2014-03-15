@@ -5,8 +5,11 @@
 using namespace std;
 using namespace Chess;
 
-Piece::Piece(int _value, Colour _colour, string _name, char _shortName):
-    value(_value), colour(_colour), name(_name), shortName(_shortName) {}
+Piece::Piece(int _value, Colour _colour, const string _name, const char _shortName):
+    value(_value), colour(_colour), name(_name) {
+    shortName = Utility::ColourStrings[colour][0];
+    shortName += _shortName;
+}
 
 int Piece::GetValue(){
 	return value;
@@ -16,6 +19,6 @@ string Piece::GetName(){
     return name;
 }
 
-const char * Piece::GetShortName(){
-    return &Utility::ColourStrings[colour][0];
+string Piece::GetShortName(){
+    return shortName;
 }

@@ -47,7 +47,7 @@ void Board::InitPieces() {
 	}
 
 	InitColourPieces(whitePieces, Colour::White);
-	InitColourPieces(whitePieces, Colour::Black);
+	InitColourPieces(blackPieces, Colour::Black);
 }
 
 void Board::InitColourPieces(Piece ** pPieces, Colour colour){
@@ -58,21 +58,21 @@ void Board::InitColourPieces(Piece ** pPieces, Colour colour){
         squares[GetBoardPosition(baseRow+modifier,p)] = pPieces[p];
 	}
 	pPieces[8] = MakePiece<Knight>(colour);
-	squares[GetBoardPosition(baseRow,1)] = pPieces[1];
+	squares[GetBoardPosition(baseRow,1)] = pPieces[8];
 	pPieces[9] = MakePiece<Knight>(colour);
-	squares[GetBoardPosition(baseRow,6)] = pPieces[6];
+	squares[GetBoardPosition(baseRow,6)] = pPieces[9];
 	pPieces[10] = MakePiece<Rook>(colour);
-	squares[GetBoardPosition(baseRow,0)] = pPieces[0];
+	squares[GetBoardPosition(baseRow,0)] = pPieces[10];
 	pPieces[11] = MakePiece<Rook>(colour);
-	squares[GetBoardPosition(baseRow,7)] = pPieces[7];
+	squares[GetBoardPosition(baseRow,7)] = pPieces[11];
 	pPieces[12] = MakePiece<Bishop>(colour);
-	squares[GetBoardPosition(baseRow,2)] = pPieces[2];
+	squares[GetBoardPosition(baseRow,2)] = pPieces[12];
 	pPieces[13] = MakePiece<Bishop>(colour);
-	squares[GetBoardPosition(baseRow,5)] = pPieces[5];
+	squares[GetBoardPosition(baseRow,5)] = pPieces[13];
 	pPieces[14] = MakePiece<Queen>(colour);
-	squares[GetBoardPosition(baseRow,3)] = pPieces[3];
+	squares[GetBoardPosition(baseRow,3)] = pPieces[14];
 	pPieces[15] = MakePiece<King>(colour);
-	squares[GetBoardPosition(baseRow,4)] = pPieces[4];
+	squares[GetBoardPosition(baseRow,4)] = pPieces[15];
 }
 
 template <class T>
@@ -88,4 +88,10 @@ Piece * Board::PieceAtPosition(int row, int col){
 
 int Board::GetBoardPosition(int row, int col){
     return row*8+col;
+}
+
+MovePieceResult Board::MovePiece(string startPos, string endPos){
+    Piece * movingPiece = squares[(8*1)+4];
+    squares[(8*3)+4] = movingPiece;
+    squares[(8*1)+4] = nullptr;
 }

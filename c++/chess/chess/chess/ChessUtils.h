@@ -7,6 +7,7 @@ namespace Chess {
 	class Utility {
 	  public:
         static const char * const ColourStrings[2];
+        static const char ColumnNames[8];
 	};
 }
 

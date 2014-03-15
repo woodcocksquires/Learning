@@ -8,12 +8,12 @@ namespace Chess {
 		int value;
 		Colour colour;
 		string name;
-		char shortName;
+		string shortName;
 	  public:
-		Piece(int _value, Colour _colour, string _name, char _shortName);
+		Piece(int _value, Colour _colour, const string _name, const char _shortName);
 		int GetValue();
 		string GetName();
-		const char * GetShortName();
+		string GetShortName();
 	};
 }
 

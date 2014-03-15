@@ -16,6 +16,9 @@ int main()
 	Board * board = new Board();
 	BaseRenderer * renderer = new ConsoleChessRenderer();
 	renderer->RenderBoard(board, false);
+	cout << endl;
+	board->MovePiece("E2","E4");
+	renderer->RenderBoard(board, true);
 
     int x = 0;
 	cin >> x;
