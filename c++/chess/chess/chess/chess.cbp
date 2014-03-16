@@ -14,8 +14,6 @@
 				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-std=c++0x" />
-					<Add option="-W" />
-					<Add option="-O0" />
 					<Add option="-DWIN32" />
 					<Add option="-D_DEBUG" />
 				</Compiler>
@@ -30,9 +28,10 @@
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
 				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-W" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />
-					<Add option="-W" />
 				</Compiler>
 				<Linker>
 					<Add library="$(NoInherit)" />
@@ -55,6 +54,8 @@
 		<Unit filename="Knight.cpp" />
 		<Unit filename="Knight.h" />
 		<Unit filename="Literals.h" />
+		<Unit filename="Move.cpp" />
+		<Unit filename="Move.h" />
 		<Unit filename="Pawn.cpp" />
 		<Unit filename="Pawn.h" />
 		<Unit filename="Piece.cpp" />
@@ -64,6 +65,8 @@
 		<Unit filename="Rook.cpp" />
 		<Unit filename="Rook.h" />
 		<Unit filename="chess.h" />
+		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

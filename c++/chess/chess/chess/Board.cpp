@@ -90,7 +90,7 @@ int Board::GetBoardPosition(int row, int col){
     return row*8+col;
 }
 
-MovePieceResult Board::MovePiece(string startPos, string endPos){
+MovePieceResult Board::MovePiece(Move m){
     Piece * movingPiece = squares[(8*1)+4];
     squares[(8*3)+4] = movingPiece;
     squares[(8*1)+4] = nullptr;

@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "Chess.h"
 #include "ChessUtils.h"
+#include "Move.h"
 
 using namespace Chess::Renderer;
 using namespace Chess;
@@ -21,6 +22,7 @@ void ConsoleChessRenderer::RenderBoard(Board * board, bool inverse) {
     }
     RenderBoardRowBorder();
     RenderBoardLabelRow(inverse);
+    cout << endl;
 }
 
 void ConsoleChessRenderer::RenderBoardRow(Board * board, int offset, bool inverse){
@@ -151,4 +153,75 @@ void ConsoleChessRenderer::RenderBoardLabelRow(bool inverse){
 
 Colour ConsoleChessRenderer::GetSquareColour(int rowOffset, int colOffset){
     return (((rowOffset % 2) + (colOffset % 2)) % 2 == 0) ? Colour::White : Colour::Black;
+}
+
+void ConsoleChessRenderer::StartGame(){
+    cout << "Welcome to Console Chess!" << endl << endl << endl;
+}
+
+PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
+    string input = "";
+    const char * colourString = Utility::ColourStrings[colour];
+
+    cout << "Please choose type of player for " << colourString << " from the options below." << endl;
+    cout << "   1   Human" << endl;
+    cout << "   2   CPU" << endl;
+    cout << endl << "Option: ";
+
+    cin >> input;
+
+    while(input != "1" && input != "2"){
+        input = "";
+        cout << endl << "Incorrect input, please try again." << endl;
+        cout << "Option: ";
+        cin >> input;
+    }
+
+    PlayerType output = (PlayerType)((int)input[0] - 48 - 1);
+    cout << endl << "Selected player type for " << colourString << " is " << Utility::PlayerTypeStrings[output] << "." << endl << endl;
+    return output;
+}
+
+Move * ConsoleChessRenderer::RequestMove(Colour colour, Board * board){
+    string startPosition, endPosition;
+    cout << endl;
+    cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move." << endl;
+    cout << "Reference: ";
+    cin >> startPosition;
+
+    while(!TestBoardReference(startPosition)){
+        cout << endl << "Incorrect reference, please try again." << endl << "Reference: ";
+        cin >> startPosition;
+    }
+
+    cout << endl << "Please enter the reference of the position you would like to move the piece to.";
+    cout << endl << "Reference:";
+    cin >> endPosition;
+
+    while(!TestBoardReference(endPosition)){
+        cout << endl << "Incorrect reference, please try again." << endl << "Reference: ";
+        cin >> endPosition;
+    }
+
+    return new Move(startPosition, endPosition, board);
+}
+
+bool ConsoleChessRenderer::TestBoardReference(string boardReference){
+    if(boardReference.length() != 2){
+        return false;
+    }
+
+    char firstChar, secondChar;
+    firstChar = boardReference[0];
+    secondChar = boardReference[1];
+
+    if(Move::GetColumn(firstChar) == -1 || secondChar < 49 || secondChar > 56){
+        return false;
+    }
+
+    return true;
+}
+
+void ConsoleChessRenderer::RenderMoves(){
+
 }

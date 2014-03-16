@@ -3,6 +3,8 @@
 
 #include "chess.h"
 
+using namespace std;
+
 namespace Chess {
 	class Piece {
 		int value;

@@ -2,6 +2,7 @@
 #define CHESS_BOARD
 
 #include "piece.h"
+#include "move.h"
 
 using namespace Chess;
 
@@ -20,7 +21,7 @@ namespace Chess {
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
         Piece * PieceAtPosition(int row, int col);
-        MovePieceResult MovePiece(string startPos, string endPos);
+        MovePieceResult MovePiece(Move m);
 	};
 }
 

@@ -8,6 +8,7 @@ namespace Chess {
 	  public:
         static const char * const ColourStrings[2];
         static const char ColumnNames[8];
+        static const char * const PlayerTypeStrings[2];
 	};
 }
 

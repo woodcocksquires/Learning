@@ -2,6 +2,9 @@
 #define CONSOLECHESSRENDERER_H_INCLUDED
 
 #include "ChessRenderer.h"
+#include "chess.h"
+
+using namespace Chess;
 
 namespace Chess {
     namespace Renderer {
@@ -16,10 +19,15 @@ namespace Chess {
             void RenderBoardRowContentColumn(Board * board, int offset, int coloffset, bool inverse);
             void RenderBoardLabelRow(bool inverse);
             Colour GetSquareColour(int rowOffset, int colOffset);
+            bool TestBoardReference(string boardReference);
           protected:
             void RenderBoardRow(Board * board, int offset, bool inverse);
           public:
             virtual void RenderBoard(Board * board, bool inverse);
+            virtual void StartGame();
+            virtual PlayerType GetPlayerType(Colour colour);
+            virtual Move * RequestMove(Colour colour, Board * board);
+            virtual void RenderMoves();
         };
     }
 }

@@ -5,27 +5,28 @@
 	"bishop.h"
 	<string>
 
-1394823337 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.h
+1394997680 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.h
 	<string>
 	"literals.h"
 
 1394751254 c:\users\andy\documents\github\learning\c++\chess\chess\chess\literals.h
 
-1394908990 c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.h
+1394986904 c:\users\andy\documents\github\learning\c++\chess\chess\chess\piece.h
 	"chess.h"
 
 1394823337 c:\users\andy\documents\github\learning\c++\chess\chess\chess\bishop.h
 	"chess.h"
 	"piece.h"
 
-1394915141 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.cpp
+1394997569 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.cpp
 	"board.h"
 	"chesspieces.h"
 	"chessutils.h"
 	<iostream>
 
-1394915034 c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.h
+1394997586 c:\users\andy\documents\github\learning\c++\chess\chess\chess\board.h
 	"piece.h"
+	"move.h"
 
 1394568671 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chesspieces.h
 	"piece.h"
@@ -56,39 +57,37 @@
 	"chess.h"
 	"piece.h"
 
-1394657039 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.cpp
+1394997664 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chess.cpp
 	<string>
 	"chess.h"
 	"literals.h"
+	"chessRenderer.h"
 
-1394913621 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
+1394992462 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
 	"ChessUtils.h"
 	"literals.h"
 
-1394913632 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.h
+1394990707 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessutils.h
 	"chesspieces.h"
 
-1394823337 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.cpp
+1394996541 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\king.cpp
 	"chess.h"
 	"piece.h"
 	"king.h"
 	<string>
 
-1394823337 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.cpp
+1394996537 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\knight.cpp
 	"chess.h"
 	"piece.h"
 	"knight.h"
 	<string>
 
-1394913092 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\main.cpp
+1394993012 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\main.cpp
 	<iostream>
 	"chess.h"
-	"chesspieces.h"
-	"chessutils.h"
-	"board.h"
-	"literals.h"
 	"ChessRenderer.h"
 	"ConsoleChessRenderer.h"
+	"game.h"
 
 1394911035 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\pawn.cpp
 	"chess.h"
@@ -231,18 +230,22 @@
 
 1394756683 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechesshandler.cpp
 
-1394914548 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.cpp
+1395000288 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.cpp
 	<iostream>
 	"ConsoleChessRenderer.h"
 	"Board.h"
 	"Chess.h"
 	"ChessUtils.h"
+	"Move.h"
 
-1394913503 c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.h
+1395002376 c:\users\andy\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.h
 	"ChessRenderer.h"
+	"chess.h"
 
-1394823337 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
+1394994729 c:\users\andy\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
 	"Board.h"
+	"Chess.h"
+	"Move.h"
 
 1394801009 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
 	"Board.h"
@@ -255,4 +258,25 @@
 	"ConsoleChessRenderer.h"
 	"Board.h"
 	"Chess.h"
+
+1395000914 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\game.cpp
+	"game.h"
+	"ChessRenderer.h"
+	"Move.h"
+
+1394995198 c:\users\andy\documents\github\learning\c++\chess\chess\chess\game.h
+	"ChessRenderer.h"
+	"Chess.h"
+	"Move.h"
+	<vector>
+
+1395003104 c:\users\andy\documents\github\learning\c++\chess\chess\chess\move.h
+	"Chess.h"
+	"Board.h"
+
+1395000207 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\move.cpp
+	"move.h"
+	"ChessUtils.h"
+	"Board.h"
+	<iostream>
 
