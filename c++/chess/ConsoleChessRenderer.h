@@ -19,7 +19,6 @@ namespace Chess {
             void RenderBoardRowContentColumn(Board * board, int offset, int coloffset, bool inverse);
             void RenderBoardLabelRow(bool inverse);
             Colour GetSquareColour(int rowOffset, int colOffset);
-            bool TestBoardReference(string boardReference);
           protected:
             void RenderBoardRow(Board * board, int offset, bool inverse);
           public:

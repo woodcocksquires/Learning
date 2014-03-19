@@ -10,8 +10,6 @@ namespace Chess {
     enum MovePieceResult: int { OK };
 	class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
-		int GetBoardPosition(int row, int col);
-
 		template <class T>
 		T * MakePiece(Colour colour);
 	  public:
@@ -21,7 +19,10 @@ namespace Chess {
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
         Piece * PieceAtPosition(int row, int col);
+        Piece * PieceAtPosition(int squareReference);
         MovePieceResult MovePiece(Move m);
+        int GetBoardPosition(string squareReference);
+        int GetBoardPosition(int row, int col);
 	};
 }
 

@@ -113,33 +113,34 @@
 	"rook.h"
 	<string>
 
-1394803589 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\bishop.cpp
+1394804210 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\bishop.cpp
 	"chess.h"
 	"piece.h"
 	"bishop.h"
 	<string>
 
-1394803802 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.h
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.h
 	<string>
 	"literals.h"
 
 1394716087 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\literals.h
 
-1394804137 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.h
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.h
 	"chess.h"
 
 1394804168 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\bishop.h
 	"chess.h"
 	"piece.h"
 
-1394802508 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.cpp
+1395133135 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.cpp
 	"board.h"
 	"chesspieces.h"
 	"chessutils.h"
 	<iostream>
 
-1394802661 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.h
+1395132553 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\board.h
 	"piece.h"
+	"move.h"
 
 1394700258 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chesspieces.h
 	"piece.h"
@@ -170,39 +171,37 @@
 	"chess.h"
 	"piece.h"
 
-1394700258 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chess.cpp
 	<string>
 	"chess.h"
 	"literals.h"
+	"chessRenderer.h"
 
-1394803119 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.cpp
 	"ChessUtils.h"
 	"literals.h"
 
-1394803149 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.h
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessutils.h
 	"chesspieces.h"
 
-1394803631 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\king.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\king.cpp
 	"chess.h"
 	"piece.h"
 	"king.h"
 	<string>
 
-1394803654 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\knight.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\knight.cpp
 	"chess.h"
 	"piece.h"
 	"knight.h"
 	<string>
 
-1394801025 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\main.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\main.cpp
 	<iostream>
 	"chess.h"
-	"chesspieces.h"
-	"chessutils.h"
-	"board.h"
-	"literals.h"
 	"ChessRenderer.h"
 	"ConsoleChessRenderer.h"
+	"game.h"
 
 1394803649 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\pawn.cpp
 	"chess.h"
@@ -210,7 +209,7 @@
 	"pawn.h"
 	<string>
 
-1394804121 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.cpp
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\piece.cpp
 	"chess.h"
 	"piece.h"
 	"ChessUtils.h"
@@ -247,17 +246,22 @@
 	"Chess.h"
 	"Move.h"
 
-1394801009 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\chessrenderer.h
 	"Board.h"
+	"Chess.h"
+	"Move.h"
 
-1394801466 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.h
+1395132613 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.h
 	"ChessRenderer.h"
+	"chess.h"
 
-1394804041 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.cpp
+1395132605 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\consolechessrenderer.cpp
 	<iostream>
 	"ConsoleChessRenderer.h"
 	"Board.h"
 	"Chess.h"
+	"ChessUtils.h"
+	"Move.h"
 
 1395000914 source:c:\users\andy\documents\github\learning\c++\chess\chess\chess\game.cpp
 	"game.h"
@@ -279,4 +283,26 @@
 	"ChessUtils.h"
 	"Board.h"
 	<iostream>
+
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\move.h
+	"Chess.h"
+	"Board.h"
+
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\game.cpp
+	"game.h"
+	"ChessRenderer.h"
+	"Move.h"
+
+1395129836 c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\game.h
+	"ChessRenderer.h"
+	"Chess.h"
+	"Move.h"
+	<vector>
+
+1395129836 source:c:\users\andrew.squires\documents\github\learning\c++\chess\chess\chess\move.cpp
+	"move.h"
+	"ChessUtils.h"
+	"Board.h"
+	<iostream>
+	<typeinfo>
 

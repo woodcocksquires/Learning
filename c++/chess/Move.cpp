@@ -16,8 +16,8 @@ Move::Move(string _startPosition, string _endPosition, Board * board){
     endPositionString = _endPosition;
 
     int startRow, startCol, endRow, endCol;
-    startRow = ((int)_startPosition[1])-48;
-    endRow = ((int)_endPosition[1])-48;
+    startRow = ((int)_startPosition[1])-48-1;
+    endRow = ((int)_endPosition[1])-48-1;
     startCol = Move::GetColumn(_startPosition[0]);
     endCol = Move::GetColumn(_endPosition[0]);
 

@@ -163,17 +163,17 @@ PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
     string input = "";
     const char * colourString = Utility::ColourStrings[colour];
 
-    cout << "Please choose type of player for " << colourString << " from the options below." << endl;
-    cout << "   1   Human" << endl;
-    cout << "   2   CPU" << endl;
-    cout << endl << "Option: ";
+    cout << "Please choose type of player for " << colourString << " from the options below. \n";
+    cout << "   1   Human\n";
+    cout << "   2   CPU\n\n";
+    cout << "Option: ";
 
     cin >> input;
 
     while(input != "1" && input != "2"){
         input = "";
         cout << endl << "Incorrect input, please try again." << endl;
-        cout << "Option: ";
+        cout << "Option: " << flush;
         cin >> input;
     }
 
@@ -184,42 +184,40 @@ PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
 
 Move * ConsoleChessRenderer::RequestMove(Colour colour, Board * board){
     string startPosition, endPosition;
-    cout << endl;
-    cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move." << endl;
-    cout << "Reference: ";
-    cin >> startPosition;
+    int startBoardPosition;
+    Piece * startPiece = nullptr;
 
-    while(!TestBoardReference(startPosition)){
-        cout << endl << "Incorrect reference, please try again." << endl << "Reference: ";
+    cout << endl;
+    cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move.";
+    cout << endl;
+    cout << "Reference:" << flush;
+
+    do{
         cin >> startPosition;
-    }
+        startBoardPosition = board->GetBoardPosition(startPosition);
+
+        if(startBoardPosition == -1){
+            cout << endl << "Incorrect reference, please try again. \n Reference: " << flush;
+            continue;
+        }
+
+        startPiece = board->PieceAtPosition(startBoardPosition);
+        if(startPiece == nullptr){
+            cout << endl << "No piece at " << startPosition << ", please try again. Reference: " << flush;
+        }
+
+    }while(startBoardPosition == -1 || startPiece == nullptr);
 
     cout << endl << "Please enter the reference of the position you would like to move the piece to.";
-    cout << endl << "Reference:";
+    cout << endl << "Reference: " << flush;
     cin >> endPosition;
 
-    while(!TestBoardReference(endPosition)){
-        cout << endl << "Incorrect reference, please try again." << endl << "Reference: ";
+    while(board->GetBoardPosition(endPosition) == -1){
+        cout << endl << "Incorrect reference, please try again." << endl << "Reference: " << flush;
         cin >> endPosition;
     }
 
     return new Move(startPosition, endPosition, board);
-}
-
-bool ConsoleChessRenderer::TestBoardReference(string boardReference){
-    if(boardReference.length() != 2){
-        return false;
-    }
-
-    char firstChar, secondChar;
-    firstChar = boardReference[0];
-    secondChar = boardReference[1];
-
-    if(Move::GetColumn(firstChar) == -1 || secondChar < 49 || secondChar > 56){
-        return false;
-    }
-
-    return true;
 }
 
 void ConsoleChessRenderer::RenderMoves(){

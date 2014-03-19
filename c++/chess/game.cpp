@@ -7,12 +7,16 @@ using namespace Chess::Renderer;
 using namespace std;
 
 Game::Game(BaseRenderer * _renderer){
+	activePlayer = Colour::White;
+	status = GameStatus::Active;
+	isCheck = false;
+
     moves = new vector<Move>();
     renderer = _renderer;
     renderer->StartGame();
     board = new Board();
-    PlayerType whitePlayerType = renderer->GetPlayerType(Colour::White);
-    PlayerType blackPlayerType = renderer->GetPlayerType(Colour::Black);
+    whitePlayerType = renderer->GetPlayerType(Colour::White);
+    blackPlayerType = renderer->GetPlayerType(Colour::Black);
 
     while(status == GameStatus::Active){
         Move * m = renderer->RequestMove(activePlayer, board);

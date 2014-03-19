@@ -16,9 +16,9 @@ namespace Chess {
         PlayerType whitePlayerType, blackPlayerType;
         BaseRenderer * renderer;
         Board * board;
-        Colour activePlayer = Colour::White;
-        bool isCheck = false;
-        GameStatus status = GameStatus::Active;
+        Colour activePlayer;
+        bool isCheck;
+        GameStatus status;
         vector<Move> * moves;
       public:
         Game(BaseRenderer * _renderer);

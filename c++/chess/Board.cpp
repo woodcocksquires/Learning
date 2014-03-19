@@ -78,7 +78,6 @@ void Board::InitColourPieces(Piece ** pPieces, Colour colour){
 template <class T>
 T * Board::MakePiece(Colour colour){
 	T * pPiece = new T(colour);
-	//cout << "Made new " << Utility::ColourStrings[colour] << " " << pPiece->GetName() << endl;
 	return pPiece;
 }
 
@@ -86,12 +85,38 @@ Piece * Board::PieceAtPosition(int row, int col){
     return squares[GetBoardPosition(row, col)];
 }
 
+Piece * Board::PieceAtPosition(int squareReference){
+    if(squareReference < 0 || squareReference > 63){
+        return nullptr;
+    }
+
+    return squares[squareReference];
+}
+
 int Board::GetBoardPosition(int row, int col){
     return row*8+col;
+}
+
+int Board::GetBoardPosition(string squareReference){
+    if(squareReference.length() != 2){
+        return -1;
+    }
+
+    char firstChar, secondChar;
+    firstChar = squareReference[0];
+    secondChar = squareReference[1];
+    int column = Move::GetColumn(firstChar);
+
+    if(column || secondChar < 49 || secondChar > 56){
+        return -1;
+    }
+
+    return ((((int)secondChar)-48-1)*8) + column;
 }
 
 MovePieceResult Board::MovePiece(Move m){
     Piece * movingPiece = squares[(8*1)+4];
     squares[(8*3)+4] = movingPiece;
     squares[(8*1)+4] = nullptr;
+    return MovePieceResult::OK;
 }
