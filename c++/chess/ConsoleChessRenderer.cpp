@@ -182,9 +182,9 @@ PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
     return output;
 }
 
-Move * ConsoleChessRenderer::RequestMove(Colour colour, Board * board){
+MovePieceResult ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
     string startPosition, endPosition;
-    int startBoardPosition;
+    int startBoardPosition, endBoardPosition;
     Piece * startPiece = nullptr;
 
     cout << endl;
@@ -212,12 +212,14 @@ Move * ConsoleChessRenderer::RequestMove(Colour colour, Board * board){
     cout << endl << "Reference: " << flush;
     cin >> endPosition;
 
-    while(board->GetBoardPosition(endPosition) == -1){
+    endBoardPosition = board->GetBoardPosition(endPosition);
+    while(endBoardPosition == -1){
         cout << endl << "Incorrect reference, please try again." << endl << "Reference: " << flush;
         cin >> endPosition;
+        endBoardPosition = board->GetBoardPosition(endPosition);
     }
 
-    return new Move(startPosition, endPosition, board);
+    return board->MovePiece(startBoardPosition, endBoardPosition);
 }
 
 void ConsoleChessRenderer::RenderMoves(){

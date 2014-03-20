@@ -3,7 +3,6 @@
 
 #include "ChessRenderer.h"
 #include "Chess.h"
-#include "Move.h"
 #include <vector>
 
 using namespace std;
@@ -19,7 +18,7 @@ namespace Chess {
         Colour activePlayer;
         bool isCheck;
         GameStatus status;
-        vector<Move> * moves;
+        vector<string> moves;
       public:
         Game(BaseRenderer * _renderer);
     };

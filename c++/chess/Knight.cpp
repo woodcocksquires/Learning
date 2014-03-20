@@ -5,4 +5,5 @@
 using namespace std;
 using namespace Chess;
 
-Knight::Knight(Colour _colour): Piece(3, _colour, "Knight", 'N') {}
+Knight::Knight(Colour _colour, int _boardPosition, Board * _board):
+		Piece(3, _colour, "Knight", 'N', _boardPosition, _board) {}

@@ -7,11 +7,11 @@
 using namespace Chess;
 
 namespace Chess {
-    enum MovePieceResult: int { OK };
-	class Board {
+    class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
 		template <class T>
 		T * MakePiece(Colour colour);
+		static int GetColumn(char columnChar);
 	  public:
 		Board();
 		~Board();
@@ -20,7 +20,7 @@ namespace Chess {
         void ResetBoard();
         Piece * PieceAtPosition(int row, int col);
         Piece * PieceAtPosition(int squareReference);
-        MovePieceResult MovePiece(Move m);
+        MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
 	};

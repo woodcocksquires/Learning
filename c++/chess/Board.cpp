@@ -2,6 +2,7 @@
 #include "chesspieces.h"
 #include "chessutils.h"
 #include <iostream>
+#include <vector>
 
 using namespace Chess;
 using namespace std;
@@ -105,7 +106,7 @@ int Board::GetBoardPosition(string squareReference){
     char firstChar, secondChar;
     firstChar = squareReference[0];
     secondChar = squareReference[1];
-    int column = Move::GetColumn(firstChar);
+    int column = Board::GetColumn(firstChar);
 
     if(column || secondChar < 49 || secondChar > 56){
         return -1;
@@ -114,9 +115,26 @@ int Board::GetBoardPosition(string squareReference){
     return ((((int)secondChar)-48-1)*8) + column;
 }
 
-MovePieceResult Board::MovePiece(Move m){
-    Piece * movingPiece = squares[(8*1)+4];
+MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
+    Piece * piece = PieceAtPosition(startBoardPosition);
+	vector<int> possibleMoves = piece->GetPossibleMoves();
+
+	Piece * movingPiece = squares[(8*1)+4];
     squares[(8*3)+4] = movingPiece;
     squares[(8*1)+4] = nullptr;
     return MovePieceResult::OK;
+}
+
+int Board::GetColumn(char columnChar){
+    if(columnChar > 96){
+        columnChar = columnChar - 32;
+    }
+
+    for(int r=0; r<8; r++){
+        if(Utility::ColumnNames[r] == columnChar){
+            return r;
+        }
+    }
+
+    return -1;
 }

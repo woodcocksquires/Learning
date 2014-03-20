@@ -3,11 +3,12 @@
 
 #include "chess.h"
 #include "piece.h"
+#include "board.h"
 
 namespace Chess {
 	class Queen: public Piece {
 	  public:
-		Queen(Colour _colour);
+		Queen(Colour _colour, int _boardPosition, Board * _board);
 	};
 }
 

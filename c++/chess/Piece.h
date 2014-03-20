@@ -2,6 +2,7 @@
 #define CHESS_PIECE
 
 #include "chess.h"
+#include <vector>
 
 using namespace std;
 
@@ -11,11 +12,14 @@ namespace Chess {
 		Colour colour;
 		string name;
 		string shortName;
+		int boardPosition;
+		Board board;
 	  public:
-		Piece(int _value, Colour _colour, const string _name, const char _shortName);
+		Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board);
 		int GetValue();
 		string GetName();
 		string GetShortName();
+		virtual vector<int> GetPossibleMoves() = 0;
 	};
 }
 

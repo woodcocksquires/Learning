@@ -1,6 +1,5 @@
 #include "game.h"
 #include "ChessRenderer.h"
-#include "Move.h"
 
 using namespace Chess;
 using namespace Chess::Renderer;
@@ -11,7 +10,7 @@ Game::Game(BaseRenderer * _renderer){
 	status = GameStatus::Active;
 	isCheck = false;
 
-    moves = new vector<Move>();
+    moves = vector<string>();
     renderer = _renderer;
     renderer->StartGame();
     board = new Board();
@@ -19,9 +18,15 @@ Game::Game(BaseRenderer * _renderer){
     blackPlayerType = renderer->GetPlayerType(Colour::Black);
 
     while(status == GameStatus::Active){
-        Move * m = renderer->RequestMove(activePlayer, board);
+        MovePieceResult m = renderer->MakeMove(activePlayer, board);
+        switch(m)
+        {
+        	case MovePieceResult::OK:
+        		activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
+        		renderer->RenderBoard(board, activePlayer == Colour::Black);
+        		break;
+        }
         status = GameStatus::Mate;
-        delete m;
     }
 }
 

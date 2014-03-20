@@ -3,11 +3,12 @@
 
 #include "chess.h"
 #include "piece.h"
+#include "board.h"
 
 namespace Chess {
 	class Pawn: public Piece {
 	  public:
-		Pawn(Colour _colour);
+		Pawn(Colour _colour, int _boardPosition, Board * _board);
     };
 }
 

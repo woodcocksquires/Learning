@@ -3,7 +3,6 @@
 
 #include "Board.h"
 #include "Chess.h"
-#include "Move.h"
 
 using namespace Chess;
 
@@ -14,7 +13,7 @@ namespace Chess {
             virtual void RenderBoard(Board * board, bool inverse) = 0;
             virtual void StartGame() = 0;
             virtual PlayerType GetPlayerType(Colour colour) = 0;
-            virtual Move * RequestMove(Colour colour, Board * board) = 0;
+            virtual MovePieceResult MakeMove(Colour colour, Board * board) = 0;
             virtual void RenderMoves() = 0;
         };
     }

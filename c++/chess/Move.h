@@ -1,6 +1,6 @@
 #ifndef MOVE_H_INCLUDED
 #define MOVE_H_INCLUDED
-
+/*
 #include "Chess.h"
 #include "Board.h"
 
@@ -22,5 +22,5 @@ namespace Chess {
         static int GetColumn(char columnChar);
     };
 };
-
+*/
 #endif // MOVE_H_INCLUDED

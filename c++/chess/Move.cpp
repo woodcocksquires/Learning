@@ -1,7 +1,7 @@
 #ifndef MOVE_CPP_INCLUDED
 #define MOVE_CPP_INCLUDED
 
-#include "move.h"
+/*#include "move.h"
 #include "ChessUtils.h"
 #include "Board.h"
 #include <iostream>
@@ -31,7 +31,7 @@ Move::Move(string _startPosition, string _endPosition, Board * board){
     moveString = (pieceIdentifier == (char *)'P' ? "" : pieceIdentifier);
     moveString += (takenPiece == nullptr ? "" : "x");
     moveString += (char)(97+endCol);
-    moveString += 48 + endRow;
+    moveString += (endRow - 48);
 }
 
 int Move::GetColumn(char columnChar){
@@ -46,7 +46,7 @@ int Move::GetColumn(char columnChar){
     }
 
     return -1;
-}
+}*/
 
 
 #endif // MOVE_CPP_INCLUDED
