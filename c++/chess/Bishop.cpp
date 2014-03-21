@@ -11,6 +11,5 @@ Bishop::Bishop(Colour _colour, int _boardPosition, Board * _board):
 		Piece(0, _colour, "Bishop", 'B', _boardPosition, _board) {}
 
 vector<int> * Bishop::GetPossibleMoves(){
-	vector<int> * moves = new vector<int>();
-	moves->push_back();
+	return moves = GetOffsetMoves(-1, true);
 }
