@@ -10,7 +10,7 @@ namespace Chess {
     class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
 		template <class T>
-		T * MakePiece(Colour colour);
+		T * MakePiece(Colour colour, int boardPosition);
 		static int GetColumn(char columnChar);
 	  public:
 		Board();

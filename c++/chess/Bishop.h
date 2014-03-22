@@ -12,7 +12,7 @@ namespace Chess {
 	class Bishop: public Piece {
 	  public:
 		Bishop(Colour _colour, int _boardPosition, Board * _board);
-		vector<int> * GetPossibleMoves();
+		virtual vector<int> * GetPossibleMoves();
 	};
 }
 

@@ -55,30 +55,31 @@ void Board::InitColourPieces(Piece ** pPieces, Colour colour){
     int modifier = (colour == Colour::White) ? 1 : -1;
     int baseRow = (colour == Colour::White) ? 0 : 7;
 	for(int p = 0; p<8; p++){
-        pPieces[p] = MakePiece<Pawn>(colour);
+        pPieces[p] = MakePiece<Pawn>(colour, ((baseRow+modifier)*8)+p);
         squares[GetBoardPosition(baseRow+modifier,p)] = pPieces[p];
 	}
-	pPieces[8] = MakePiece<Knight>(colour);
+	int basePosition = baseRow*8;
+	pPieces[8] = MakePiece<Knight>(colour, basePosition + 1);
 	squares[GetBoardPosition(baseRow,1)] = pPieces[8];
-	pPieces[9] = MakePiece<Knight>(colour);
+	pPieces[9] = MakePiece<Knight>(colour, basePosition + 6);
 	squares[GetBoardPosition(baseRow,6)] = pPieces[9];
-	pPieces[10] = MakePiece<Rook>(colour);
+	pPieces[10] = MakePiece<Rook>(colour, basePosition);
 	squares[GetBoardPosition(baseRow,0)] = pPieces[10];
-	pPieces[11] = MakePiece<Rook>(colour);
+	pPieces[11] = MakePiece<Rook>(colour, basePosition + 7);
 	squares[GetBoardPosition(baseRow,7)] = pPieces[11];
-	pPieces[12] = MakePiece<Bishop>(colour);
+	pPieces[12] = MakePiece<Bishop>(colour, basePosition + 2);
 	squares[GetBoardPosition(baseRow,2)] = pPieces[12];
-	pPieces[13] = MakePiece<Bishop>(colour);
+	pPieces[13] = MakePiece<Bishop>(colour, basePosition + 5);
 	squares[GetBoardPosition(baseRow,5)] = pPieces[13];
-	pPieces[14] = MakePiece<Queen>(colour);
+	pPieces[14] = MakePiece<Queen>(colour, basePosition + 3);
 	squares[GetBoardPosition(baseRow,3)] = pPieces[14];
-	pPieces[15] = MakePiece<King>(colour);
+	pPieces[15] = MakePiece<King>(colour, basePosition + 4);
 	squares[GetBoardPosition(baseRow,4)] = pPieces[15];
 }
 
 template <class T>
-T * Board::MakePiece(Colour colour){
-	T * pPiece = new T(colour);
+T * Board::MakePiece(Colour colour, int boardPosition){
+	T * pPiece = new T(colour, boardPosition, this);
 	return pPiece;
 }
 
@@ -117,8 +118,9 @@ int Board::GetBoardPosition(string squareReference){
 
 MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
-	vector<int> possibleMoves = piece->GetPossibleMoves();
+	vector<int> * possibleMoves = piece->GetPossibleMoves();
 
+	delete possibleMoves;
 	Piece * movingPiece = squares[(8*1)+4];
     squares[(8*3)+4] = movingPiece;
     squares[(8*1)+4] = nullptr;

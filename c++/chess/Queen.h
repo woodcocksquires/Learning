@@ -10,7 +10,7 @@ namespace Chess {
 	class Queen: public Piece {
 	  public:
 		Queen(Colour _colour, int _boardPosition, Board * _board);
-		vector<int> GetPossibleMoves();
+		virtual vector<int> * GetPossibleMoves();
 	};
 }
 

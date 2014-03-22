@@ -22,6 +22,7 @@ namespace Chess {
           protected:
             void RenderBoardRow(Board * board, int offset, bool inverse);
           public:
+            virtual ~ConsoleChessRenderer();
             virtual void RenderBoard(Board * board, bool inverse);
             virtual void StartGame();
             virtual PlayerType GetPlayerType(Colour colour);

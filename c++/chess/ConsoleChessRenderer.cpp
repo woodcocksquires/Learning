@@ -8,6 +8,7 @@
 using namespace Chess::Renderer;
 using namespace Chess;
 
+ConsoleChessRenderer::~ConsoleChessRenderer(){}
 
 void ConsoleChessRenderer::RenderBoard(Board * board, bool inverse) {
     if(!inverse){

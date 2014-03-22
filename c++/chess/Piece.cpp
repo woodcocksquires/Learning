@@ -9,12 +9,12 @@ using namespace std;
 using namespace Chess;
 
 Piece::Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board):
-    value(_value), colour(_colour), name(_name) {
+    value(_value), colour(_colour), name(_name), boardPosition(_boardPosition), board(_board) {
     shortName = Utility::ColourStrings[colour][0];
     shortName += _shortName;
-    boardPosition = _boardPosition;
-    board = _board;
 }
+
+Piece::~Piece(){}
 
 int Piece::GetValue(){
 	return value;
