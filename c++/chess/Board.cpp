@@ -120,10 +120,16 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
 	vector<int> * possibleMoves = piece->GetPossibleMoves();
 
+	cout << endl;
+	for(int m = 0; m < (int)possibleMoves->size(); m++){
+		cout << possibleMoves->at(m) << " ";
+	}
+	cout << endl;
+
 	delete possibleMoves;
-	Piece * movingPiece = squares[(8*1)+4];
+	/*Piece * movingPiece = squares[(8*1)+4];
     squares[(8*3)+4] = movingPiece;
-    squares[(8*1)+4] = nullptr;
+    squares[(8*1)+4] = nullptr;*/
     return MovePieceResult::OK;
 }
 

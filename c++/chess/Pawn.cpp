@@ -19,7 +19,7 @@ vector<int> * Pawn::GetPossibleMoves(){
 	int offset = (colour == Colour::White ? 1 : -1);
 
 	if((colour == Colour::White && row == 1) || (colour == Colour::Black && row == 6)){
-		if(board->PieceAtPosition(row+(2*offset)) == nullptr){
+		if(board->PieceAtPosition(row+ (2*offset), col) == nullptr){
 			moves->push_back(board->GetBoardPosition(row + (2*offset), col));
 		}
 
