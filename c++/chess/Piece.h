@@ -20,7 +20,7 @@ namespace Chess {
 		Board * board;
 	  public:
 		Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board);
-		virtual ~Piece();
+		virtual ~Piece() = 0;
 		int GetValue();
 		string GetName();
 		string GetShortName();

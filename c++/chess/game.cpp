@@ -24,9 +24,13 @@ Game::Game(BaseRenderer * _renderer){
         	case MovePieceResult::OK:
         		activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
         		renderer->RenderBoard(board, activePlayer == Colour::Black);
+        		status = GameStatus::Mate;
+        		break;
+        	case MovePieceResult::InvalidMove:
+        		renderer->RenderMessage("\nInvalid move, please try again.");
         		break;
         }
-        status = GameStatus::Mate;
+
     }
 }
 

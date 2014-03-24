@@ -14,6 +14,7 @@ namespace Chess {
             virtual void StartGame() = 0;
             virtual PlayerType GetPlayerType(Colour colour) = 0;
             virtual MovePieceResult MakeMove(Colour colour, Board * board) = 0;
+            virtual void RenderMessage(string message) = 0;
             virtual void RenderMoves() = 0;
             virtual ~BaseRenderer();
         };

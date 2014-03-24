@@ -109,7 +109,7 @@ int Board::GetBoardPosition(string squareReference){
     secondChar = squareReference[1];
     int column = Board::GetColumn(firstChar);
 
-    if(column || secondChar < 49 || secondChar > 56){
+    if(column == -1 || secondChar < 49 || secondChar > 56){
         return -1;
     }
 
@@ -119,18 +119,26 @@ int Board::GetBoardPosition(string squareReference){
 MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
 	vector<int> * possibleMoves = piece->GetPossibleMoves();
+	bool possibleMove = false;
 
 	cout << endl;
 	for(int m = 0; m < (int)possibleMoves->size(); m++){
 		cout << possibleMoves->at(m) << " ";
+		if(possibleMoves->at(m) == endBoardPosition){
+			possibleMove = true;
+		}
 	}
 	cout << endl;
-
 	delete possibleMoves;
-	/*Piece * movingPiece = squares[(8*1)+4];
-    squares[(8*3)+4] = movingPiece;
-    squares[(8*1)+4] = nullptr;*/
-    return MovePieceResult::OK;
+
+	if(possibleMove){
+		Piece * movingPiece = squares[startBoardPosition];
+		squares[endBoardPosition] = movingPiece;
+		squares[startBoardPosition] = nullptr;
+		return MovePieceResult::OK;
+	}
+
+	return MovePieceResult::InvalidMove;
 }
 
 int Board::GetColumn(char columnChar){

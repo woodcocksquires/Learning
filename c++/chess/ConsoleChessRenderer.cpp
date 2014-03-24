@@ -223,6 +223,10 @@ MovePieceResult ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
     return board->MovePiece(startBoardPosition, endBoardPosition);
 }
 
+void ConsoleChessRenderer::RenderMessage(string message){
+	cout << message << endl;
+}
+
 void ConsoleChessRenderer::RenderMoves(){
 
 }
