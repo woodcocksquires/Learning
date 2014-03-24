@@ -118,6 +118,7 @@ int Board::GetBoardPosition(string squareReference){
 
 MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
+
 	vector<int> * possibleMoves = piece->GetPossibleMoves();
 	bool possibleMove = false;
 
@@ -133,7 +134,15 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 
 	if(possibleMove){
 		Piece * movingPiece = squares[startBoardPosition];
+		Piece * takenPiece = squares[endBoardPosition];
+
+		if(takenPiece != nullptr){
+			takenPiece->SetBoardPosition(-1);
+			takenPiece->SetTaken();
+		}
+
 		squares[endBoardPosition] = movingPiece;
+		movingPiece->SetBoardPosition(endBoardPosition);
 		squares[startBoardPosition] = nullptr;
 		return MovePieceResult::OK;
 	}

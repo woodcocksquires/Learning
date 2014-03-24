@@ -187,13 +187,15 @@ MovePieceResult ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
     string startPosition, endPosition;
     int startBoardPosition, endBoardPosition;
     Piece * startPiece = nullptr;
+    bool opponentPiece = false;
 
     cout << endl;
     cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move.";
     cout << endl;
-    cout << "Reference:" << flush;
+    cout << "Reference: " << flush;
 
     do{
+    	opponentPiece = false;
         cin >> startPosition;
         startBoardPosition = board->GetBoardPosition(startPosition);
 
@@ -204,10 +206,14 @@ MovePieceResult ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
 
         startPiece = board->PieceAtPosition(startBoardPosition);
         if(startPiece == nullptr){
-            cout << endl << "No piece at " << startPosition << ", please try again. Reference: " << flush;
+            cout << "\nNo piece at " << startPosition << ", please try again. Reference: " << flush;
+        }
+        else if(startPiece->GetColour() != colour){
+        	opponentPiece = true;
+        	cout << "\nPiece at " << startPosition << " is opponent's piece, please try again.  Reference: " << flush;
         }
 
-    }while(startBoardPosition == -1 || startPiece == nullptr);
+    }while(startBoardPosition == -1 || startPiece == nullptr || opponentPiece);
 
     cout << endl << "Please enter the reference of the position you would like to move the piece to.";
     cout << endl << "Reference: " << flush;

@@ -59,9 +59,14 @@ vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
 				break;
 		}
 
-		do{
+		while(row >= 0 && row <=7 && col >= 0 && col <= 7 && (totalOffset < distance || distance == -1)){
 			row += rowOffset;
 			col += colOffset;
+
+			if(row < 0 || row > 7 || col < 0 || col > 7){
+				break;
+			}
+
 			totalOffset++;
 			Piece * piece = board->PieceAtPosition(row, col);
 
@@ -69,15 +74,13 @@ vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
 				moves->push_back(board->GetBoardPosition(row, col));
 				continue;
 			}
-
-			if(piece->GetColour() != colour && dynamic_cast<King*>(piece) == nullptr){
+			else if(piece->GetColour() != colour && dynamic_cast<King*>(piece) == nullptr){
 				moves->push_back(board->GetBoardPosition(row, col));
 			}
 			else{
 				break;
 			}
-
-		}while(row >= 0 && row <=7 && col >= 0 && col <= 7 && (totalOffset < distance || distance == -1));
+		}
 	}
 
 	return moves;
@@ -94,4 +97,16 @@ vector<int> * Piece::GetMultiDirectionMoves(int distance){
 	delete diagonalMoves;
 	delete rankFileMoves;
 	return moves;
+}
+
+void Piece::SetBoardPosition(int _boardPosition){
+	boardPosition = _boardPosition;
+}
+
+void Piece::SetTaken(){
+	taken = true;
+}
+
+bool Piece::GetTaken(){
+	return taken;
 }

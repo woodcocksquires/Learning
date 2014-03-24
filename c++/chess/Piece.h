@@ -12,6 +12,7 @@ namespace Chess {
 		int value;
 		string name;
 		string shortName;
+		bool taken;
 	  protected:
 		vector<int> * GetOffsetMoves(int distance, bool diagonal);
 		vector<int> * GetMultiDirectionMoves(int distance);
@@ -25,6 +26,9 @@ namespace Chess {
 		string GetName();
 		string GetShortName();
 		virtual vector<int> * GetPossibleMoves() = 0;
+		void SetBoardPosition(int _boardPosition);
+		void SetTaken();
+		bool GetTaken();
 		Colour GetColour();
 	};
 }

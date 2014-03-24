@@ -17,6 +17,8 @@ Game::Game(BaseRenderer * _renderer){
     whitePlayerType = renderer->GetPlayerType(Colour::White);
     blackPlayerType = renderer->GetPlayerType(Colour::Black);
 
+    renderer->RenderBoard(board, false);
+
     while(status == GameStatus::Active){
         MovePieceResult m = renderer->MakeMove(activePlayer, board);
         switch(m)
@@ -24,7 +26,7 @@ Game::Game(BaseRenderer * _renderer){
         	case MovePieceResult::OK:
         		activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
         		renderer->RenderBoard(board, activePlayer == Colour::Black);
-        		status = GameStatus::Mate;
+        		//status = GameStatus::Mate;
         		break;
         	case MovePieceResult::InvalidMove:
         		renderer->RenderMessage("\nInvalid move, please try again.");
