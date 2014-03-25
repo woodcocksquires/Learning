@@ -9,7 +9,7 @@ using namespace std;
 using namespace Chess;
 
 Piece::Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board):
-    value(_value), colour(_colour), name(_name), boardPosition(_boardPosition), board(_board) {
+    value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), board(_board), taken(false) {
     shortName = Utility::ColourStrings[colour][0];
     shortName += _shortName;
 }
@@ -30,6 +30,10 @@ string Piece::GetShortName(){
 
 Colour Piece::GetColour(){
 	return colour;
+}
+
+int Piece::GetBoardPosition(){
+	return boardPosition;
 }
 
 vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
@@ -109,4 +113,14 @@ void Piece::SetTaken(){
 
 bool Piece::GetTaken(){
 	return taken;
+}
+
+template <class T>
+Piece * Piece::MakePiece(Piece * _piece, Board * _board){
+	Piece * piece = new T(_piece->GetColour(), piece->GetBoardPosition(), _board);
+	_board->SetPieceAtPosition(piece, _piece->GetBoardPosition());
+	if(_piece->GetTaken()){
+		piece->SetTaken();
+	}
+	return piece;
 }

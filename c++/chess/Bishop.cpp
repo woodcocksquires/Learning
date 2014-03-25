@@ -1,6 +1,8 @@
 #include "chess.h"
 #include "piece.h"
 #include "bishop.h"
+#include "board.h"
+
 #include <string>
 #include <vector>
 
@@ -12,4 +14,8 @@ Bishop::Bishop(Colour _colour, int _boardPosition, Board * _board):
 
 vector<int> * Bishop::GetPossibleMoves(){
 	return GetOffsetMoves(-1, true);
+}
+
+Piece * Bishop::CopyTo(Board * _board){
+	return Piece::MakePiece<Bishop>(this, _board);
 }

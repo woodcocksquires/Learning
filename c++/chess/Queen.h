@@ -11,6 +11,7 @@ namespace Chess {
 	  public:
 		Queen(Colour _colour, int _boardPosition, Board * _board);
 		virtual vector<int> * GetPossibleMoves();
+		virtual Piece * CopyTo(Board * _board);
 	};
 }
 

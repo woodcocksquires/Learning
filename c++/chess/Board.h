@@ -15,6 +15,7 @@ namespace Chess {
 	  public:
 		Board();
 		~Board();
+		Board(const Board& _board);
 		void InitPieces();
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
@@ -23,6 +24,7 @@ namespace Chess {
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
+        void SetPieceAtPosition(Piece * piece, int boardPosition);
 	};
 }
 

@@ -66,3 +66,7 @@ vector<int> * Knight::GetPossibleMoves(){
 
 	return moves;
 }
+
+Piece * Knight::CopyTo(Board * _board){
+	return Piece::MakePiece<Knight>(this, _board);
+}

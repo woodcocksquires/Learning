@@ -37,6 +37,26 @@ Board::~Board() {
     whitePieces = blackPieces = squares = nullptr;
 }
 
+Board::Board(const Board& _board){
+	whitePieces = new Piece*[16];
+	blackPieces = new Piece*[16];
+	squares = new Piece*[64];
+
+	for(int s=0; s<64; s++){
+		squares[s] = nullptr;
+	}
+
+	for(int p=0; p<16; p++){
+		whitePieces[p] = nullptr;
+		blackPieces[p] = nullptr;
+	}
+
+	for(int p=0; p<16; p++){
+		whitePieces[p] = _board.whitePieces[p]->CopyTo(this);
+		blackPieces[p] = _board.blackPieces[p]->CopyTo(this);
+	}
+}
+
 void Board::ResetBoard() {
 
 }
@@ -162,4 +182,8 @@ int Board::GetColumn(char columnChar){
     }
 
     return -1;
+}
+
+void Board::SetPieceAtPosition(Piece * piece, int boardPosition){
+	squares[boardPosition] = piece;
 }

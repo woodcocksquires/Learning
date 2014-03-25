@@ -12,24 +12,31 @@ namespace Chess {
 		int value;
 		string name;
 		string shortName;
-		bool taken;
 	  protected:
+		bool taken;
 		vector<int> * GetOffsetMoves(int distance, bool diagonal);
 		vector<int> * GetMultiDirectionMoves(int distance);
 		int boardPosition;
 		Colour colour;
 		Board * board;
+
+		template <class T>
+		static Piece * MakePiece(Piece * _piece, Board * _board);
 	  public:
 		Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board);
 		virtual ~Piece() = 0;
+		Piece(const Piece& _piece);
 		int GetValue();
 		string GetName();
 		string GetShortName();
-		virtual vector<int> * GetPossibleMoves() = 0;
 		void SetBoardPosition(int _boardPosition);
 		void SetTaken();
 		bool GetTaken();
+		int GetBoardPosition();
 		Colour GetColour();
+
+		virtual vector<int> * GetPossibleMoves() = 0;
+		virtual Piece * CopyTo(Board * _board) = 0;
 	};
 }
 

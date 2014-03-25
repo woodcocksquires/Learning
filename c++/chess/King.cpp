@@ -13,3 +13,7 @@ King::King(Colour _colour, int _boardPosition, Board * _board):
 vector<int> * King::GetPossibleMoves(){
 	return GetMultiDirectionMoves(1);
 }
+
+Piece * King::CopyTo(Board * _board){
+	return Piece::MakePiece<King>(this, _board);
+}
