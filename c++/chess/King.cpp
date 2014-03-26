@@ -15,5 +15,7 @@ vector<int> * King::GetPossibleMoves(){
 }
 
 Piece * King::CopyTo(Board * _board){
-	return Piece::MakePiece<King>(this, _board);
+	Piece * piece = Piece::MakePiece<King>(this, _board);
+	_board->SetPieceAtPosition(piece);
+	return piece;
 }

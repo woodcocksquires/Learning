@@ -11,6 +11,7 @@ Board::Board() {
 	whitePieces = new Piece*[16];
 	blackPieces = new Piece*[16];
 	squares = new Piece*[64];
+	whiteKing = blackKing = nullptr;
 
 	for(int s=0; s<64; s++){
 		squares[s] = nullptr;
@@ -35,6 +36,7 @@ Board::~Board() {
     delete[] blackPieces;
     delete[] squares;
     whitePieces = blackPieces = squares = nullptr;
+    whiteKing = blackKing = nullptr;
 }
 
 Board::Board(const Board& _board){
@@ -55,6 +57,9 @@ Board::Board(const Board& _board){
 		whitePieces[p] = _board.whitePieces[p]->CopyTo(this);
 		blackPieces[p] = _board.blackPieces[p]->CopyTo(this);
 	}
+
+	whiteKing = whitePieces[15];
+	blackKing = blackPieces[15];
 }
 
 void Board::ResetBoard() {
@@ -95,6 +100,12 @@ void Board::InitColourPieces(Piece ** pPieces, Colour colour){
 	squares[GetBoardPosition(baseRow,3)] = pPieces[14];
 	pPieces[15] = MakePiece<King>(colour, basePosition + 4);
 	squares[GetBoardPosition(baseRow,4)] = pPieces[15];
+	if(colour == Colour::White){
+		whiteKing = pPieces[15];
+	}
+	else{
+		blackKing = pPieces[15];
+	}
 }
 
 template <class T>
@@ -156,15 +167,21 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 		Piece * movingPiece = squares[startBoardPosition];
 		Piece * takenPiece = squares[endBoardPosition];
 
-		if(takenPiece != nullptr){
-			takenPiece->SetBoardPosition(-1);
-			takenPiece->SetTaken();
+		Board moveBoard = Board(*this);
+		MovePieceResult testMoveResult = moveBoard.TestLegalMove(startBoardPosition, endBoardPosition);
+		if(testMoveResult == MovePieceResult::OK){;
+			if(takenPiece != nullptr){
+				takenPiece->SetBoardPosition(-1);
+				takenPiece->SetTaken();
+			}
+
+			squares[endBoardPosition] = movingPiece;
+			movingPiece->SetBoardPosition(endBoardPosition);
+			squares[startBoardPosition] = nullptr;
+			return MovePieceResult::OK;
 		}
 
-		squares[endBoardPosition] = movingPiece;
-		movingPiece->SetBoardPosition(endBoardPosition);
-		squares[startBoardPosition] = nullptr;
-		return MovePieceResult::OK;
+		return testMoveResult;
 	}
 
 	return MovePieceResult::InvalidMove;
@@ -184,6 +201,10 @@ int Board::GetColumn(char columnChar){
     return -1;
 }
 
-void Board::SetPieceAtPosition(Piece * piece, int boardPosition){
-	squares[boardPosition] = piece;
+void Board::SetPieceAtPosition(Piece * piece){
+	squares[piece->GetBoardPosition()] = piece;
+}
+
+MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition){
+	return MovePieceResult::OK;
 }

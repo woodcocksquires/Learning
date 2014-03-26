@@ -9,7 +9,7 @@ using namespace std;
 using namespace Chess;
 
 Piece::Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board):
-    value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), board(_board), taken(false) {
+    value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), taken(false), board(_board) {
     shortName = Utility::ColourStrings[colour][0];
     shortName += _shortName;
 }
@@ -115,12 +115,3 @@ bool Piece::GetTaken(){
 	return taken;
 }
 
-template <class T>
-Piece * Piece::MakePiece(Piece * _piece, Board * _board){
-	Piece * piece = new T(_piece->GetColour(), piece->GetBoardPosition(), _board);
-	_board->SetPieceAtPosition(piece, _piece->GetBoardPosition());
-	if(_piece->GetTaken()){
-		piece->SetTaken();
-	}
-	return piece;
-}

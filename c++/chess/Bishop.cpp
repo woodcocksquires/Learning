@@ -1,5 +1,5 @@
 #include "chess.h"
-#include "piece.h"
+#include "Piece.h"
 #include "bishop.h"
 #include "board.h"
 
@@ -17,5 +17,7 @@ vector<int> * Bishop::GetPossibleMoves(){
 }
 
 Piece * Bishop::CopyTo(Board * _board){
-	return Piece::MakePiece<Bishop>(this, _board);
+	Piece * piece = Piece::MakePiece<Bishop>(this, _board);
+	_board->SetPieceAtPosition(piece);
+	return piece;
 }

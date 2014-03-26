@@ -15,5 +15,7 @@ vector<int> * Rook::GetPossibleMoves(){
 }
 
 Piece * Rook::CopyTo(Board * _board){
-	return Piece::MakePiece<Rook>(this, _board);
+	Piece * piece = Piece::MakePiece<Rook>(this, _board);
+	_board->SetPieceAtPosition(piece);
+	return piece;
 }

@@ -68,5 +68,7 @@ vector<int> * Knight::GetPossibleMoves(){
 }
 
 Piece * Knight::CopyTo(Board * _board){
-	return Piece::MakePiece<Knight>(this, _board);
+	Piece * piece = Piece::MakePiece<Knight>(this, _board);
+	_board->SetPieceAtPosition(piece);
+	return piece;
 }

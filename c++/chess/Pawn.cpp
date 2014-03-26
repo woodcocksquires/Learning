@@ -63,5 +63,7 @@ vector<int> * Pawn::GetPossibleMoves(){
 }
 
 Piece * Pawn::CopyTo(Board * _board){
-	return Piece::MakePiece<Pawn>(this, _board);
+	Piece * piece = Piece::MakePiece<Pawn>(this, _board);
+	_board->SetPieceAtPosition(piece);
+	return piece;
 }

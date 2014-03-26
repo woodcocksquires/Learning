@@ -9,6 +9,7 @@ using namespace Chess;
 namespace Chess {
     class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
+		Piece * whiteKing, * blackKing;
 		template <class T>
 		T * MakePiece(Colour colour, int boardPosition);
 		static int GetColumn(char columnChar);
@@ -24,7 +25,8 @@ namespace Chess {
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
-        void SetPieceAtPosition(Piece * piece, int boardPosition);
+        void SetPieceAtPosition(Piece * piece);
+        MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
 	};
 }
 
