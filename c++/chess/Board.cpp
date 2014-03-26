@@ -114,6 +114,8 @@ T * Board::MakePiece(Colour colour, int boardPosition){
 	return pPiece;
 }
 
+
+
 Piece * Board::PieceAtPosition(int row, int col){
     return squares[GetBoardPosition(row, col)];
 }
@@ -205,6 +207,44 @@ void Board::SetPieceAtPosition(Piece * piece){
 	squares[piece->GetBoardPosition()] = piece;
 }
 
-MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition){
+MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPosition){
+	Piece * piece = PieceAtPosition(startBoardPosition);
+	Piece * takenPiece = PieceAtPosition(endBoardPosition);
+	if(takenPiece != nullptr){
+		takenPiece->SetBoardPosition(-1);
+		takenPiece->SetTaken();
+	}
+
+	squares[endBoardPosition] = piece;
+	piece->SetBoardPosition(endBoardPosition);
+	squares[startBoardPosition] = nullptr;
+
+	Piece ** oppositionPieces;
+	Piece * activeKing;
+	if(piece->GetColour() == Colour::White){
+		oppositionPieces = blackPieces;
+		activeKing = whiteKing;
+	}
+	else{
+		oppositionPieces = whitePieces;
+		activeKing = blackKing;
+	}
+
+	for(int p=0; p<16; p++){
+		Piece * oppositionPiece = oppositionPieces[p];
+		if(oppositionPiece->GetTaken()){
+			continue;
+		}
+
+		vector<int> * moves = oppositionPiece->GetPossibleMoves();
+		for(int m=0; m<moves->size(); m++){
+			if(moves->at(m) == activeKing->GetBoardPosition()){
+				return MovePieceResult::IllegalMove;
+			}
+		}
+		delete moves;
+	}
+
 	return MovePieceResult::OK;
 }
+

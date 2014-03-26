@@ -31,6 +31,9 @@ Game::Game(BaseRenderer * _renderer){
         	case MovePieceResult::InvalidMove:
         		renderer->RenderMessage("\nInvalid move, please try again.");
         		break;
+        	case MovePieceResult::IllegalMove:
+        		renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
+        		break;
         }
 
     }

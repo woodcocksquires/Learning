@@ -20,13 +20,14 @@ namespace Chess {
 		void InitPieces();
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
+        MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
         Piece * PieceAtPosition(int row, int col);
         Piece * PieceAtPosition(int squareReference);
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
         void SetPieceAtPosition(Piece * piece);
-        MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
+
 	};
 }
 
