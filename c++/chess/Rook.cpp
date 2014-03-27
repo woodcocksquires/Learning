@@ -11,7 +11,11 @@ Rook::Rook(Colour _colour, int _boardPosition, Board * _board):
 		Piece(5, _colour, "Rook", 'R', _boardPosition, _board) {}
 
 vector<int> * Rook::GetPossibleMoves(){
-	return GetOffsetMoves(-1, false);
+	return GetPossibleMoves(false);
+}
+
+vector<int> * Rook::GetPossibleMoves(bool includeKing){
+	return GetOffsetMoves(-1, false, includeKing);
 }
 
 Piece * Rook::CopyTo(Board * _board){

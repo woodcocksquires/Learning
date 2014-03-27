@@ -12,6 +12,10 @@ Knight::Knight(Colour _colour, int _boardPosition, Board * _board):
 		Piece(3, _colour, "Knight", 'N', _boardPosition, _board) {}
 
 vector<int> * Knight::GetPossibleMoves(){
+	return GetPossibleMoves(false);
+}
+
+vector<int> * Knight::GetPossibleMoves(bool includeKing){
 	vector<int> * moves = new vector<int>();
 	int row = (int)(boardPosition / 8);
 	int col = boardPosition % 8;
@@ -58,7 +62,7 @@ vector<int> * Knight::GetPossibleMoves(){
 			if(piece == nullptr){
 				moves->push_back(board->GetBoardPosition(row + rowOffset, col + colOffset));
 			}
-			else if(piece->GetColour() != colour && dynamic_cast<King*>(piece) == nullptr){
+			else if(piece->GetColour() != colour && (dynamic_cast<King*>(piece) == nullptr || includeKing)){
 				moves->push_back(board->GetBoardPosition(row + rowOffset, col + colOffset));
 			}
 		}

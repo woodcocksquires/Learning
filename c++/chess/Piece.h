@@ -13,8 +13,8 @@ namespace Chess {
 		string name;
 		string shortName;
 	  protected:
-		vector<int> * GetOffsetMoves(int distance, bool diagonal);
-		vector<int> * GetMultiDirectionMoves(int distance);
+		vector<int> * GetOffsetMoves(int distance, bool diagonal, bool includeKing);
+		vector<int> * GetMultiDirectionMoves(int distance, bool includeKing);
 		int boardPosition;
 		Colour colour;
 		bool taken;
@@ -35,6 +35,7 @@ namespace Chess {
 		Colour GetColour();
 
 		virtual vector<int> * GetPossibleMoves() = 0;
+		virtual vector<int> * GetPossibleMoves(bool includeKing) = 0;
 		virtual Piece * CopyTo(Board * _board) = 0;
 
 		template <class T>

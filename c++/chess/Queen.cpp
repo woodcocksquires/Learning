@@ -11,7 +11,11 @@ Queen::Queen(Colour _colour, int _boardPosition, Board * _board):
 		Piece(9, _colour, "Queen", 'Q', _boardPosition, _board) {}
 
 vector<int> * Queen::GetPossibleMoves(){
-	return GetMultiDirectionMoves(-1);
+	return GetPossibleMoves(false);
+}
+
+vector<int> * Queen::GetPossibleMoves(bool includeKing){
+	return GetMultiDirectionMoves(-1, includeKing);
 }
 
 Piece * Queen::CopyTo(Board * _board){

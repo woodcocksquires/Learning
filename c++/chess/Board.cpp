@@ -236,7 +236,7 @@ MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPositio
 			continue;
 		}
 
-		vector<int> * moves = oppositionPiece->GetPossibleMoves();
+		vector<int> * moves = oppositionPiece->GetPossibleMoves(true);
 		for(int m=0; m<moves->size(); m++){
 			if(moves->at(m) == activeKing->GetBoardPosition()){
 				return MovePieceResult::IllegalMove;

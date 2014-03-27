@@ -36,7 +36,7 @@ int Piece::GetBoardPosition(){
 	return boardPosition;
 }
 
-vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
+vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal, bool includeKing){
 	vector<int> * moves = new vector<int>();
 
 	for(int d=0; d<4; d++){
@@ -78,8 +78,9 @@ vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
 				moves->push_back(board->GetBoardPosition(row, col));
 				continue;
 			}
-			else if(piece->GetColour() != colour && dynamic_cast<King*>(piece) == nullptr){
+			else if(piece->GetColour() != colour && (dynamic_cast<King*>(piece) == nullptr || includeKing)){
 				moves->push_back(board->GetBoardPosition(row, col));
+				break;
 			}
 			else{
 				break;
@@ -90,10 +91,10 @@ vector<int> * Piece::GetOffsetMoves(int distance, bool diagonal){
 	return moves;
 }
 
-vector<int> * Piece::GetMultiDirectionMoves(int distance){
+vector<int> * Piece::GetMultiDirectionMoves(int distance, bool includeKing){
 	vector<int> * diagonalMoves, * rankFileMoves;
-	diagonalMoves = GetOffsetMoves(distance, true);
-	rankFileMoves = GetOffsetMoves(distance, false);
+	diagonalMoves = GetOffsetMoves(distance, true, includeKing);
+	rankFileMoves = GetOffsetMoves(distance, false, includeKing);
 	vector<int> * moves = new vector<int>();
 	moves->reserve(diagonalMoves->size() + rankFileMoves->size());
 	moves->insert(moves->end(), diagonalMoves->begin(), diagonalMoves->end());

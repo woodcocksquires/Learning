@@ -13,6 +13,7 @@ namespace Chess {
 	  public:
 		Bishop(Colour _colour, int _boardPosition, Board * _board);
 		virtual vector<int> * GetPossibleMoves();
+		virtual vector<int> * GetPossibleMoves(bool includeKing);
 		virtual Piece * CopyTo(Board * _board);
 	};
 }
