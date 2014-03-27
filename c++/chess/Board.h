@@ -13,6 +13,9 @@ namespace Chess {
 		template <class T>
 		T * MakePiece(Colour colour, int boardPosition);
 		static int GetColumn(char columnChar);
+		bool TestCheck(Colour colour);
+      protected:
+		MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
 	  public:
 		Board();
 		~Board();
@@ -20,14 +23,14 @@ namespace Chess {
 		void InitPieces();
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
-        MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
+
         Piece * PieceAtPosition(int row, int col);
         Piece * PieceAtPosition(int squareReference);
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
         void SetPieceAtPosition(Piece * piece);
-
+        bool TestPlayerHasMoves(Colour colour);
 	};
 }
 

@@ -154,15 +154,12 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 
 	vector<int> * possibleMoves = piece->GetPossibleMoves();
 	bool possibleMove = false;
-
-	cout << endl;
 	for(int m = 0; m < (int)possibleMoves->size(); m++){
-		cout << possibleMoves->at(m) << " ";
+
 		if(possibleMoves->at(m) == endBoardPosition){
 			possibleMove = true;
 		}
 	}
-	cout << endl;
 	delete possibleMoves;
 
 	if(possibleMove){
@@ -180,7 +177,14 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			squares[endBoardPosition] = movingPiece;
 			movingPiece->SetBoardPosition(endBoardPosition);
 			squares[startBoardPosition] = nullptr;
-			return MovePieceResult::OK;
+
+			Colour opponentColour = (piece->GetColour() == Colour::White ? Colour::Black : Colour::White);
+			if(TestCheck(opponentColour)){
+				return MovePieceResult::Check;
+			}
+			else {
+				return MovePieceResult::OK;
+			}
 		}
 
 		return testMoveResult;
@@ -219,9 +223,17 @@ MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPositio
 	piece->SetBoardPosition(endBoardPosition);
 	squares[startBoardPosition] = nullptr;
 
+	if(TestCheck(piece->GetColour())){
+		return MovePieceResult::IllegalMove;
+	}
+
+	return MovePieceResult::OK;
+}
+
+bool Board::TestCheck(Colour colour){
 	Piece ** oppositionPieces;
 	Piece * activeKing;
-	if(piece->GetColour() == Colour::White){
+	if(colour == Colour::White){
 		oppositionPieces = blackPieces;
 		activeKing = whiteKing;
 	}
@@ -239,12 +251,16 @@ MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPositio
 		vector<int> * moves = oppositionPiece->GetPossibleMoves(true);
 		for(int m=0; m<moves->size(); m++){
 			if(moves->at(m) == activeKing->GetBoardPosition()){
-				return MovePieceResult::IllegalMove;
+				return true;
 			}
 		}
 		delete moves;
 	}
 
-	return MovePieceResult::OK;
+	return false;
+}
+
+bool Board::TestPlayerHasMoves(Colour colour){
+	return true;
 }
 
