@@ -261,6 +261,14 @@ bool Board::TestCheck(Colour colour){
 }
 
 bool Board::TestPlayerHasMoves(Colour colour){
-	return true;
+	Piece ** pieces = (colour == Colour::White ? whitePieces : blackPieces);
+	for(int p=0; p<16; p++){
+		Piece * piece = pieces[p];
+		if(!piece->GetTaken()){
+
+		}
+	}
+
+	return false;
 }
 
