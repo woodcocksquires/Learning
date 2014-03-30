@@ -249,8 +249,9 @@ bool Board::TestCheck(Colour colour){
 		}
 
 		vector<int> * moves = oppositionPiece->GetPossibleMoves(true);
-		for(int m=0; m<moves->size(); m++){
+		for(int m=0; m<(int)moves->size(); m++){
 			if(moves->at(m) == activeKing->GetBoardPosition()){
+				delete moves;
 				return true;
 			}
 		}
@@ -265,7 +266,16 @@ bool Board::TestPlayerHasMoves(Colour colour){
 	for(int p=0; p<16; p++){
 		Piece * piece = pieces[p];
 		if(!piece->GetTaken()){
-
+			vector<int> * moves = piece->GetPossibleMoves();
+			for(int m=0; m<(int)moves->size(); m++){
+				Board b = Board(*this);
+				MovePieceResult r = b.TestLegalMove(piece->GetBoardPosition(), moves->at(m));
+				if(r != MovePieceResult::InvalidMove && r != MovePieceResult::IllegalMove){
+					delete moves;
+					return true;
+				}
+			}
+			delete moves;
 		}
 	}
 

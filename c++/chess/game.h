@@ -21,6 +21,7 @@ namespace Chess {
         vector<string> moves;
       public:
         Game(BaseRenderer * _renderer);
+        void Start();
     };
 }
 #endif // GAME_H

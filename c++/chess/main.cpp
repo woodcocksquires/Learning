@@ -12,7 +12,7 @@ int main()
 {
 	BaseRenderer * renderer = new ConsoleChessRenderer();
 	Game game = Game(renderer);
-
+	game.Start();
     int x = 0;
 	cin >> x;
 
