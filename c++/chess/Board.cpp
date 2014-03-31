@@ -291,6 +291,7 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	int row = (colour == Colour::White ? 0 : 7);
 	int offset = (queenSide ? -1 : 1);
 	int kingPosition = (row*8) + 3;
+	Rook * rook = PieceAtPosition((row*8) + (queenSide ? 0 : 7));
 
 	if(king->HasMoved() || king->GetChecked()){
 		return false;
@@ -305,5 +306,19 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 		return false;
 	}
 
+	if(rook == nullptr || rook->HasMoved()){
+		return false;
+	}
+
+	Board board = Board(*this);
+	if(!board.TestLegalMove(kingPosition, kingPosition + offset)){
+		return false;
+	}
+
+	if(!board.TestLegalMove(kingPosition + offset, kingPosition + (2*offset))){
+		return false;
+	}
+
+	return true;
 }
 

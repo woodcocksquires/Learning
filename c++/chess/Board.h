@@ -16,7 +16,6 @@ namespace Chess {
 		bool TestCheck(Colour colour);
       protected:
 		MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
-		bool TestCastlingMove(Colour colour, bool queenSide);
 	  public:
 		Board();
 		~Board();
@@ -24,7 +23,7 @@ namespace Chess {
 		void InitPieces();
 		void InitColourPieces(Piece ** pPieces, Colour colour);
         void ResetBoard();
-
+        bool TestCastlingMove(Colour colour, bool queenSide);
         Piece * PieceAtPosition(int row, int col);
         Piece * PieceAtPosition(int squareReference);
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);

@@ -15,7 +15,7 @@ namespace Chess {
 		virtual vector<int> * GetPossibleMoves(bool includeKing);
 		virtual Piece * CopyTo(Board * _board);
 		virtual bool GetChecked();
-		virtual void SetChecked();
+		virtual void SetChecked(bool value);
 	};
 }
 

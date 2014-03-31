@@ -29,15 +29,17 @@ void Game::Start(){
 		{
 			case MovePieceResult::OK:
 			case MovePieceResult::Check:
+				Colour currentPlayer = activePlayer;
 				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
 				renderer->RenderBoard(board, activePlayer == Colour::Black);
 				if(m == MovePieceResult::Check){
 					renderer->RenderMessage(string(Utility::ColourStrings[activePlayer]) + ", you are in check!");
 					status = GameStatus::InCheck;
-					((King *)board->GetKing(activePlayer))->SetChecked();
+					((King *)board->GetKing(activePlayer))->SetChecked(true);
 				}
 				else{
 					status = GameStatus::Active;
+					((King *)board->GetKing(currentPlayer))->SetChecked(false);
 				}
 
 				if(!board->TestPlayerHasMoves(activePlayer)){

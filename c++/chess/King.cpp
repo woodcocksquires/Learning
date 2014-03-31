@@ -15,7 +15,15 @@ vector<int> * King::GetPossibleMoves(){
 }
 
 vector<int> * King::GetPossibleMoves(bool includeKing){
-	return GetMultiDirectionMoves(1, includeKing);
+	vector<int> * moves = GetMultiDirectionMoves(1, includeKing);
+	if(board->TestCastlingMove(colour, false)){
+		moves->push_back((colour == Colour::White ? 5 : 61));
+	}
+
+	if(board->TestCastlingMove(colour, true)){
+		moves->push_back((colour == Colour::White ? 1 : 57));
+	}
+	return moves;
 }
 
 Piece * King::CopyTo(Board * _board){
@@ -24,8 +32,8 @@ Piece * King::CopyTo(Board * _board){
 	return piece;
 }
 
-void King::SetChecked(){
-	checked = true;
+void King::SetChecked(bool value){
+	checked = value;
 }
 
 bool King::GetChecked(){
