@@ -8,7 +8,7 @@ using namespace std;
 using namespace Chess;
 
 King::King(Colour _colour, int _boardPosition, Board * _board):
-		Piece(0, _colour, "King", 'K', _boardPosition, _board) {}
+		Piece(0, _colour, "King", 'K', _boardPosition, _board), checked(false) {}
 
 vector<int> * King::GetPossibleMoves(){
 	return GetPossibleMoves(false);
@@ -22,4 +22,12 @@ Piece * King::CopyTo(Board * _board){
 	Piece * piece = Piece::MakePiece<King>(this, _board);
 	_board->SetPieceAtPosition(piece);
 	return piece;
+}
+
+void King::SetChecked(){
+	checked = true;
+}
+
+bool King::GetChecked(){
+	return checked;
 }

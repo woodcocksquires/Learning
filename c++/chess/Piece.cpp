@@ -9,7 +9,7 @@ using namespace std;
 using namespace Chess;
 
 Piece::Piece(int _value, Colour _colour, const string _name, const char _shortName, int _boardPosition, Board * _board):
-    value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), taken(false), board(_board) {
+    value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), taken(false), board(_board), moved(false) {
     shortName = Utility::ColourStrings[colour][0];
     shortName += _shortName;
 }
@@ -106,6 +106,7 @@ vector<int> * Piece::GetMultiDirectionMoves(int distance, bool includeKing){
 
 void Piece::SetBoardPosition(int _boardPosition){
 	boardPosition = _boardPosition;
+	moved = true;
 }
 
 void Piece::SetTaken(){
@@ -114,5 +115,9 @@ void Piece::SetTaken(){
 
 bool Piece::GetTaken(){
 	return taken;
+}
+
+bool Piece::HasMoved(){
+	return moved;
 }
 

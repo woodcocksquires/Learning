@@ -18,6 +18,7 @@ namespace Chess {
 		int boardPosition;
 		Colour colour;
 		bool taken;
+		bool moved;
 		Board * board;
 
 
@@ -31,6 +32,7 @@ namespace Chess {
 		void SetBoardPosition(int _boardPosition);
 		void SetTaken();
 		bool GetTaken();
+		bool HasMoved();
 		int GetBoardPosition();
 		Colour GetColour();
 

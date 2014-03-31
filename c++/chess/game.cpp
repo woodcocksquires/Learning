@@ -34,6 +34,7 @@ void Game::Start(){
 				if(m == MovePieceResult::Check){
 					renderer->RenderMessage(string(Utility::ColourStrings[activePlayer]) + ", you are in check!");
 					status = GameStatus::InCheck;
+					((King *)board->GetKing(activePlayer))->SetChecked();
 				}
 				else{
 					status = GameStatus::Active;

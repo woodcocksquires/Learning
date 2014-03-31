@@ -282,3 +282,28 @@ bool Board::TestPlayerHasMoves(Colour colour){
 	return false;
 }
 
+Piece * Board::GetKing(Colour colour){
+	return (colour == Colour::White ? whiteKing : blackKing);
+}
+
+bool Board::TestCastlingMove(Colour colour, bool queenSide){
+	King * king = (King *)(colour == Colour::White ? whiteKing : blackKing);
+	int row = (colour == Colour::White ? 0 : 7);
+	int offset = (queenSide ? -1 : 1);
+	int kingPosition = (row*8) + 3;
+
+	if(king->HasMoved() || king->GetChecked()){
+		return false;
+	}
+
+	if(PieceAtPosition(kingPosition + offset) != nullptr
+			|| PieceAtPosition(kingPosition + (offset*2)) != nullptr){
+		return false;
+	}
+
+	if(queenSide && PieceAtPosition(kingPosition + (offset * 3)) != nullptr){
+		return false;
+	}
+
+}
+

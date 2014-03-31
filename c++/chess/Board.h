@@ -16,6 +16,7 @@ namespace Chess {
 		bool TestCheck(Colour colour);
       protected:
 		MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
+		bool TestCastlingMove(Colour colour, bool queenSide);
 	  public:
 		Board();
 		~Board();
@@ -31,6 +32,8 @@ namespace Chess {
         int GetBoardPosition(int row, int col);
         void SetPieceAtPosition(Piece * piece);
         bool TestPlayerHasMoves(Colour colour);
+        Piece * GetKing(Colour colour);
+
 	};
 }
 
