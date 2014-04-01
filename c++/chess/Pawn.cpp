@@ -50,14 +50,18 @@ vector<int> * Pawn::GetPossibleMoves(bool includeKing){
 
 		if(col > 0){
 			Piece * piece = board->PieceAtPosition(row + offset, col-1);
-			if(piece != nullptr && piece->GetColour() != colour && (dynamic_cast<King*>(piece) == nullptr || includeKing)){
+			if(piece != nullptr && piece->GetColour() != colour
+					&& (dynamic_cast<King*>(piece) == nullptr || includeKing)
+					&& dynamic_cast<Pawn*>(piece) != nullptr){
 				moves->push_back(board->GetBoardPosition(row + offset, col - 1));
 			}
 		}
 
 		if(col < 7){
 			Piece * piece = board->PieceAtPosition(row + offset, col+1);
-			if(piece != nullptr && piece->GetColour() != colour && (dynamic_cast<King*>(piece) == nullptr || includeKing)){
+			if(piece != nullptr && piece->GetColour() != colour
+					&& (dynamic_cast<King*>(piece) == nullptr || includeKing)
+					&& dynamic_cast<Pawn*>(piece) != nullptr){
 				moves->push_back(board->GetBoardPosition(row + offset, col + 1));
 			}
 		}

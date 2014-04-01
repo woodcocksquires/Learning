@@ -16,6 +16,7 @@ namespace Chess {
             virtual MovePieceResult MakeMove(Colour colour, Board * board) = 0;
             virtual void RenderMessage(string message) = 0;
             virtual void RenderMoves() = 0;
+            virtual void PromotePiece(Colour colour, Board * board) = 0;
             virtual ~BaseRenderer();
         };
     }

@@ -18,8 +18,8 @@ namespace Chess {
 		int boardPosition;
 		Colour colour;
 		bool taken;
-		bool moved;
 		Board * board;
+		bool moved;
 
 
 	  public:

@@ -30,8 +30,20 @@ void Game::Start(){
 		{
 			case MovePieceResult::OK:
 			case MovePieceResult::Check:
+			case MovePieceResult::Promote:
 				previousPlayer = activePlayer;
 				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
+				if(m == MovePieceResult::Promote){
+					renderer->PromotePiece(previousPlayer, board);
+					if(board->TestCheck(activePlayer)){
+						m = MovePieceResult::Check;
+						status == GameStatus::InCheck;
+					}
+					if(!board->TestPlayerHasMoves(activePlayer)){
+						renderer->RenderBoard(board, previousPlayer == Colour::Black);
+						break;
+					}
+				}
 				renderer->RenderBoard(board, activePlayer == Colour::Black);
 				if(m == MovePieceResult::Check){
 					renderer->RenderMessage(string(Utility::ColourStrings[activePlayer]) + ", you are in check!");
@@ -53,7 +65,6 @@ void Game::Start(){
 			case MovePieceResult::IllegalMove:
 				renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
 				break;
-
 		}
 	}
 

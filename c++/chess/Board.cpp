@@ -192,6 +192,12 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			movingPiece->SetBoardPosition(endBoardPosition);
 			squares[startBoardPosition] = nullptr;
 
+			if(dynamic_cast<Pawn *>(movingPiece) != nullptr &&
+					((movingPiece->GetColour() == Colour::White && ((int)(movingPiece->GetBoardPosition()/8)==7)) ||
+					(movingPiece->GetColour() == Colour::Black && ((int)(movingPiece->GetBoardPosition()/8)==0)))){
+				return MovePieceResult::Promote;
+			}
+
 			Colour opponentColour = (piece->GetColour() == Colour::White ? Colour::Black : Colour::White);
 			if(TestCheck(opponentColour)){
 				return MovePieceResult::Check;
@@ -334,5 +340,9 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	}
 
 	return true;
+}
+
+void Board::PromotePiece(Piece * piece){
+
 }
 

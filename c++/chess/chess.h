@@ -13,7 +13,7 @@ namespace Chess {
 	enum Colour: int { White, Black };
 	enum PlayerType: int { Human, CPU };
 	enum GameStatus: int { Active, Mate, Stalemate, InCheck };
-	enum MovePieceResult: int { OK, InvalidMove, IllegalMove, Check };
+	enum MovePieceResult: int { OK, InvalidMove, IllegalMove, Check, Promote };
 }
 
 #endif

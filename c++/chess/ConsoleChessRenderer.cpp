@@ -2,6 +2,7 @@
 #include "ConsoleChessRenderer.h"
 #include "Board.h"
 #include "Chess.h"
+#include "ChessPieces.h"
 #include "ChessUtils.h"
 #include "Move.h"
 
@@ -235,4 +236,36 @@ void ConsoleChessRenderer::RenderMessage(string message){
 
 void ConsoleChessRenderer::RenderMoves(){
 
+}
+
+void ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
+	cout << "\n" + string(Utility::ColourStrings[colour]) + " please select the piece type to promote to:\n\n";
+	cout << "   1   Knight\n   2   Bishop\n   3   Rook\n   4   Queen\n\n";
+
+	int pieceType = 0;
+	string input;
+	while(pieceType==0){
+		cout << "Option: ";
+		cin >> input;
+		if(input.length() > 1 || input[0] < 49 || input[0] > 52){
+			cout << "Invalid input, please try again.\n";
+			continue;
+		}
+		Piece * newPiece;
+		switch(((int)input[0])-48){
+			case 1:
+				newPiece = board->MakePiece<Knight>(colour, 0);
+				break;
+			case 2:
+				newPiece = board->MakePiece<Bishop>(colour, 0);
+				break;
+			case 3:
+				newPiece = board->MakePiece<Rook>(colour, 0);
+				break;
+			case 4:
+				newPiece = board->MakePiece<Queen>(colour, 0);
+				break;
+		}
+		board->PromotePiece(newPiece);
+	}
 }
