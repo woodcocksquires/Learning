@@ -37,7 +37,7 @@ void Game::Start(){
 					renderer->PromotePiece(previousPlayer, board);
 					if(board->TestCheck(activePlayer)){
 						m = MovePieceResult::Check;
-						status == GameStatus::InCheck;
+						status = GameStatus::InCheck;
 					}
 					if(!board->TestPlayerHasMoves(activePlayer)){
 						renderer->RenderBoard(board, previousPlayer == Colour::Black);

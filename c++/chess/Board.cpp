@@ -11,6 +11,7 @@ using namespace std;
 Board::Board() {
 	whitePieces = new Piece*[16];
 	blackPieces = new Piece*[16];
+	lastMovePiece = nullptr;
 	squares = new Piece*[64];
 	whiteKing = blackKing = nullptr;
 
@@ -22,6 +23,7 @@ Board::Board() {
 }
 
 Board::~Board() {
+	lastMovePiece = nullptr;
     for(int s=0; s<64; s++){
 		squares[s] = nullptr;
 	}
@@ -44,6 +46,7 @@ Board::Board(const Board& _board){
 	whitePieces = new Piece*[16];
 	blackPieces = new Piece*[16];
 	squares = new Piece*[64];
+	lastMovePiece = nullptr;
 
 	for(int s=0; s<64; s++){
 		squares[s] = nullptr;
@@ -108,14 +111,6 @@ void Board::InitColourPieces(Piece ** pPieces, Colour colour){
 		blackKing = pPieces[15];
 	}
 }
-
-template <class T>
-T * Board::MakePiece(Colour colour, int boardPosition){
-	T * pPiece = new T(colour, boardPosition, this);
-	return pPiece;
-}
-
-
 
 Piece * Board::PieceAtPosition(int row, int col){
     return squares[GetBoardPosition(row, col)];
@@ -191,6 +186,8 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			squares[endBoardPosition] = movingPiece;
 			movingPiece->SetBoardPosition(endBoardPosition);
 			squares[startBoardPosition] = nullptr;
+
+			lastMovePiece = movingPiece;
 
 			if(dynamic_cast<Pawn *>(movingPiece) != nullptr &&
 					((movingPiece->GetColour() == Colour::White && ((int)(movingPiece->GetBoardPosition()/8)==7)) ||
@@ -343,6 +340,16 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 }
 
 void Board::PromotePiece(Piece * piece){
-
+	squares[lastMovePiece->GetBoardPosition()] = piece;
+	piece->SetBoardPosition(lastMovePiece->GetBoardPosition());
+	Piece ** pieces = (lastMovePiece->GetColour() == Colour::White ? whitePieces : blackPieces);
+	for(int p=0; p<16; p++){
+		if(pieces[p] == lastMovePiece){
+			pieces[p] = piece;
+			break;
+		}
+	}
+	delete lastMovePiece;
+	lastMovePiece = piece;
 }
 

@@ -10,6 +10,7 @@ namespace Chess {
     class Board {
 		Piece ** whitePieces, ** blackPieces, ** squares;
 		Piece * whiteKing, * blackKing;
+		Piece * lastMovePiece;
 		static int GetColumn(char columnChar);
       protected:
 		MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
@@ -32,7 +33,10 @@ namespace Chess {
         Piece * GetKing(Colour colour);
         void PromotePiece(Piece * piece);
         template <class T>
-		T * MakePiece(Colour colour, int boardPosition);
+        T * MakePiece(Colour colour, int boardPosition){
+        	T * pPiece = new T(colour, boardPosition, this);
+        	return pPiece;
+        }
 	};
 }
 

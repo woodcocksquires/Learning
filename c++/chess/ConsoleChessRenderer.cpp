@@ -1,8 +1,8 @@
 #include <iostream>
-#include "ConsoleChessRenderer.h"
-#include "Board.h"
 #include "Chess.h"
 #include "ChessPieces.h"
+#include "ConsoleChessRenderer.h"
+#include "Board.h"
 #include "ChessUtils.h"
 #include "Move.h"
 
@@ -244,6 +244,7 @@ void ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 
 	int pieceType = 0;
 	string input;
+	Piece * newPiece = nullptr;
 	while(pieceType==0){
 		cout << "Option: ";
 		cin >> input;
@@ -251,21 +252,23 @@ void ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 			cout << "Invalid input, please try again.\n";
 			continue;
 		}
-		Piece * newPiece;
-		switch(((int)input[0])-48){
-			case 1:
-				newPiece = board->MakePiece<Knight>(colour, 0);
-				break;
-			case 2:
-				newPiece = board->MakePiece<Bishop>(colour, 0);
-				break;
-			case 3:
-				newPiece = board->MakePiece<Rook>(colour, 0);
-				break;
-			case 4:
-				newPiece = board->MakePiece<Queen>(colour, 0);
-				break;
-		}
-		board->PromotePiece(newPiece);
+		break;
 	}
+
+	switch(((int)input[0])-48){
+		case 1:
+			newPiece = board->MakePiece<Knight>(colour, 0);
+			break;
+		case 2:
+			newPiece = board->MakePiece<Bishop>(colour, 0);
+			break;
+		case 3:
+			newPiece = board->MakePiece<Rook>(colour, 0);
+			break;
+		case 4:
+			newPiece = board->MakePiece<Queen>(colour, 0);
+			break;
+	}
+
+	board->PromotePiece(newPiece);
 }
