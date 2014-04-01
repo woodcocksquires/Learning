@@ -22,6 +22,7 @@ void Game::Start(){
 	blackPlayerType = renderer->GetPlayerType(Colour::Black);
 
 	renderer->RenderBoard(board, false);
+	Colour previousPlayer = Colour::White;
 
 	while(status == GameStatus::Active || status == GameStatus::InCheck){
 		MovePieceResult m = renderer->MakeMove(activePlayer, board);
@@ -29,7 +30,7 @@ void Game::Start(){
 		{
 			case MovePieceResult::OK:
 			case MovePieceResult::Check:
-				Colour currentPlayer = activePlayer;
+				previousPlayer = activePlayer;
 				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
 				renderer->RenderBoard(board, activePlayer == Colour::Black);
 				if(m == MovePieceResult::Check){
@@ -39,7 +40,7 @@ void Game::Start(){
 				}
 				else{
 					status = GameStatus::Active;
-					((King *)board->GetKing(currentPlayer))->SetChecked(false);
+					((King *)board->GetKing(previousPlayer))->SetChecked(false);
 				}
 
 				if(!board->TestPlayerHasMoves(activePlayer)){

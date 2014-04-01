@@ -17,11 +17,11 @@ vector<int> * King::GetPossibleMoves(){
 vector<int> * King::GetPossibleMoves(bool includeKing){
 	vector<int> * moves = GetMultiDirectionMoves(1, includeKing);
 	if(board->TestCastlingMove(colour, false)){
-		moves->push_back((colour == Colour::White ? 5 : 61));
+		moves->push_back((colour == Colour::White ? 6 : 62));
 	}
 
 	if(board->TestCastlingMove(colour, true)){
-		moves->push_back((colour == Colour::White ? 1 : 57));
+		moves->push_back((colour == Colour::White ? 2 : 58));
 	}
 	return moves;
 }

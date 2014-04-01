@@ -1,6 +1,7 @@
 #include "board.h"
 #include "chesspieces.h"
 #include "chessutils.h"
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -151,8 +152,7 @@ int Board::GetBoardPosition(string squareReference){
 
 MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
-
-	vector<int> * possibleMoves = piece->GetPossibleMoves();
+    vector<int> * possibleMoves = piece->GetPossibleMoves();
 	bool possibleMove = false;
 	for(int m = 0; m < (int)possibleMoves->size(); m++){
 
@@ -165,6 +165,20 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 	if(possibleMove){
 		Piece * movingPiece = squares[startBoardPosition];
 		Piece * takenPiece = squares[endBoardPosition];
+
+		if(dynamic_cast<King*>(movingPiece) != nullptr && abs(startBoardPosition - endBoardPosition)==2){
+			bool queenSide = endBoardPosition < startBoardPosition;
+			squares[endBoardPosition] = movingPiece;
+			movingPiece->SetBoardPosition(endBoardPosition);
+			squares[startBoardPosition] = nullptr;
+			int rookStartPosition = startBoardPosition + (queenSide ? -4 : 3);
+			int rookEndPosition = endBoardPosition + (queenSide ? 1 : -1);
+			Piece * rook = PieceAtPosition(rookStartPosition);
+			squares[rookEndPosition] = rook;
+			rook->SetBoardPosition(rookEndPosition);
+			squares[rookStartPosition] = nullptr;
+			return MovePieceResult::OK;
+		}
 
 		Board moveBoard = Board(*this);
 		MovePieceResult testMoveResult = moveBoard.TestLegalMove(startBoardPosition, endBoardPosition);
@@ -290,8 +304,8 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	King * king = (King *)(colour == Colour::White ? whiteKing : blackKing);
 	int row = (colour == Colour::White ? 0 : 7);
 	int offset = (queenSide ? -1 : 1);
-	int kingPosition = (row*8) + 3;
-	Rook * rook = PieceAtPosition((row*8) + (queenSide ? 0 : 7));
+	int kingPosition = (row*8) + 4;
+	Rook * rook = (Rook *)PieceAtPosition((row*8) + (queenSide ? 0 : 7));
 
 	if(king->HasMoved() || king->GetChecked()){
 		return false;
@@ -311,11 +325,11 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	}
 
 	Board board = Board(*this);
-	if(!board.TestLegalMove(kingPosition, kingPosition + offset)){
+	if(board.TestLegalMove(kingPosition, kingPosition + offset) != MovePieceResult::OK){
 		return false;
 	}
 
-	if(!board.TestLegalMove(kingPosition + offset, kingPosition + (2*offset))){
+	if(board.TestLegalMove(kingPosition + offset, kingPosition + (2*offset)) != MovePieceResult::OK){
 		return false;
 	}
 
