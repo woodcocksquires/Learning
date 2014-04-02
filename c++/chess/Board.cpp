@@ -9,13 +9,13 @@ using namespace Chess;
 using namespace std;
 
 Board::Board() {
-	whitePieces = new Piece*[16];
-	blackPieces = new Piece*[16];
+	whitePieces = new Piece*[PIECE_COUNT];
+	blackPieces = new Piece*[PIECE_COUNT];
 	lastMovePiece = nullptr;
-	squares = new Piece*[64];
+	squares = new Piece*[SQUARE_COUNT];
 	whiteKing = blackKing = nullptr;
 
-	for(int s=0; s<64; s++){
+	for(int s=0; s<sizeof(squares); s++){
 		squares[s] = nullptr;
 	}
 
@@ -24,11 +24,11 @@ Board::Board() {
 
 Board::~Board() {
 	lastMovePiece = nullptr;
-    for(int s=0; s<64; s++){
+    for(int s=0; s<sizeof(squares); s++){
 		squares[s] = nullptr;
 	}
 
-    for(int p=0; p<16; p++)
+    for(int p=0; p<PIECE_COUNT; p++)
     {
         delete whitePieces[p];
         delete blackPieces[p];
@@ -43,21 +43,21 @@ Board::~Board() {
 }
 
 Board::Board(const Board& _board){
-	whitePieces = new Piece*[16];
-	blackPieces = new Piece*[16];
-	squares = new Piece*[64];
+	whitePieces = new Piece*[PIECE_COUNT];
+	blackPieces = new Piece*[PIECE_COUNT];
+	squares = new Piece*[SQUARE_COUNT];
 	lastMovePiece = nullptr;
 
-	for(int s=0; s<64; s++){
+	for(int s=0; s<sizeof(squares); s++){
 		squares[s] = nullptr;
 	}
 
-	for(int p=0; p<16; p++){
+	for(int p=0; p<PIECE_COUNT; p++){
 		whitePieces[p] = nullptr;
 		blackPieces[p] = nullptr;
 	}
 
-	for(int p=0; p<16; p++){
+	for(int p=0; p<PIECE_COUNT; p++){
 		whitePieces[p] = _board.whitePieces[p]->CopyTo(this);
 		blackPieces[p] = _board.blackPieces[p]->CopyTo(this);
 	}
@@ -71,7 +71,7 @@ void Board::ResetBoard() {
 }
 
 void Board::InitPieces() {
-	for(int p=0; p<16; p++){
+	for(int p=0; p<PIECE_COUNT; p++){
 		whitePieces[p] = nullptr;
 		blackPieces[p] = nullptr;
 	}
@@ -81,8 +81,8 @@ void Board::InitPieces() {
 }
 
 void Board::InitColourPieces(Piece ** pPieces, Colour colour){
-    int modifier = (colour == Colour::White) ? 1 : -1;
-    int baseRow = (colour == Colour::White) ? 0 : 7;
+    int modifier = (colour == Colour::White) ? ROW_MODIFIER_WHITE : ROW_MODIFIER_BLACK;
+    int baseRow = (colour == Colour::White) ? WHITE_BASE_ROW : BLACK_BASE_ROW;
 	for(int p = 0; p<8; p++){
         pPieces[p] = MakePiece<Pawn>(colour, ((baseRow+modifier)*8)+p);
         squares[GetBoardPosition(baseRow+modifier,p)] = pPieces[p];
@@ -117,7 +117,7 @@ Piece * Board::PieceAtPosition(int row, int col){
 }
 
 Piece * Board::PieceAtPosition(int squareReference){
-    if(squareReference < 0 || squareReference > 63){
+    if(squareReference < MIN_SQUARE_POSITION || squareReference > MAX_SQUARE_POSITION){
         return nullptr;
     }
 
@@ -166,8 +166,8 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			squares[endBoardPosition] = movingPiece;
 			movingPiece->SetBoardPosition(endBoardPosition);
 			squares[startBoardPosition] = nullptr;
-			int rookStartPosition = startBoardPosition + (queenSide ? -4 : 3);
-			int rookEndPosition = endBoardPosition + (queenSide ? 1 : -1);
+			int rookStartPosition = startBoardPosition + (queenSide ? QUEEN_SIDE_ROOK_OFFSET : KING_SIDE_OFFSET);
+			int rookEndPosition = endBoardPosition + (queenSide ? KING_SIDE_OFFSET : QUEEN_SIDE_OFFSET);
 			Piece * rook = PieceAtPosition(rookStartPosition);
 			squares[rookEndPosition] = rook;
 			rook->SetBoardPosition(rookEndPosition);
@@ -190,8 +190,8 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			lastMovePiece = movingPiece;
 
 			if(dynamic_cast<Pawn *>(movingPiece) != nullptr &&
-					((movingPiece->GetColour() == Colour::White && ((int)(movingPiece->GetBoardPosition()/8)==7)) ||
-					(movingPiece->GetColour() == Colour::Black && ((int)(movingPiece->GetBoardPosition()/8)==0)))){
+					((movingPiece->GetColour() == Colour::White && ((int)(movingPiece->GetBoardPosition()/8)==BLACK_BASE_ROW)) ||
+					(movingPiece->GetColour() == Colour::Black && ((int)(movingPiece->GetBoardPosition()/8)==WHITE_BASE_ROW)))){
 				return MovePieceResult::Promote;
 			}
 
@@ -232,7 +232,7 @@ MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPositio
 	Piece * piece = PieceAtPosition(startBoardPosition);
 	Piece * takenPiece = PieceAtPosition(endBoardPosition);
 	if(takenPiece != nullptr){
-		takenPiece->SetBoardPosition(-1);
+		takenPiece->SetBoardPosition(BOARD_POSITION_NOT_ON_BOARD);
 		takenPiece->SetTaken();
 	}
 
@@ -259,7 +259,7 @@ bool Board::TestCheck(Colour colour){
 		activeKing = blackKing;
 	}
 
-	for(int p=0; p<16; p++){
+	for(int p=0; p<PIECE_COUNT; p++){
 		Piece * oppositionPiece = oppositionPieces[p];
 		if(oppositionPiece->GetTaken()){
 			continue;
@@ -280,7 +280,7 @@ bool Board::TestCheck(Colour colour){
 
 bool Board::TestPlayerHasMoves(Colour colour){
 	Piece ** pieces = (colour == Colour::White ? whitePieces : blackPieces);
-	for(int p=0; p<16; p++){
+	for(int p=0; p < PIECE_COUNT; p++){
 		Piece * piece = pieces[p];
 		if(!piece->GetTaken()){
 			vector<int> * moves = piece->GetPossibleMoves();
@@ -305,21 +305,21 @@ Piece * Board::GetKing(Colour colour){
 
 bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	King * king = (King *)(colour == Colour::White ? whiteKing : blackKing);
-	int row = (colour == Colour::White ? 0 : 7);
-	int offset = (queenSide ? -1 : 1);
-	int kingPosition = (row*8) + 4;
-	Rook * rook = (Rook *)PieceAtPosition((row*8) + (queenSide ? 0 : 7));
+	int row = (colour == Colour::White ? WHITE_BASE_ROW : BLACK_BASE_ROW);
+	int offset = (queenSide ? QUEEN_SIDE_OFFSET : KING_SIDE_OFFSET);
+	int kingPosition = king->GetBoardPosition();
+	Rook * rook = (Rook *)PieceAtPosition(kingPosition + (queenSide ? QUEEN_SIDE_ROOK_OFFSET : KING_SIDE_ROOK_OFFSET));
 
 	if(king->HasMoved() || king->GetChecked()){
 		return false;
 	}
 
 	if(PieceAtPosition(kingPosition + offset) != nullptr
-			|| PieceAtPosition(kingPosition + (offset*2)) != nullptr){
+			|| PieceAtPosition(kingPosition + (offset * KING_CASTLE_SQUARES)) != nullptr){
 		return false;
 	}
 
-	if(queenSide && PieceAtPosition(kingPosition + (offset * 3)) != nullptr){
+	if(queenSide && PieceAtPosition(kingPosition + (offset * QUEEN_CASTLE_SQUARES)) != nullptr){
 		return false;
 	}
 
@@ -332,7 +332,7 @@ bool Board::TestCastlingMove(Colour colour, bool queenSide){
 		return false;
 	}
 
-	if(board.TestLegalMove(kingPosition + offset, kingPosition + (2*offset)) != MovePieceResult::OK){
+	if(board.TestLegalMove(kingPosition + offset, kingPosition + (KING_CASTLE_SQUARES * offset)) != MovePieceResult::OK){
 		return false;
 	}
 
@@ -343,7 +343,7 @@ void Board::PromotePiece(Piece * piece){
 	squares[lastMovePiece->GetBoardPosition()] = piece;
 	piece->SetBoardPosition(lastMovePiece->GetBoardPosition());
 	Piece ** pieces = (lastMovePiece->GetColour() == Colour::White ? whitePieces : blackPieces);
-	for(int p=0; p<16; p++){
+	for(int p=0; p<PIECE_COUNT; p++){
 		if(pieces[p] == lastMovePiece){
 			pieces[p] = piece;
 			break;
