@@ -15,7 +15,7 @@ Board::Board() {
 	squares = new Piece*[SQUARE_COUNT];
 	whiteKing = blackKing = nullptr;
 
-	for(int s=0; s<sizeof(squares); s++){
+	for(int s=0; s<SQUARE_COUNT; s++){
 		squares[s] = nullptr;
 	}
 
@@ -24,7 +24,7 @@ Board::Board() {
 
 Board::~Board() {
 	lastMovePiece = nullptr;
-    for(int s=0; s<sizeof(squares); s++){
+    for(int s=0; s<SQUARE_COUNT; s++){
 		squares[s] = nullptr;
 	}
 
@@ -48,7 +48,7 @@ Board::Board(const Board& _board){
 	squares = new Piece*[SQUARE_COUNT];
 	lastMovePiece = nullptr;
 
-	for(int s=0; s<sizeof(squares); s++){
+	for(int s=0; s<SQUARE_COUNT; s++){
 		squares[s] = nullptr;
 	}
 
@@ -166,7 +166,7 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			squares[endBoardPosition] = movingPiece;
 			movingPiece->SetBoardPosition(endBoardPosition);
 			squares[startBoardPosition] = nullptr;
-			int rookStartPosition = startBoardPosition + (queenSide ? QUEEN_SIDE_ROOK_OFFSET : KING_SIDE_OFFSET);
+			int rookStartPosition = startBoardPosition + (queenSide ? QUEEN_SIDE_ROOK_OFFSET : KING_SIDE_ROOK_OFFSET);
 			int rookEndPosition = endBoardPosition + (queenSide ? KING_SIDE_OFFSET : QUEEN_SIDE_OFFSET);
 			Piece * rook = PieceAtPosition(rookStartPosition);
 			squares[rookEndPosition] = rook;

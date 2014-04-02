@@ -75,5 +75,8 @@ vector<int> * Pawn::GetPossibleMoves(bool includeKing){
 Piece * Pawn::CopyTo(Board * _board){
 	Piece * piece = Piece::MakePiece<Pawn>(this, _board);
 	_board->SetPieceAtPosition(piece);
+	if(GetTaken()){
+		piece->SetTaken();
+	}
 	return piece;
 }
