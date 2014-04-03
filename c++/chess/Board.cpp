@@ -225,7 +225,9 @@ int Board::GetColumn(char columnChar){
 }
 
 void Board::SetPieceAtPosition(Piece * piece){
-	squares[piece->GetBoardPosition()] = piece;
+	if(piece->GetBoardPosition() >= 0){
+		squares[piece->GetBoardPosition()] = piece;
+	}
 }
 
 MovePieceResult Board::TestLegalMove(int startBoardPosition, int endBoardPosition){
