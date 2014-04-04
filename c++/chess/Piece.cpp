@@ -12,6 +12,7 @@ Piece::Piece(int _value, Colour _colour, const string _name, const char _shortNa
     value(_value), name(_name), boardPosition(_boardPosition), colour(_colour), taken(false), board(_board), moved(false) {
     shortName = Utility::ColourStrings[colour][0];
     shortName += _shortName;
+    identifier = _shortName;
 }
 
 Piece::~Piece(){}
@@ -26,6 +27,10 @@ string Piece::GetName(){
 
 string Piece::GetShortName(){
     return shortName;
+}
+
+char Piece::GetIdentifier(){
+	return identifier;
 }
 
 Colour Piece::GetColour(){

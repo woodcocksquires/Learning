@@ -1,6 +1,6 @@
 #ifndef MOVE_H_INCLUDED
 #define MOVE_H_INCLUDED
-/*
+
 #include "Chess.h"
 #include "Board.h"
 
@@ -8,19 +8,20 @@ namespace Chess {
     class Move {
       private:
         int startBoardPosition, endBoardPosition;
-        string startPositionString, endPositionString;
-        Colour player;
-        string moveString;
+        bool pieceTaken;
+        bool kingChecked;
+        bool queenSideCastle;
+        bool pawnPromotion;
+        char pieceIdentifier;
+        Colour colour;
       public:
-        Move(string _startPosition, string _endPosition, Board * board);
-        int GetStartBoardPosition();
-        int GetEndBoardPosition();
-        string GetStartPositionString();
-        string GetEndPositionString();
-        Colour GetPlayer();
+        Move(int _startBoardPosition, int _endBoardPosition, bool _pieceTaken, char _pieceIdentifier, Colour _colour);
         string ToString();
-        static int GetColumn(char columnChar);
+        void SetPawnPromotion(Piece * piece);
+        void SetKingChecked(bool queenSide);
     };
 };
-*/
+
 #endif // MOVE_H_INCLUDED
+
+

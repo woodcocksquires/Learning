@@ -12,6 +12,7 @@ namespace Chess {
 		int value;
 		string name;
 		string shortName;
+		char identifier;
 	  protected:
 		vector<int> * GetOffsetMoves(int distance, bool diagonal, bool includeKing);
 		vector<int> * GetMultiDirectionMoves(int distance, bool includeKing);
@@ -29,6 +30,7 @@ namespace Chess {
 		int GetValue();
 		string GetName();
 		string GetShortName();
+		char GetIdentifier();
 		void SetBoardPosition(int _boardPosition);
 		void SetTaken();
 		bool GetTaken();
