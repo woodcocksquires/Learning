@@ -14,11 +14,13 @@ namespace Chess {
         bool pawnPromotion;
         char pieceIdentifier;
         Colour colour;
+        bool isCastleMove;
       public:
         Move(int _startBoardPosition, int _endBoardPosition, bool _pieceTaken, char _pieceIdentifier, Colour _colour);
         string ToString();
         void SetPawnPromotion(Piece * piece);
-        void SetKingChecked(bool queenSide);
+        void SetKingChecked();
+        void SetIsCastleMove(bool queenSide);
     };
 };
 

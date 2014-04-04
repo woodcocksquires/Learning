@@ -10,7 +10,8 @@ using namespace Chess;
 
 Move::Move(int _startBoardPosition, int _endBoardPosition, bool _pieceTaken, char _pieceIdentifier, Colour _colour):
 			startBoardPosition(_startBoardPosition), endBoardPosition(_endBoardPosition),
-			pieceTaken(_pieceTaken), pieceIdentifier(_pieceIdentifier), colour(_colour){
+			pieceTaken(_pieceTaken), kingChecked(false), queenSideCastle(false),
+			pawnPromotion(false), pieceIdentifier(_pieceIdentifier), colour(_colour), isCastleMove(false){
 
 }
 
@@ -19,13 +20,26 @@ void Move::SetPawnPromotion(Piece * piece){
 	pieceIdentifier = piece->GetIdentifier();
 }
 
-void Move::SetKingChecked(bool queenSide){
+void Move::SetKingChecked(){
 	kingChecked = true;
-	queenSideCastle = !queenSide;
+}
+
+void Move::SetIsCastleMove(bool queenSide){
+	isCastleMove = true;
+	queenSideCastle = queenSide;
 }
 
 string Move::ToString(){
+	if(isCastleMove){
+		return (queenSideCastle ? "0-0-0" : "0-0");
+	}
 
+	// need to add piece promotion to this.
+	return (pieceIdentifier == 'P' ? "" : string(pieceIdentifier))
+			+ Board::GetBoardPosition(startBoardPosition)
+			+ (pieceTaken ? "x" : "-")
+			+ Board::GetBoardPosition(endBoardPosition)
+			+ (kingChecked ? "+" : "");
 }
 
 

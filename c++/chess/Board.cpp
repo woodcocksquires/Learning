@@ -355,3 +355,9 @@ void Board::PromotePiece(Piece * piece){
 	lastMovePiece = piece;
 }
 
+string Board::GetBoardPosition(int boardPosition){
+	int row = (boardPosition / 8) + 1;
+	int col = boardPosition % 8;
+
+	return string(Utility::ColumnNames[col]) + row;
+}

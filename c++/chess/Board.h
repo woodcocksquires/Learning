@@ -28,6 +28,7 @@ namespace Chess {
         MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
+        static string GetBoardPosition(int boardPosition);
         void SetPieceAtPosition(Piece * piece);
         bool TestPlayerHasMoves(Colour colour);
         Piece * GetKing(Colour colour);
