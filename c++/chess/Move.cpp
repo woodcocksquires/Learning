@@ -4,6 +4,7 @@
 #include "move.h"
 #include "ChessUtils.h"
 #include "Board.h"
+#include <sstream>
 
 using namespace std;
 using namespace Chess;
@@ -35,11 +36,15 @@ string Move::ToString(){
 	}
 
 	// need to add piece promotion to this.
-	return (pieceIdentifier == 'P' ? "" : string(pieceIdentifier))
+	stringstream ss;
+	ss << (pieceIdentifier == 'P' ? "" : string(pieceIdentifier));
+	return ss.str();
+
+	/*return (pieceIdentifier == 'P' ? "" : string(pieceIdentifier))
 			+ Board::GetBoardPosition(startBoardPosition)
-			+ (pieceTaken ? "x" : "-")
+			+ string((pieceTaken ? "x" : "-"))
 			+ Board::GetBoardPosition(endBoardPosition)
-			+ (kingChecked ? "+" : "");
+			+ string((kingChecked ? "+" : ""));*/
 }
 
 

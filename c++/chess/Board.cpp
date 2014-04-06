@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 using namespace Chess;
 using namespace std;
@@ -307,7 +308,6 @@ Piece * Board::GetKing(Colour colour){
 
 bool Board::TestCastlingMove(Colour colour, bool queenSide){
 	King * king = (King *)(colour == Colour::White ? whiteKing : blackKing);
-	int row = (colour == Colour::White ? WHITE_BASE_ROW : BLACK_BASE_ROW);
 	int offset = (queenSide ? QUEEN_SIDE_OFFSET : KING_SIDE_OFFSET);
 	int kingPosition = king->GetBoardPosition();
 	Rook * rook = (Rook *)PieceAtPosition(kingPosition + (queenSide ? QUEEN_SIDE_ROOK_OFFSET : KING_SIDE_ROOK_OFFSET));
@@ -359,5 +359,7 @@ string Board::GetBoardPosition(int boardPosition){
 	int row = (boardPosition / 8) + 1;
 	int col = boardPosition % 8;
 
-	return string(Utility::ColumnNames[col]) + row;
+	stringstream ss;
+	ss << Utility::ColumnNames[col] << char(row+48);
+	return ss.str();
 }
