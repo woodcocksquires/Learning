@@ -22,6 +22,10 @@ namespace Chess {
         void SetKingChecked(bool checked);
         void SetTaken();
         void SetIsCastleMove(bool queenSide);
+        bool IsTaken();
+        bool IsCastleMove();
+        bool KingIsChecked();
+        bool IsPromotion();
         Colour GetColour();
     };
 };

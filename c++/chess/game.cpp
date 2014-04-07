@@ -2,6 +2,7 @@
 #include "ChessRenderer.h"
 #include "ChessUtils.h"
 #include <utility>
+#include "ai.h"
 
 using namespace Chess;
 using namespace Chess::Renderer;
@@ -15,6 +16,7 @@ Game::Game(BaseRenderer * _renderer){
     renderer = _renderer;
     board = new Board();
     whitePlayerType = blackPlayerType = PlayerType::Human;
+    aiPlayers = vector<AI *>();
 }
 
 void Game::Start(){
@@ -97,4 +99,8 @@ void Game::Start(){
 	}
 
 	return;
+}
+
+void Game::AddAIPlayer(AI * player){
+	aiPlayers.push_back(player);
 }

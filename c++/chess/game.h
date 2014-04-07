@@ -4,6 +4,7 @@
 #include "ChessRenderer.h"
 #include "Chess.h"
 #include <vector>
+#include "ai.h"
 
 using namespace std;
 using namespace Chess;
@@ -19,9 +20,11 @@ namespace Chess {
         bool isCheck;
         GameStatus status;
         vector<string> moves;
+        vector<AI *> aiPlayers;
       public:
         Game(BaseRenderer * _renderer);
         void Start();
+        void AddAIPlayer(AI *);
     };
 }
 #endif // GAME_H

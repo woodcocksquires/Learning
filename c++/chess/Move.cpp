@@ -37,6 +37,22 @@ Colour Move::GetColour(){
 	return colour;
 }
 
+bool Move::IsTaken(){
+	return pieceTaken;
+}
+
+bool Move::KingIsChecked(){
+	return kingChecked;
+}
+
+bool Move::IsPromotion(){
+	return pawnPromotion;
+}
+
+bool Move::IsCastleMove(){
+	return isCastleMove;
+}
+
 string Move::ToString(){
 	if(isCastleMove){
 		return (queenSideCastle ? "0-0-0" : "0-0");
