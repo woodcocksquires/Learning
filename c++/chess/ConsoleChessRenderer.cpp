@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "ChessUtils.h"
 #include "Move.h"
+#include <utility>
 
 using namespace Chess::Renderer;
 using namespace Chess;
@@ -184,7 +185,7 @@ PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
     return output;
 }
 
-MovePieceResult ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
+pair<Move *, MovePieceResult> * ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
     string startPosition, endPosition;
     int startBoardPosition, endBoardPosition;
     Piece * startPiece = nullptr;
@@ -238,7 +239,7 @@ void ConsoleChessRenderer::RenderMoves(){
 
 }
 
-void ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
+Piece * ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 	cout << "\n" + string(Utility::ColourStrings[colour]) + " please select the piece type to promote to:\n\n";
 	cout << "   1   Knight\n   2   Bishop\n   3   Rook\n   4   Queen\n\n";
 
@@ -271,4 +272,5 @@ void ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 	}
 
 	board->PromotePiece(newPiece);
+	return newPiece;
 }

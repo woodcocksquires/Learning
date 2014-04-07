@@ -3,6 +3,7 @@
 
 #include "piece.h"
 #include "move.h"
+#include <utility>
 
 using namespace Chess;
 
@@ -25,7 +26,7 @@ namespace Chess {
         bool TestCheck(Colour colour);
         Piece * PieceAtPosition(int row, int col);
         Piece * PieceAtPosition(int squareReference);
-        MovePieceResult MovePiece(int startBoardPosition, int endBoardPosition);
+        pair<Move *, MovePieceResult> * MovePiece(int startBoardPosition, int endBoardPosition);
         int GetBoardPosition(string squareReference);
         int GetBoardPosition(int row, int col);
         static string GetBoardPosition(int boardPosition);

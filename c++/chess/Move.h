@@ -19,7 +19,8 @@ namespace Chess {
         Move(int _startBoardPosition, int _endBoardPosition, bool _pieceTaken, char _pieceIdentifier, Colour _colour);
         string ToString();
         void SetPawnPromotion(Piece * piece);
-        void SetKingChecked();
+        void SetKingChecked(bool checked);
+        void SetTaken();
         void SetIsCastleMove(bool queenSide);
     };
 };

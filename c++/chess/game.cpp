@@ -1,6 +1,7 @@
 #include "game.h"
 #include "ChessRenderer.h"
 #include "ChessUtils.h"
+#include <utility>
 
 using namespace Chess;
 using namespace Chess::Renderer;
@@ -20,12 +21,15 @@ void Game::Start(){
 	renderer->StartGame();
 	whitePlayerType = renderer->GetPlayerType(Colour::White);
 	blackPlayerType = renderer->GetPlayerType(Colour::Black);
+	vector<Move *> moves = vector<Move *>();
 
 	renderer->RenderBoard(board, false);
 	Colour previousPlayer = Colour::White;
 
 	while(status == GameStatus::Active || status == GameStatus::InCheck){
-		MovePieceResult m = renderer->MakeMove(activePlayer, board);
+		pair<Move *, MovePieceResult> * result;
+		result = renderer->MakeMove(activePlayer, board);
+		MovePieceResult m = result->second;
 		switch(m)
 		{
 			case MovePieceResult::OK:
@@ -34,10 +38,12 @@ void Game::Start(){
 				previousPlayer = activePlayer;
 				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
 				if(m == MovePieceResult::Promote){
-					renderer->PromotePiece(previousPlayer, board);
+					Piece * newPiece = renderer->PromotePiece(previousPlayer, board);
+					((Move *)result->first)->SetPawnPromotion(newPiece);
 					if(board->TestCheck(activePlayer)){
 						m = MovePieceResult::Check;
 						status = GameStatus::InCheck;
+						result->second = m;
 					}
 					if(!board->TestPlayerHasMoves(activePlayer)){
 						renderer->RenderBoard(board, previousPlayer == Colour::Black);
@@ -66,6 +72,12 @@ void Game::Start(){
 				renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
 				break;
 		}
+		moves.push_back(result->first);
+		delete result;
+	}
+
+	for(int m = 0; m < moves.size(); m++){
+		delete moves.at(m);
 	}
 
 	if(status == GameStatus::Mate){

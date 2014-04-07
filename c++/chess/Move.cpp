@@ -21,8 +21,8 @@ void Move::SetPawnPromotion(Piece * piece){
 	pieceIdentifier = piece->GetIdentifier();
 }
 
-void Move::SetKingChecked(){
-	kingChecked = true;
+void Move::SetKingChecked(bool checked){
+	kingChecked = checked;
 }
 
 void Move::SetIsCastleMove(bool queenSide){
@@ -30,21 +30,30 @@ void Move::SetIsCastleMove(bool queenSide){
 	queenSideCastle = queenSide;
 }
 
+void Move::SetTaken(){
+	pieceTaken = true;
+}
+
 string Move::ToString(){
 	if(isCastleMove){
 		return (queenSideCastle ? "0-0-0" : "0-0");
 	}
 
-	// need to add piece promotion to this.
-	stringstream ss;
-	ss << (pieceIdentifier == 'P' ? "" : string(pieceIdentifier));
-	return ss.str();
+	string output;
+	if(pieceIdentifier != 'P' && !pawnPromotion){
+		output.push_back(pieceIdentifier);
+	}
+	output.append(Board::GetBoardPosition(startBoardPosition));
+	output.append(pieceTaken ? "x" : "-");
+	output.append(Board::GetBoardPosition(endBoardPosition));
 
-	/*return (pieceIdentifier == 'P' ? "" : string(pieceIdentifier))
-			+ Board::GetBoardPosition(startBoardPosition)
-			+ string((pieceTaken ? "x" : "-"))
-			+ Board::GetBoardPosition(endBoardPosition)
-			+ string((kingChecked ? "+" : ""));*/
+	if(pawnPromotion){
+		output.append("=");
+		output.push_back(pieceIdentifier);
+	}
+
+	output.append(kingChecked ? "+" : "");
+	return output;
 }
 
 

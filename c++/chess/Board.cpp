@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <sstream>
 
 using namespace Chess;
@@ -146,9 +147,12 @@ int Board::GetBoardPosition(string squareReference){
     return ((((int)secondChar)-48-1)*8) + column;
 }
 
-MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
+pair<Move *, MovePieceResult> * Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
+    Colour opponentColour = (piece->GetColour() == Colour::White ? Colour::Black : Colour::White);
     vector<int> * possibleMoves = piece->GetPossibleMoves();
+    Move * move;
+    pair<Move *, MovePieceResult> * movePair;
 	bool possibleMove = false;
 	for(int m = 0; m < (int)possibleMoves->size(); m++){
 
@@ -161,6 +165,7 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 	if(possibleMove){
 		Piece * movingPiece = squares[startBoardPosition];
 		Piece * takenPiece = squares[endBoardPosition];
+		move = new Move(startBoardPosition, endBoardPosition, false, movingPiece->GetIdentifier(), movingPiece->GetColour());
 
 		if(dynamic_cast<King*>(movingPiece) != nullptr && abs(startBoardPosition - endBoardPosition)==2){
 			bool queenSide = endBoardPosition < startBoardPosition;
@@ -172,8 +177,20 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			Piece * rook = PieceAtPosition(rookStartPosition);
 			squares[rookEndPosition] = rook;
 			rook->SetBoardPosition(rookEndPosition);
+
+			MovePieceResult moveResult;
+			if(TestCheck(opponentColour)){
+				moveResult = MovePieceResult::Check;
+			}
+			else {
+				moveResult = MovePieceResult::OK;
+			}
+
 			squares[rookStartPosition] = nullptr;
-			return MovePieceResult::OK;
+			move->SetIsCastleMove(queenSide);
+			move->SetKingChecked(moveResult == MovePieceResult::Check);
+			movePair = make_pair(move, moveResult);
+			return movePair;
 		}
 
 		Board moveBoard = Board(*this);
@@ -182,6 +199,7 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			if(takenPiece != nullptr){
 				takenPiece->SetBoardPosition(-1);
 				takenPiece->SetTaken();
+				move->SetTaken();
 			}
 
 			squares[endBoardPosition] = movingPiece;
@@ -193,22 +211,30 @@ MovePieceResult Board::MovePiece(int startBoardPosition, int endBoardPosition){
 			if(dynamic_cast<Pawn *>(movingPiece) != nullptr &&
 					((movingPiece->GetColour() == Colour::White && ((int)(movingPiece->GetBoardPosition()/8)==BLACK_BASE_ROW)) ||
 					(movingPiece->GetColour() == Colour::Black && ((int)(movingPiece->GetBoardPosition()/8)==WHITE_BASE_ROW)))){
-				return MovePieceResult::Promote;
+				movePair = make_pair(move, MovePieceResult::Promote);
+				return movePair;
 			}
 
-			Colour opponentColour = (piece->GetColour() == Colour::White ? Colour::Black : Colour::White);
+
+			MovePieceResult moveResult;
 			if(TestCheck(opponentColour)){
-				return MovePieceResult::Check;
+				moveResult = MovePieceResult::Check;
+				move->SetKingChecked(true);
 			}
 			else {
-				return MovePieceResult::OK;
+				moveResult = MovePieceResult::OK;
 			}
+
+			movePair = make_pair(move, moveResult);
+			return movePair;
 		}
 
-		return testMoveResult;
+		movePair = make_pair(nullptr, testMoveResult);
+		return movePair;
 	}
 
-	return MovePieceResult::InvalidMove;
+	movePair = make_pair(nullptr, MovePieceResult::InvalidMove);
+	return movePair;
 }
 
 int Board::GetColumn(char columnChar){
