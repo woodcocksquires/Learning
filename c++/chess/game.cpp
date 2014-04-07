@@ -87,7 +87,11 @@ void Game::Start(){
 		}
 	}
 
-	for(int m = 0; m < moves.size(); m++){
+	if(moves.size() > 0 && validMove){
+		renderer->RenderMoves(moves);
+	}
+
+	for(int m = 0; m < (int)moves.size(); m++){
 		delete moves.at(m);
 	}
 

@@ -23,6 +23,7 @@ namespace Chess {
 	}
 
 	pair<int, int> AI_Jarvis::MakeMove(Board * board, vector<Move *> moves){
+
 			return make_pair(0 ,0);
 	}
 } /* namespace Chess */
