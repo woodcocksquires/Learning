@@ -4,7 +4,6 @@
 #include "move.h"
 #include "ChessUtils.h"
 #include "Board.h"
-#include <sstream>
 
 using namespace std;
 using namespace Chess;
@@ -32,6 +31,10 @@ void Move::SetIsCastleMove(bool queenSide){
 
 void Move::SetTaken(){
 	pieceTaken = true;
+}
+
+Colour Move::GetColour(){
+	return colour;
 }
 
 string Move::ToString(){

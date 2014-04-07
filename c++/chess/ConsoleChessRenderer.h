@@ -27,10 +27,10 @@ namespace Chess {
             virtual void RenderBoard(Board * board, bool inverse);
             virtual void StartGame();
             virtual PlayerType GetPlayerType(Colour colour);
-            virtual pair<Move *, MovePieceResult> * MakeMove(Colour colour, Board * board);
+            virtual pair<Move *, MovePieceResult> MakeMove(Colour colour, Board * board);
             virtual void RenderMessage(string message);
             virtual Piece * PromotePiece(Colour colour, Board * board);
-            virtual void RenderMoves();
+            virtual void RenderMoves(vector<Move *> moves);
         };
     }
 }

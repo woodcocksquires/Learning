@@ -147,12 +147,12 @@ int Board::GetBoardPosition(string squareReference){
     return ((((int)secondChar)-48-1)*8) + column;
 }
 
-pair<Move *, MovePieceResult> * Board::MovePiece(int startBoardPosition, int endBoardPosition){
+pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBoardPosition){
     Piece * piece = PieceAtPosition(startBoardPosition);
     Colour opponentColour = (piece->GetColour() == Colour::White ? Colour::Black : Colour::White);
     vector<int> * possibleMoves = piece->GetPossibleMoves();
     Move * move;
-    pair<Move *, MovePieceResult> * movePair;
+    pair<Move *, MovePieceResult> movePair;
 	bool possibleMove = false;
 	for(int m = 0; m < (int)possibleMoves->size(); m++){
 

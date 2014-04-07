@@ -185,7 +185,7 @@ PlayerType ConsoleChessRenderer::GetPlayerType(Colour colour){
     return output;
 }
 
-pair<Move *, MovePieceResult> * ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
+pair<Move *, MovePieceResult> ConsoleChessRenderer::MakeMove(Colour colour, Board * board){
     string startPosition, endPosition;
     int startBoardPosition, endBoardPosition;
     Piece * startPiece = nullptr;
@@ -235,8 +235,27 @@ void ConsoleChessRenderer::RenderMessage(string message){
 	cout << message << endl;
 }
 
-void ConsoleChessRenderer::RenderMoves(){
+void ConsoleChessRenderer::RenderMoves(vector<Move *> moves){
+	int moveNumber = 0;
+	cout << "\nMove history:" << endl;
+	for(int m = 0; m < moves.size(); m++){
+		Move * move = moves[m];
+		if(move->GetColour() == Colour::White){
+			moveNumber++;
+			cout << moveNumber << ". ";
+		}
+		else{
+			cout << " ";
+		}
 
+		cout << move->ToString();
+
+		if(move->GetColour() == Colour::Black && m != (moves.size() - 1)){
+			cout << ", ";
+		}
+	}
+
+	cout << "\n";
 }
 
 Piece * ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){

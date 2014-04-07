@@ -9,6 +9,7 @@ using namespace std;
 namespace Chess {
 	class Board;
 	class Piece;
+	class Move;
 
 	enum Colour: int { White, Black };
 	enum PlayerType: int { Human, CPU };

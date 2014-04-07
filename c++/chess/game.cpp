@@ -25,11 +25,15 @@ void Game::Start(){
 
 	renderer->RenderBoard(board, false);
 	Colour previousPlayer = Colour::White;
-
+	bool validMove = true;
 	while(status == GameStatus::Active || status == GameStatus::InCheck){
-		pair<Move *, MovePieceResult> * result;
+		pair<Move *, MovePieceResult> result;
+		if(moves.size() > 0 && validMove){
+			renderer->RenderMoves(moves);
+		}
+
 		result = renderer->MakeMove(activePlayer, board);
-		MovePieceResult m = result->second;
+		MovePieceResult m = result.second;
 		switch(m)
 		{
 			case MovePieceResult::OK:
@@ -39,13 +43,14 @@ void Game::Start(){
 				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
 				if(m == MovePieceResult::Promote){
 					Piece * newPiece = renderer->PromotePiece(previousPlayer, board);
-					((Move *)result->first)->SetPawnPromotion(newPiece);
+					((Move *)result.first)->SetPawnPromotion(newPiece);
 					if(board->TestCheck(activePlayer)){
 						m = MovePieceResult::Check;
 						status = GameStatus::InCheck;
-						result->second = m;
+						result.second = m;
 					}
 					if(!board->TestPlayerHasMoves(activePlayer)){
+						status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
 						renderer->RenderBoard(board, previousPlayer == Colour::Black);
 						break;
 					}
@@ -64,16 +69,20 @@ void Game::Start(){
 				if(!board->TestPlayerHasMoves(activePlayer)){
 					status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
 				}
+				validMove = true;
 				break;
 			case MovePieceResult::InvalidMove:
 				renderer->RenderMessage("\nInvalid move, please try again.");
+				validMove = false;
 				break;
 			case MovePieceResult::IllegalMove:
 				renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
+				validMove = false;
 				break;
 		}
-		moves.push_back(result->first);
-		delete result;
+		if(result.first != nullptr){
+			moves.push_back(result.first);
+		}
 	}
 
 	for(int m = 0; m < moves.size(); m++){
