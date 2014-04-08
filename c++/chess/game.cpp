@@ -19,6 +19,12 @@ Game::Game(BaseRenderer * _renderer){
     aiPlayers = vector<AI *>();
 }
 
+Game::~Game(){
+	for(int a=0; a<aiPlayers.size(); a++){
+		delete aiPlayers.at(a);
+	}
+}
+
 void Game::Start(){
 	renderer->StartGame();
 	whitePlayerType = renderer->GetPlayerType(Colour::White);
@@ -34,7 +40,16 @@ void Game::Start(){
 			renderer->RenderMoves(moves);
 		}
 
-		result = renderer->MakeMove(activePlayer, board);
+		PlayerType currentPlayerType = (activePlayer == Colour::White ? whitePlayerType: blackPlayerType);
+		if(currentPlayerType == PlayerType::CPU){
+			AI * aiInstance = aiPlayers.at(0);
+			pair<int, int> cpuMove = aiInstance->MakeMove(board, moves);
+			board->MovePiece(cpuMove.first, cpuMove.second);
+		}
+		else{
+			result = renderer->MakeMove(activePlayer, board);
+		}
+
 		MovePieceResult m = result.second;
 		switch(m)
 		{

@@ -13,9 +13,7 @@ namespace Chess {
 		Piece * whiteKing, * blackKing;
 		Piece * lastMovePiece;
 		static int GetColumn(char columnChar);
-      protected:
-		MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
-	  public:
+      public:
 		Board();
 		~Board();
 		Board(const Board& _board);
@@ -34,6 +32,7 @@ namespace Chess {
         bool TestPlayerHasMoves(Colour colour);
         Piece * GetKing(Colour colour);
         void PromotePiece(Piece * piece);
+        MovePieceResult TestLegalMove(int startBoardPosition, int endBoardPosition);
         template <class T>
         T * MakePiece(Colour colour, int boardPosition){
         	T * pPiece = new T(colour, boardPosition, this);

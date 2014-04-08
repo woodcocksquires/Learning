@@ -23,6 +23,7 @@ namespace Chess {
         vector<AI *> aiPlayers;
       public:
         Game(BaseRenderer * _renderer);
+        ~Game();
         void Start();
         void AddAIPlayer(AI *);
     };
