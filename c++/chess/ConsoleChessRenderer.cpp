@@ -238,7 +238,7 @@ void ConsoleChessRenderer::RenderMessage(string message){
 void ConsoleChessRenderer::RenderMoves(vector<Move *> moves){
 	int moveNumber = 0;
 	cout << "\nMove history:" << endl;
-	for(int m = 0; m < moves.size(); m++){
+	for(int m = 0; m < (int)moves.size(); m++){
 		Move * move = moves[m];
 		if(move->GetColour() == Colour::White){
 			moveNumber++;
@@ -250,7 +250,7 @@ void ConsoleChessRenderer::RenderMoves(vector<Move *> moves){
 
 		cout << move->ToString();
 
-		if(move->GetColour() == Colour::Black && m != (moves.size() - 1)){
+		if(move->GetColour() == Colour::Black && m != ((int)moves.size() - 1)){
 			cout << ", ";
 		}
 	}

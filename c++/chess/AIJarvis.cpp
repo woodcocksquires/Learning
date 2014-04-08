@@ -7,6 +7,7 @@
 
 #include "AIJarvis.h"
 #include <utility>
+#include <vector>
 #include "chess.h"
 #include "Board.h"
 #include "move.h"
@@ -23,13 +24,13 @@ namespace Chess {
 		// TODO Auto-generated destructor stub
 	}
 
-	pair<int, int> AI_Jarvis::MakeMove(Board * board, vector<Move *> moves){
+	pair<int, int> AI_Jarvis::MakeMove(Board * board, vector<Move *> inputMoves){
 		vector<pair<int, int>> possibleMoves;
 		for(int s = 0; s<SQUARE_COUNT; s++){
 			Piece * piece = board->PieceAtPosition(s);
 			if(piece != nullptr){
 				vector<int> * pieceMoves = piece->GetPossibleMoves();
-				for(int m=0; m<pieceMoves->size(); m++){
+				for(int m=0; m<(int)pieceMoves->size(); m++){
 					Board copyBoard = Board(*board);
 					if(copyBoard.TestLegalMove(s, pieceMoves->at(m))){
 						possibleMoves.push_back(make_pair(s, pieceMoves->at(m)));

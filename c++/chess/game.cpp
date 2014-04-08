@@ -20,7 +20,7 @@ Game::Game(BaseRenderer * _renderer){
 }
 
 Game::~Game(){
-	for(int a=0; a<aiPlayers.size(); a++){
+	for(int a=0; a<(int)aiPlayers.size(); a++){
 		delete aiPlayers.at(a);
 	}
 }
