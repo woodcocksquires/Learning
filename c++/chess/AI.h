@@ -21,6 +21,7 @@ namespace Chess {
 class AI {
   private:
 	string name;
+  protected:
 	Colour colour;
   public:
 	virtual ~AI();

@@ -29,6 +29,15 @@ void Game::Start(){
 	renderer->StartGame();
 	whitePlayerType = renderer->GetPlayerType(Colour::White);
 	blackPlayerType = renderer->GetPlayerType(Colour::Black);
+
+	if(whitePlayerType == PlayerType::CPU){
+		aiPlayers.at(0)->SetColour(Colour::White);
+	}
+
+	if(blackPlayerType == PlayerType::CPU){
+		aiPlayers.at(0)->SetColour(Colour::Black);
+	}
+
 	vector<Move *> moves = vector<Move *>();
 
 	renderer->RenderBoard(board, false);
