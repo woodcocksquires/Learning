@@ -36,6 +36,7 @@ namespace Chess {
 
 				for(int m=0; m<(int)pieceMoves->size(); m++){
 					Board copyBoard = Board(*board);
+					cout << "\n" << s << " " << pieceMoves->at(m);
 					if(copyBoard.TestLegalMove(s, pieceMoves->at(m)) == MovePieceResult::OK){
 						possibleMoves.push_back(make_pair(s, pieceMoves->at(m)));
 					}
@@ -44,6 +45,8 @@ namespace Chess {
 			}
 		}
 
-		return possibleMoves.at(rand() % possibleMoves.size());
+		int randValue = rand() % possibleMoves.size();
+		cout << "\nmove:" << randValue;
+		return possibleMoves.at(randValue);
 	}
 } /* namespace Chess */
