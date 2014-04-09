@@ -5,6 +5,7 @@
 #include "Chess.h"
 #include <vector>
 #include "ai.h"
+#include "aitype.h"
 
 using namespace std;
 using namespace Chess;
@@ -14,18 +15,20 @@ namespace Chess {
     class Game
     {
         PlayerType whitePlayerType, blackPlayerType;
+        AI * whiteAI, * blackAI;
         BaseRenderer * renderer;
         Board * board;
         Colour activePlayer;
         bool isCheck;
         GameStatus status;
         vector<string> moves;
-        vector<AI *> aiPlayers;
+        vector<AIType *> aiPlayers;
+        void ProcessContinue(Colour previousPlayer, pair<Move *, MovePieceResult> result, MovePieceResult moveResult);
       public:
         Game(BaseRenderer * _renderer);
         ~Game();
         void Start();
-        void AddAIPlayer(AI *);
+        void AddAIPlayer(AIType *);
     };
 }
 #endif // GAME_H

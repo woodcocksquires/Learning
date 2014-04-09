@@ -21,7 +21,7 @@ using namespace Chess;
 
 namespace Chess {
 
-	AI_Jarvis::AI_Jarvis(): AI("Jarvis"){}
+	AI_Jarvis::AI_Jarvis(Colour _colour): AI(_colour){}
 
 	AI_Jarvis::~AI_Jarvis(){
 		// TODO Auto-generated destructor stub

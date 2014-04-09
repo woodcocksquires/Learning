@@ -21,7 +21,7 @@ namespace Chess {
 
 	class AI_Jarvis: public AI {
 	  public:
-		AI_Jarvis();
+		AI_Jarvis(Colour _colour);
 		virtual ~AI_Jarvis();
 		virtual pair<int, int> MakeMove(Board * board, vector<Move *> moves);
 	};

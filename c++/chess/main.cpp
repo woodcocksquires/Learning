@@ -3,7 +3,7 @@
 #include "ChessRenderer.h"
 #include "ConsoleChessRenderer.h"
 #include "game.h"
-#include "aijarvis.h"
+#include "aitypejarvis.h"
 
 using namespace std;
 using namespace Chess;
@@ -13,7 +13,7 @@ int main()
 {
 	BaseRenderer * renderer = new ConsoleChessRenderer();
 	Game game = Game(renderer);
-	game.AddAIPlayer(new AI_Jarvis());
+	game.AddAIPlayer(new AIType_Jarvis());
 	game.Start();
     int x = 0;
 	cin >> x;

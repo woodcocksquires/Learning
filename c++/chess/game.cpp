@@ -3,6 +3,7 @@
 #include "ChessUtils.h"
 #include <utility>
 #include "ai.h"
+#include "aitype.h"
 
 using namespace Chess;
 using namespace Chess::Renderer;
@@ -16,7 +17,8 @@ Game::Game(BaseRenderer * _renderer){
     renderer = _renderer;
     board = new Board();
     whitePlayerType = blackPlayerType = PlayerType::Human;
-    aiPlayers = vector<AI *>();
+    whiteAI = blackAI = nullptr;
+    aiPlayers = vector<AIType *>();
 }
 
 Game::~Game(){
@@ -31,11 +33,11 @@ void Game::Start(){
 	blackPlayerType = renderer->GetPlayerType(Colour::Black);
 
 	if(whitePlayerType == PlayerType::CPU){
-		aiPlayers.at(0)->SetColour(Colour::White);
+		whiteAI = aiPlayers.at(0)->CreateInstance(Colour::White);
 	}
 
 	if(blackPlayerType == PlayerType::CPU){
-		aiPlayers.at(0)->SetColour(Colour::Black);
+		blackAI = aiPlayers.at(0)->CreateInstance(Colour::Black);
 	}
 
 	vector<Move *> moves = vector<Move *>();
@@ -51,7 +53,7 @@ void Game::Start(){
 
 		PlayerType currentPlayerType = (activePlayer == Colour::White ? whitePlayerType: blackPlayerType);
 		if(currentPlayerType == PlayerType::CPU){
-			AI * aiInstance = aiPlayers.at(0);
+			AI * aiInstance = (activePlayer == Colour::White ? whiteAI : blackAI);
 			pair<int, int> cpuMove = aiInstance->MakeMove(board, moves);
 			result = board->MovePiece(cpuMove.first, cpuMove.second);
 		}
@@ -65,36 +67,7 @@ void Game::Start(){
 			case MovePieceResult::OK:
 			case MovePieceResult::Check:
 			case MovePieceResult::Promote:
-				previousPlayer = activePlayer;
-				activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
-				if(m == MovePieceResult::Promote){
-					Piece * newPiece = renderer->PromotePiece(previousPlayer, board);
-					((Move *)result.first)->SetPawnPromotion(newPiece);
-					if(board->TestCheck(activePlayer)){
-						m = MovePieceResult::Check;
-						status = GameStatus::InCheck;
-						result.second = m;
-					}
-					if(!board->TestPlayerHasMoves(activePlayer)){
-						status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
-						renderer->RenderBoard(board, previousPlayer == Colour::Black);
-						break;
-					}
-				}
-				renderer->RenderBoard(board, activePlayer == Colour::Black);
-				if(m == MovePieceResult::Check){
-					renderer->RenderMessage(string(Utility::ColourStrings[activePlayer]) + ", you are in check!");
-					status = GameStatus::InCheck;
-					((King *)board->GetKing(activePlayer))->SetChecked(true);
-				}
-				else{
-					status = GameStatus::Active;
-					((King *)board->GetKing(previousPlayer))->SetChecked(false);
-				}
-
-				if(!board->TestPlayerHasMoves(activePlayer)){
-					status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
-				}
+				ProcessContinue(previousPlayer, result, m);
 				validMove = true;
 				break;
 			case MovePieceResult::InvalidMove:
@@ -106,6 +79,7 @@ void Game::Start(){
 				validMove = false;
 				break;
 		}
+
 		if(result.first != nullptr){
 			moves.push_back(result.first);
 		}
@@ -129,6 +103,39 @@ void Game::Start(){
 	return;
 }
 
-void Game::AddAIPlayer(AI * player){
+void Game::AddAIPlayer(AIType * player){
 	aiPlayers.push_back(player);
+}
+
+void Game::ProcessContinue(Colour previousPlayer, pair<Move *, MovePieceResult> result, MovePieceResult moveResult){
+	previousPlayer = activePlayer;
+	activePlayer = activePlayer == Colour::White ? Colour::Black : Colour::White;
+	if(moveResult == MovePieceResult::Promote){
+		Piece * newPiece = renderer->PromotePiece(previousPlayer, board);
+		((Move *)result.first)->SetPawnPromotion(newPiece);
+		if(board->TestCheck(activePlayer)){
+			moveResult = MovePieceResult::Check;
+			status = GameStatus::InCheck;
+			result.second = moveResult;
+		}
+		if(!board->TestPlayerHasMoves(activePlayer)){
+			status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
+			renderer->RenderBoard(board, previousPlayer == Colour::Black);
+			return;
+		}
+	}
+	renderer->RenderBoard(board, activePlayer == Colour::Black);
+	if(moveResult == MovePieceResult::Check){
+		renderer->RenderMessage(string(Utility::ColourStrings[activePlayer]) + ", you are in check!");
+		status = GameStatus::InCheck;
+		((King *)board->GetKing(activePlayer))->SetChecked(true);
+	}
+	else{
+		status = GameStatus::Active;
+		((King *)board->GetKing(previousPlayer))->SetChecked(false);
+	}
+
+	if(!board->TestPlayerHasMoves(activePlayer)){
+		status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
+	}
 }

@@ -7,18 +7,17 @@
 
 #include "AI.h"
 #include <string>
+#include "chess.h"
 
 using namespace std;
+using namespace Chess;
 
 namespace Chess {
 
-	AI::AI(string _name): name(_name), colour(Colour::White){}
+	AI::AI(Colour _colour): colour(_colour){}
 
 	AI::~AI() {
 		// TODO Auto-generated destructor stub
 	}
 
-	void AI::SetColour(Colour _colour){
-		colour = _colour;
-	}
 } /* namespace Chess */

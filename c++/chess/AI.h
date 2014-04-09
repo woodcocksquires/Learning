@@ -19,15 +19,11 @@ using namespace Chess;
 namespace Chess {
 
 class AI {
-  private:
-	string name;
   protected:
 	Colour colour;
   public:
 	virtual ~AI();
-	AI(string _name);
-	string GetName();
-	void SetColour(Colour _colour);
+	AI(Colour _colour);
 	virtual pair<int, int> MakeMove(Board * board, vector<Move *> moves) = 0;
 };
 
