@@ -53,7 +53,7 @@ void Game::Start(){
 		if(currentPlayerType == PlayerType::CPU){
 			AI * aiInstance = aiPlayers.at(0);
 			pair<int, int> cpuMove = aiInstance->MakeMove(board, moves);
-			board->MovePiece(cpuMove.first, cpuMove.second);
+			result = board->MovePiece(cpuMove.first, cpuMove.second);
 		}
 		else{
 			result = renderer->MakeMove(activePlayer, board);
