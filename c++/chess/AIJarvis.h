@@ -23,7 +23,7 @@ namespace Chess {
 	  public:
 		AI_Jarvis(Colour _colour);
 		virtual ~AI_Jarvis();
-		virtual pair<int, int> MakeMove(Board * board, vector<Move *> moves);
+		virtual pair<Move *, MovePieceResult> MakeMove(Board * board, vector<Move *> moves);
 	};
 
 } /* namespace Chess */

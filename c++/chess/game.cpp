@@ -54,8 +54,7 @@ void Game::Start(){
 		PlayerType currentPlayerType = (activePlayer == Colour::White ? whitePlayerType: blackPlayerType);
 		if(currentPlayerType == PlayerType::CPU){
 			AI * aiInstance = (activePlayer == Colour::White ? whiteAI : blackAI);
-			pair<int, int> cpuMove = aiInstance->MakeMove(board, moves);
-			result = board->MovePiece(cpuMove.first, cpuMove.second);
+			result = aiInstance->MakeMove(board, moves);
 		}
 		else{
 			result = renderer->MakeMove(activePlayer, board);

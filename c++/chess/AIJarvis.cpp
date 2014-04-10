@@ -27,7 +27,7 @@ namespace Chess {
 		// TODO Auto-generated destructor stub
 	}
 
-	pair<int, int> AI_Jarvis::MakeMove(Board * board, vector<Move *> inputMoves){
+	pair<Move*, MovePieceResult> AI_Jarvis::MakeMove(Board * board, vector<Move *> inputMoves){
 		vector<pair<int, int>> possibleMoves;
 		for(int s = 0; s<SQUARE_COUNT; s++){
 			Piece * piece = board->PieceAtPosition(s);
@@ -44,7 +44,14 @@ namespace Chess {
 			}
 		}
 
-		int randValue = rand() % possibleMoves.size();
-		return possibleMoves.at(randValue);
+		pair<int, int> randMove = possibleMoves.at(rand() % possibleMoves.size());
+		pair<Move *, MovePieceResult> result = board->MovePiece(randMove.first, randMove.second);
+		if(result.second == MovePieceResult::Promote){
+			Piece * newPiece = board->MakePiece<Queen>(colour, 0);
+			board->PromotePiece(newPiece);
+			((Move *)result.first)->SetPawnPromotion(newPiece);
+			result.second = MovePieceResult::OK;
+		}
+		return result;
 	}
 } /* namespace Chess */
