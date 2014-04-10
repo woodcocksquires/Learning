@@ -289,10 +289,13 @@ bool Board::TestCheck(Colour colour){
 	}
 
 	for(int p=0; p<PIECE_COUNT; p++){
+
+
 		Piece * oppositionPiece = oppositionPieces[p];
-		if(oppositionPiece->GetTaken()){
+		if(oppositionPiece->GetTaken() || dynamic_cast<King*>(oppositionPiece) != nullptr){
 			continue;
 		}
+
 
 		vector<int> * moves = oppositionPiece->GetPossibleMoves(true);
 		for(int m=0; m<(int)moves->size(); m++){
@@ -303,7 +306,6 @@ bool Board::TestCheck(Colour colour){
 		}
 		delete moves;
 	}
-
 	return false;
 }
 
