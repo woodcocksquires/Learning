@@ -192,13 +192,27 @@ pair<Move *, MovePieceResult> ConsoleChessRenderer::MakeMove(Colour colour, Boar
     bool opponentPiece = false;
 
     cout << endl;
-    cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move.";
+    cout << Utility::ColourStrings[colour] << ", please enter the reference of the piece you would like to move. To offer a draw type '-', to resign type '!' .";
     cout << endl;
     cout << "Reference: " << flush;
 
     do{
     	opponentPiece = false;
         cin >> startPosition;
+
+        if(startPosition.length() > 0){
+        	if(startPosition[0] == '-'){
+        		if(ConfirmChoice("\nAre you sure you want to offer a draw?")){
+        			return make_pair(nullptr, MovePieceResult::OfferDraw);
+        		}
+        	}
+        	else if(startPosition[0]=='!'){
+        		if(ConfirmChoice("\nAre you sure you want to resign?")){
+        			return make_pair(nullptr, MovePieceResult::Resign);
+        		}
+        	}
+        }
+
         startBoardPosition = board->GetBoardPosition(startPosition);
 
         if(startBoardPosition == -1){
@@ -293,3 +307,9 @@ Piece * ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 	board->PromotePiece(newPiece);
 	return newPiece;
 }
+
+bool ConsoleChessRenderer::ConfirmChoice(string message){
+	cout << message;
+	return true;
+}
+

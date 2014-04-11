@@ -69,6 +69,12 @@ void Game::Start(){
 				ProcessContinue(previousPlayer, result, m);
 				validMove = true;
 				break;
+			case MovePieceResult::OfferDraw:
+
+				break;
+			case MovePieceResult::Resign:
+				status = GameStatus::Resigned;
+				break;
 			case MovePieceResult::InvalidMove:
 				renderer->RenderMessage("\nInvalid move, please try again.");
 				validMove = false;
@@ -92,11 +98,18 @@ void Game::Start(){
 		delete moves.at(m);
 	}
 
-	if(status == GameStatus::Mate){
-		renderer->RenderMessage("\nCheckmate! " + string(Utility::ColourStrings[(activePlayer == Colour::White ? Colour::Black : Colour::White)]) + " wins.");
-	}
-	else{
-		renderer->RenderMessage("\nStalemate! " + string(Utility::ColourStrings[activePlayer]) + " has no legal moves.");
+	switch(status){
+		case GameStatus::Mate:
+			renderer->RenderMessage("\nCheckmate! " + string(Utility::ColourStrings[(activePlayer == Colour::White ? Colour::Black : Colour::White)]) + " wins.");
+			break;
+		case GameStatus::Stalemate:
+			renderer->RenderMessage("\nStalemate! " + string(Utility::ColourStrings[activePlayer]) + " has no legal moves.");
+			break;
+		case GameStatus::Draw:
+			renderer->RenderMessage("\nThe players agree to draw the game.");
+			break;
+		default:
+			break;
 	}
 
 	return;
