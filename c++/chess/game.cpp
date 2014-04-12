@@ -47,13 +47,17 @@ void Game::Start(){
 	bool validMove = true;
 	while(status == GameStatus::Active || status == GameStatus::InCheck){
 		pair<Move *, MovePieceResult> result;
+		Colour opponent;
+		PlayerType opponentPlayerType;
+
 		if(moves.size() > 0 && validMove){
 			renderer->RenderMoves(moves);
 		}
 
 		PlayerType currentPlayerType = (activePlayer == Colour::White ? whitePlayerType: blackPlayerType);
+		AI * aiInstance;
 		if(currentPlayerType == PlayerType::CPU){
-			AI * aiInstance = (activePlayer == Colour::White ? whiteAI : blackAI);
+			aiInstance = (activePlayer == Colour::White ? whiteAI : blackAI);
 			result = aiInstance->MakeMove(board, moves);
 		}
 		else{
@@ -70,7 +74,29 @@ void Game::Start(){
 				validMove = true;
 				break;
 			case MovePieceResult::OfferDraw:
-
+				opponent = (activePlayer == Colour::White ? Colour::Black : Colour::White);
+				opponentPlayerType = (opponent == Colour::White ? whitePlayerType : blackPlayerType);
+				if(opponentPlayerType == PlayerType::CPU){
+					AI * opponentInstance = (opponent == Colour::White ? whiteAI : blackAI);
+					if(opponentInstance->EvaluateDrawOffer()){
+						status = GameStatus::Draw;
+						break;
+					}
+					else{
+						renderer->RenderMessage("\nOffer of draw declined.");
+						break;
+					}
+				}
+				else{
+					if(renderer->ConfirmChoice(string(Utility::ColourStrings[opponent]) + ", would you like to accept " + string(Utility::ColourStrings[activePlayer]) + "'s offer of a draw?")){
+						status = GameStatus::Draw;
+						break;
+					}
+					else{
+						renderer->RenderMessage("\nOffer of draw declined.");
+						break;
+					}
+				}
 				break;
 			case MovePieceResult::Resign:
 				status = GameStatus::Resigned;
@@ -107,6 +133,9 @@ void Game::Start(){
 			break;
 		case GameStatus::Draw:
 			renderer->RenderMessage("\nThe players agree to draw the game.");
+			break;
+		case GameStatus::Resigned:
+			renderer->RenderMessage("\n" + string(Utility::ColourStrings[activePlayer]) + " resigns the game!");
 			break;
 		default:
 			break;

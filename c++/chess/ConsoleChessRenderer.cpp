@@ -202,12 +202,12 @@ pair<Move *, MovePieceResult> ConsoleChessRenderer::MakeMove(Colour colour, Boar
 
         if(startPosition.length() > 0){
         	if(startPosition[0] == '-'){
-        		if(ConfirmChoice("\nAre you sure you want to offer a draw?")){
+        		if(ConfirmChoice("\n\nAre you sure you want to offer a draw?")){
         			return make_pair(nullptr, MovePieceResult::OfferDraw);
         		}
         	}
         	else if(startPosition[0]=='!'){
-        		if(ConfirmChoice("\nAre you sure you want to resign?")){
+        		if(ConfirmChoice("\n\nAre you sure you want to resign?")){
         			return make_pair(nullptr, MovePieceResult::Resign);
         		}
         	}
@@ -309,7 +309,13 @@ Piece * ConsoleChessRenderer::PromotePiece(Colour colour, Board * board){
 }
 
 bool ConsoleChessRenderer::ConfirmChoice(string message){
-	cout << message;
-	return true;
+	cout << message << "\n   Y   Yes\n   N   No\n\nOption: ";
+	string input;
+	cin >> input;
+	while(input != "Y" && input != "y" && input != "N" && input != "n"){
+		cout << "\nIncorrect input, please try again:";
+		cin >> input;
+	}
+	return (input == "Y" || input == "y");
 }
 

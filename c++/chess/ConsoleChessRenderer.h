@@ -19,7 +19,6 @@ namespace Chess {
             void RenderBoardRowContent(Board * board, int offset, bool inverse);
             void RenderBoardRowContentColumn(Board * board, int offset, int coloffset, bool inverse);
             void RenderBoardLabelRow(bool inverse);
-            bool ConfirmChoice(string message);
             Colour GetSquareColour(int rowOffset, int colOffset);
           protected:
             void RenderBoardRow(Board * board, int offset, bool inverse);
@@ -32,6 +31,7 @@ namespace Chess {
             virtual void RenderMessage(string message);
             virtual Piece * PromotePiece(Colour colour, Board * board);
             virtual void RenderMoves(vector<Move *> moves);
+            bool ConfirmChoice(string message);
         };
     }
 }

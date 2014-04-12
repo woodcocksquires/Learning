@@ -24,6 +24,7 @@ namespace Chess {
 		AI_Jarvis(Colour _colour);
 		virtual ~AI_Jarvis();
 		virtual pair<Move *, MovePieceResult> MakeMove(Board * board, vector<Move *> moves);
+		virtual bool EvaluateDrawOffer();
 	};
 
 } /* namespace Chess */

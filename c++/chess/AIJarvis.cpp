@@ -54,4 +54,8 @@ namespace Chess {
 		}
 		return result;
 	}
+
+	bool AI_Jarvis::EvaluateDrawOffer(){
+		return rand() % 2 == 1;
+	}
 } /* namespace Chess */

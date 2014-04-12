@@ -5,7 +5,7 @@
 #include "game.h"
 #include "aitypejarvis.h"
 #include <ctime>
-
+#include "stdlib.h"
 
 using namespace std;
 using namespace Chess;

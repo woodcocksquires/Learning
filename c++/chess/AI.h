@@ -25,6 +25,7 @@ class AI {
 	virtual ~AI();
 	AI(Colour _colour);
 	virtual pair<Move *, MovePieceResult> MakeMove(Board * board, vector<Move *> moves) = 0;
+	virtual bool EvaluateDrawOffer() = 0;
 };
 
 } /* namespace Chess */

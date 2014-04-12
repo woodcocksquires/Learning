@@ -3,8 +3,10 @@
 
 #include "Board.h"
 #include "Chess.h"
+#include <string>
 
 using namespace Chess;
+using namespace std;
 
 namespace Chess {
     namespace Renderer {
@@ -17,6 +19,7 @@ namespace Chess {
             virtual void RenderMessage(string message) = 0;
             virtual void RenderMoves(vector<Move *> moves) = 0;
             virtual Piece * PromotePiece(Colour colour, Board * board) = 0;
+            virtual bool ConfirmChoice(string message) = 0;
             virtual ~BaseRenderer();
         };
     }
