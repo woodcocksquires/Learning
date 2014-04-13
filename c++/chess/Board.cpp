@@ -391,3 +391,7 @@ string Board::GetBoardPosition(int boardPosition){
 	ss << Utility::ColumnNames[col] << char(row+48);
 	return ss.str();
 }
+
+char[64] Board::MakeMoveKey(){
+
+}

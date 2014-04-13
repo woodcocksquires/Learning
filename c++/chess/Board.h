@@ -12,7 +12,9 @@ namespace Chess {
 		Piece ** whitePieces, ** blackPieces, ** squares;
 		Piece * whiteKing, * blackKing;
 		Piece * lastMovePiece;
+		vector<pair<char*, int>> moveKeys;
 		static int GetColumn(char columnChar);
+		char* MakeMoveKey();
       public:
 		Board();
 		~Board();
