@@ -148,7 +148,7 @@ void Game::Start(){
 			renderer->RenderMessage("\nStalemate! The same board position was repeated three times.");
 			break;
 		case GameStatus::StalemateNoTaken:
-			renderer->RenderMessage("\nStalemate! No piece has been taken in 50 turns.");
+			renderer->RenderMessage("\nStalemate! No piece has been taken in 50 turns and no pawn has been moved.");
 			break;
 		default:
 			break;
