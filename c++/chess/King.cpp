@@ -26,7 +26,7 @@ vector<int> * King::GetPossibleMoves(bool includeKing){
 		moves->push_back((colour == Colour::White ? 2 : 58));
 	}
 
-	for(int m=0; m<moves->size(); m++){
+	for(int m=0; m<(int)moves->size(); m++){
 		int moveRow, moveCol, currentMove;
 		currentMove = moves->at(m);
 		moveRow = currentMove / 8;

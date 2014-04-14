@@ -10,7 +10,7 @@
 using namespace Chess;
 using namespace std;
 
-Board::Board() {
+Board::Board(): movesSincePieceTaken(0) {
 	whitePieces = new Piece*[PIECE_COUNT];
 	blackPieces = new Piece*[PIECE_COUNT];
 	lastMovePiece = nullptr;
@@ -37,6 +37,11 @@ Board::~Board() {
         whitePieces[p] = blackPieces[p] = nullptr;
     }
 
+    for(int k=0; k<(int)moveKeys.size(); k++){
+    	pair<char*, int>& moveKey = moveKeys[k];
+    	delete moveKey.first;
+    }
+
     delete[] whitePieces;
     delete[] blackPieces;
     delete[] squares;
@@ -49,6 +54,7 @@ Board::Board(const Board& _board){
 	blackPieces = new Piece*[PIECE_COUNT];
 	squares = new Piece*[SQUARE_COUNT];
 	lastMovePiece = nullptr;
+	movesSincePieceTaken = _board.movesSincePieceTaken;
 
 	for(int s=0; s<SQUARE_COUNT; s++){
 		squares[s] = nullptr;
@@ -190,6 +196,7 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 			move->SetIsCastleMove(queenSide);
 			move->SetKingChecked(moveResult == MovePieceResult::Check);
 			movePair = make_pair(move, moveResult);
+			movesSincePieceTaken++;
 			return movePair;
 		}
 
@@ -200,6 +207,10 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 				takenPiece->SetBoardPosition(-1);
 				takenPiece->SetTaken();
 				move->SetTaken();
+				movesSincePieceTaken = 0;
+			}
+			else{
+				movesSincePieceTaken++;
 			}
 
 			squares[endBoardPosition] = movingPiece;
@@ -229,6 +240,10 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 
 			if(AddMoveKey(MakeMoveKey()) == MovePieceResult::RepeatStalemate){
 				moveResult = MovePieceResult::RepeatStalemate;
+			}
+
+			if(movesSincePieceTaken == 100){
+				moveResult = MovePieceResult::MoveStalemate;
 			}
 
 			movePair = make_pair(move, moveResult);
@@ -400,7 +415,7 @@ string Board::GetBoardPosition(int boardPosition){
 }
 
 char * Board::MakeMoveKey(){
-	char * boardString = (char*) malloc(65);
+	char * boardString = new char[65];
 
 	for(int s=0; s<64; s++){
 		Piece * piece = squares[s];
@@ -413,20 +428,18 @@ char * Board::MakeMoveKey(){
 		boardString[s] = (piece->GetColour() == Colour::White ? identifier : identifier + 32);
 	}
 
-	cout << "\n" << boardString << "\n";
 	return boardString;
 }
 
 MovePieceResult Board::AddMoveKey(char * moveKey){
-	for(int k=0; k<moveKeys.size(); k++){
-		pair<char *, int> moveKeyPair = moveKeys.at(k);
-		if(strcmp(moveKey,moveKeyPair.first) == 0){
-			cout << "\ns:" << moveKeyPair.second << "\n";
+	for(int k=0; k<(int)moveKeys.size(); k++){
+		pair<char *, int>& moveKeyPair = moveKeys[k];
+		if(string(moveKey) == string(moveKeyPair.first)){
 			if(moveKeyPair.second == 2){
 				return MovePieceResult::RepeatStalemate;
 			}
-			moveKeyPair.swap(make_pair(moveKey, moveKeyPair.second+1));
-			cout << "\nns:" << moveKeyPair.second << "\n";
+
+			moveKeyPair.second = moveKeyPair.second + 1;
 			return MovePieceResult::OK;
 		}
 	}

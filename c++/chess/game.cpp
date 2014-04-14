@@ -112,6 +112,9 @@ void Game::Start(){
 			case MovePieceResult::RepeatStalemate:
 				status = GameStatus::StalemateRepeated;
 				break;
+			case MovePieceResult::MoveStalemate:
+				status = GameStatus::StalemateNoTaken;
+				break;
 		}
 
 		if(result.first != nullptr){
@@ -127,6 +130,7 @@ void Game::Start(){
 		delete moves.at(m);
 	}
 
+	renderer->RenderBoard(board, false);
 	switch(status){
 		case GameStatus::Mate:
 			renderer->RenderMessage("\nCheckmate! " + string(Utility::ColourStrings[(activePlayer == Colour::White ? Colour::Black : Colour::White)]) + " wins.");
@@ -141,8 +145,11 @@ void Game::Start(){
 			renderer->RenderMessage("\n" + string(Utility::ColourStrings[activePlayer]) + " resigns the game!");
 			break;
 		case GameStatus::StalemateRepeated:
-			renderer->RenderMessage("\nStalemate! The same board position was repeated three times!");
-						break;
+			renderer->RenderMessage("\nStalemate! The same board position was repeated three times.");
+			break;
+		case GameStatus::StalemateNoTaken:
+			renderer->RenderMessage("\nStalemate! No piece has been taken in 50 turns.");
+			break;
 		default:
 			break;
 	}
