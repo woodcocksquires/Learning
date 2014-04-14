@@ -4,7 +4,9 @@
 #include <utility>
 #include "piece.h"
 #include "move.h"
+#include <vector>
 
+using namespace std;
 using namespace Chess;
 
 namespace Chess {
@@ -14,7 +16,8 @@ namespace Chess {
 		Piece * lastMovePiece;
 		vector<pair<char*, int>> moveKeys;
 		static int GetColumn(char columnChar);
-		char* MakeMoveKey();
+		char * MakeMoveKey();
+		MovePieceResult AddMoveKey(char * moveKey);
       public:
 		Board();
 		~Board();

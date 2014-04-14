@@ -225,7 +225,14 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 				moveResult = MovePieceResult::OK;
 			}
 
+
+
+			if(AddMoveKey(MakeMoveKey()) == MovePieceResult::RepeatStalemate){
+				moveResult = MovePieceResult::RepeatStalemate;
+			}
+
 			movePair = make_pair(move, moveResult);
+
 			return movePair;
 		}
 
@@ -392,6 +399,38 @@ string Board::GetBoardPosition(int boardPosition){
 	return ss.str();
 }
 
-char[64] Board::MakeMoveKey(){
+char * Board::MakeMoveKey(){
+	char * boardString = (char*) malloc(65);
 
+	for(int s=0; s<64; s++){
+		Piece * piece = squares[s];
+		if(piece == nullptr){
+			boardString[s] = '0';
+			continue;
+		}
+		boardString[64] = '\0';
+		char identifier = piece->GetIdentifier();
+		boardString[s] = (piece->GetColour() == Colour::White ? identifier : identifier + 32);
+	}
+
+	cout << "\n" << boardString << "\n";
+	return boardString;
+}
+
+MovePieceResult Board::AddMoveKey(char * moveKey){
+	for(int k=0; k<moveKeys.size(); k++){
+		pair<char *, int> moveKeyPair = moveKeys.at(k);
+		if(strcmp(moveKey,moveKeyPair.first) == 0){
+			cout << "\ns:" << moveKeyPair.second << "\n";
+			if(moveKeyPair.second == 2){
+				return MovePieceResult::RepeatStalemate;
+			}
+			moveKeyPair.swap(make_pair(moveKey, moveKeyPair.second+1));
+			cout << "\nns:" << moveKeyPair.second << "\n";
+			return MovePieceResult::OK;
+		}
+	}
+
+	moveKeys.push_back(make_pair(moveKey, 1));
+	return MovePieceResult::OK;
 }

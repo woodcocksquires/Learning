@@ -109,6 +109,9 @@ void Game::Start(){
 				renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
 				validMove = false;
 				break;
+			case MovePieceResult::RepeatStalemate:
+				status = GameStatus::StalemateRepeated;
+				break;
 		}
 
 		if(result.first != nullptr){
@@ -137,6 +140,9 @@ void Game::Start(){
 		case GameStatus::Resigned:
 			renderer->RenderMessage("\n" + string(Utility::ColourStrings[activePlayer]) + " resigns the game!");
 			break;
+		case GameStatus::StalemateRepeated:
+			renderer->RenderMessage("\nStalemate! The same board position was repeated three times!");
+						break;
 		default:
 			break;
 	}
