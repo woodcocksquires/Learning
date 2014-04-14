@@ -209,6 +209,9 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 				move->SetTaken();
 				movesSincePieceTaken = 0;
 			}
+			else if(movingPiece->GetIdentifier() == 'P'){
+				movesSincePieceTaken = 0;
+			}
 			else{
 				movesSincePieceTaken++;
 			}
