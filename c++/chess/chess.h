@@ -13,8 +13,8 @@ namespace Chess {
 
 	enum Colour: int { White, Black };
 	enum PlayerType: int { Human, CPU };
-	enum GameStatus: int { Active, Mate, Stalemate, InCheck, Draw, Resigned, StalemateRepeated, StalemateNoTaken };
-	enum MovePieceResult: int { OK, InvalidMove, IllegalMove, Check, Promote, OfferDraw, Resign, RepeatStalemate, MoveStalemate };
+	enum GameStatus: int { Active, Mate, Stalemate, InCheck, Draw, Resigned, DrawRepeated, DrawNoTaken, DrawMaterial };
+	enum MovePieceResult: int { OK, InvalidMove, IllegalMove, Check, Promote, OfferDraw, Resign, RepeatDraw, MoveDraw, MaterialDraw };
 	const int PIECE_COUNT = 16;
 	const int SQUARE_COUNT = 64;
 	const int QUEEN_SIDE_ROOK_OFFSET = -4;

@@ -241,12 +241,16 @@ pair<Move *, MovePieceResult> Board::MovePiece(int startBoardPosition, int endBo
 
 
 
-			if(AddMoveKey(MakeMoveKey()) == MovePieceResult::RepeatStalemate){
-				moveResult = MovePieceResult::RepeatStalemate;
+			if(AddMoveKey(MakeMoveKey()) == MovePieceResult::RepeatDraw){
+				moveResult = MovePieceResult::RepeatDraw;
 			}
 
 			if(movesSincePieceTaken == 100){
-				moveResult = MovePieceResult::MoveStalemate;
+				moveResult = MovePieceResult::MoveDraw;
+			}
+
+			if(IsMaterialDraw()){
+				moveResult = MovePieceResult::MaterialDraw;
 			}
 
 			movePair = make_pair(move, moveResult);
@@ -439,7 +443,7 @@ MovePieceResult Board::AddMoveKey(char * moveKey){
 		pair<char *, int>& moveKeyPair = moveKeys[k];
 		if(string(moveKey) == string(moveKeyPair.first)){
 			if(moveKeyPair.second == 2){
-				return MovePieceResult::RepeatStalemate;
+				return MovePieceResult::RepeatDraw;
 			}
 
 			moveKeyPair.second = moveKeyPair.second + 1;
@@ -449,4 +453,53 @@ MovePieceResult Board::AddMoveKey(char * moveKey){
 
 	moveKeys.push_back(make_pair(moveKey, 1));
 	return MovePieceResult::OK;
+}
+
+bool Board::IsMaterialDraw(){
+	int whiteKnights, blackKnights;
+	bool whiteBlackBishop, whiteWhiteBishop, blackBlackBishop, blackWhiteBishop;
+
+	for(int p=0; p<15; p++){
+		if((whitePieces[p]->GetTaken() && whitePieces[p]->GetIdentifier() != 'B' && whitePieces[p]->GetIdentifier() != 'N') ||
+			(whitePieces[p]->GetTaken() && whitePieces[p]->GetIdentifier() != 'B' && whitePieces[p]->GetIdentifier() != 'N')){
+			break;
+		}
+
+		if(whitePieces[p]->GetIdentifier() == 'N' && !whitePieces[p]->GetTaken()){
+			whiteKnights++;
+		}
+
+		if(blackPieces[p]->GetIdentifier() == 'N' && !blackPieces[p]->GetTaken()){
+			blackKnights++;
+		}
+
+		if(whitePieces[p]->GetIdentifier() == 'B' && !whitePieces[p]->GetTaken()){
+			if(whitePieces[p]->GetColour() == Colour::White){
+				whiteWhiteBishop = true;
+			}
+			else{
+				whiteBlackBishop = true;
+			}
+		}
+
+		if(blackPieces[p]->GetIdentifier() == 'B' && !blackPieces[p]->GetTaken()){
+			if(blackPieces[p]->GetColour() == Colour::White){
+				blackWhiteBishop = true;
+			}
+			else{
+				blackBlackBishop = true;
+			}
+		}
+	}
+
+	if((whiteWhiteBishop && whiteBlackBishop) || (blackWhiteBishop && blackBlackBishop)){
+		return false;
+	}
+
+	if((whiteKnights > 0 && (whiteWhiteBishop || whiteBlackBishop)) ||
+		(blackKnights > 0 && (blackWhiteBishop || blackBlackBishop))){
+		return false;
+	}
+
+	return true;
 }

@@ -18,6 +18,7 @@ namespace Chess {
 		static int GetColumn(char columnChar);
 		char * MakeMoveKey();
 		MovePieceResult AddMoveKey(char * moveKey);
+		bool IsMaterialDraw();
 		int movesSincePieceTaken;
       public:
 		Board();

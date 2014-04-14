@@ -109,11 +109,14 @@ void Game::Start(){
 				renderer->RenderMessage("\nIllegal move, this move would leave your King in check!");
 				validMove = false;
 				break;
-			case MovePieceResult::RepeatStalemate:
-				status = GameStatus::StalemateRepeated;
+			case MovePieceResult::RepeatDraw:
+				status = GameStatus::DrawRepeated;
 				break;
-			case MovePieceResult::MoveStalemate:
-				status = GameStatus::StalemateNoTaken;
+			case MovePieceResult::MoveDraw:
+				status = GameStatus::DrawNoTaken;
+				break;
+			case MovePieceResult::MaterialDraw:
+				status = GameStatus::DrawMaterial;
 				break;
 		}
 
@@ -144,11 +147,14 @@ void Game::Start(){
 		case GameStatus::Resigned:
 			renderer->RenderMessage("\n" + string(Utility::ColourStrings[activePlayer]) + " resigns the game!");
 			break;
-		case GameStatus::StalemateRepeated:
-			renderer->RenderMessage("\nStalemate! The same board position was repeated three times.");
+		case GameStatus::DrawRepeated:
+			renderer->RenderMessage("\nDraw! The same board position was repeated three times.");
 			break;
-		case GameStatus::StalemateNoTaken:
-			renderer->RenderMessage("\nStalemate! No piece has been taken in 50 turns and no pawn has been moved.");
+		case GameStatus::DrawNoTaken:
+			renderer->RenderMessage("\nDraw! No piece has been taken in 50 turns and no pawn has been moved.");
+			break;
+		case GameStatus::DrawMaterial:
+			renderer->RenderMessage("\nMaterial Draw! No player is able to force checkmate.");
 			break;
 		default:
 			break;
