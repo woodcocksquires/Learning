@@ -457,11 +457,15 @@ MovePieceResult Board::AddMoveKey(char * moveKey){
 
 bool Board::IsMaterialDraw(){
 	int whiteKnights, blackKnights;
+	whiteKnights = blackKnights = 0;
 	bool whiteBlackBishop, whiteWhiteBishop, blackBlackBishop, blackWhiteBishop;
+	whiteBlackBishop = whiteWhiteBishop = blackBlackBishop = blackWhiteBishop = false;
+	bool otherPieces = false;
 
 	for(int p=0; p<15; p++){
-		if((whitePieces[p]->GetTaken() && whitePieces[p]->GetIdentifier() != 'B' && whitePieces[p]->GetIdentifier() != 'N') ||
-			(whitePieces[p]->GetTaken() && whitePieces[p]->GetIdentifier() != 'B' && whitePieces[p]->GetIdentifier() != 'N')){
+		if((!whitePieces[p]->GetTaken() && whitePieces[p]->GetIdentifier() != 'B' && whitePieces[p]->GetIdentifier() != 'N') ||
+			(!blackPieces[p]->GetTaken() && blackPieces[p]->GetIdentifier() != 'B' && blackPieces[p]->GetIdentifier() != 'N')){
+			otherPieces = true;
 			break;
 		}
 
@@ -474,7 +478,7 @@ bool Board::IsMaterialDraw(){
 		}
 
 		if(whitePieces[p]->GetIdentifier() == 'B' && !whitePieces[p]->GetTaken()){
-			if(whitePieces[p]->GetColour() == Colour::White){
+			if(GetSquareColour(whitePieces[p]->GetBoardPosition()) == Colour::White){
 				whiteWhiteBishop = true;
 			}
 			else{
@@ -483,13 +487,17 @@ bool Board::IsMaterialDraw(){
 		}
 
 		if(blackPieces[p]->GetIdentifier() == 'B' && !blackPieces[p]->GetTaken()){
-			if(blackPieces[p]->GetColour() == Colour::White){
-				blackWhiteBishop = true;
+			if(GetSquareColour(blackPieces[p]->GetBoardPosition()) == Colour::White){
+				whiteWhiteBishop = true;
 			}
 			else{
-				blackBlackBishop = true;
+				whiteBlackBishop = true;
 			}
 		}
+	}
+
+	if(otherPieces){
+		return false;
 	}
 
 	if((whiteWhiteBishop && whiteBlackBishop) || (blackWhiteBishop && blackBlackBishop)){
@@ -502,4 +510,13 @@ bool Board::IsMaterialDraw(){
 	}
 
 	return true;
+}
+
+
+Colour Board::GetSquareColour(int squarePosition){
+    return GetSquareColour(squarePosition / 8, squarePosition % 8);
+}
+
+Colour Board::GetSquareColour(int rowOffset, int colOffset){
+    return (((rowOffset % 2) + (colOffset % 2)) % 2 == 0) ? Colour::White : Colour::Black;
 }

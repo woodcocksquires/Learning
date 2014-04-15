@@ -53,10 +53,10 @@ void ConsoleChessRenderer::RenderBoardRowInner(ConsoleRowInnerType type, Board *
     switch(type)
     {
         case ConsoleRowInnerType::Surround:
-            RenderBoardRowNonContent(offset, inverse, false);
+            RenderBoardRowNonContent(offset, inverse, false, board);
             break;
         case ConsoleRowInnerType::Spacer:
-            RenderBoardRowNonContent(offset, inverse, true);
+            RenderBoardRowNonContent(offset, inverse, true, board);
             break;
         case ConsoleRowInnerType::Content:
             RenderBoardRowContent(board, offset, inverse);
@@ -64,28 +64,28 @@ void ConsoleChessRenderer::RenderBoardRowInner(ConsoleRowInnerType type, Board *
     }
 }
 
-void ConsoleChessRenderer::RenderBoardRowNonContent(int offset, bool inverse, bool isSpacer){
+void ConsoleChessRenderer::RenderBoardRowNonContent(int offset, bool inverse, bool isSpacer, Board * board){
     cout << "   ";
 
     if(!inverse){
         for(int c=0; c<8; c++)
         {
-            RenderBoardRowNonContentColumn(offset, c, inverse, isSpacer);
+            RenderBoardRowNonContentColumn(offset, c, inverse, isSpacer, board);
         }
     }
     else{
         for(int c=7; c>=0; c--)
         {
-            RenderBoardRowNonContentColumn(offset, c, inverse, isSpacer);
+            RenderBoardRowNonContentColumn(offset, c, inverse, isSpacer, board);
         }
     }
 
     cout << endl;
 }
 
-void ConsoleChessRenderer::RenderBoardRowNonContentColumn(int row, int col, bool inverse, bool isSpacer){
+void ConsoleChessRenderer::RenderBoardRowNonContentColumn(int row, int col, bool inverse, bool isSpacer, Board * board){
     cout << "|";
-    Colour squareColour = GetSquareColour(row, col);
+    Colour squareColour = board->GetSquareColour(row, col);
     if(squareColour == Colour::Black){
         cout << "        ";
     }
@@ -121,7 +121,7 @@ void ConsoleChessRenderer::RenderBoardRowContent(Board * board, int offset, bool
 
 void ConsoleChessRenderer::RenderBoardRowContentColumn(Board* board, int row, int col, bool inverse){
     cout << "|";
-    Colour squareColour = GetSquareColour(row, col);
+    Colour squareColour = board->GetSquareColour(row, col);
     Piece * piece = board->PieceAtPosition(row, col);
     if(squareColour == Colour::Black){
         cout << "   ";
@@ -152,10 +152,6 @@ void ConsoleChessRenderer::RenderBoardLabelRow(bool inverse){
         }
     }
     cout << endl;
-}
-
-Colour ConsoleChessRenderer::GetSquareColour(int rowOffset, int colOffset){
-    return (((rowOffset % 2) + (colOffset % 2)) % 2 == 0) ? Colour::White : Colour::Black;
 }
 
 void ConsoleChessRenderer::StartGame(){

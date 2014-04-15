@@ -45,6 +45,8 @@ namespace Chess {
         	T * pPiece = new T(colour, boardPosition, this);
         	return pPiece;
         }
+        Colour GetSquareColour(int row, int col);
+        Colour GetSquareColour(int boardPosition);
 	};
 }
 

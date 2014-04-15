@@ -14,12 +14,11 @@ namespace Chess {
           private:
             void RenderBoardRowBorder();
             void RenderBoardRowInner(ConsoleRowInnerType type, Board * board, int offset, bool inverse);
-            void RenderBoardRowNonContent(int offset, bool inverse, bool isSpacer);
-            void RenderBoardRowNonContentColumn(int row, int col, bool inverse, bool isSpacer);
+            void RenderBoardRowNonContent(int offset, bool inverse, bool isSpacer, Board * board);
+            void RenderBoardRowNonContentColumn(int row, int col, bool inverse, bool isSpacer, Board * board);
             void RenderBoardRowContent(Board * board, int offset, bool inverse);
             void RenderBoardRowContentColumn(Board * board, int offset, int coloffset, bool inverse);
             void RenderBoardLabelRow(bool inverse);
-            Colour GetSquareColour(int rowOffset, int colOffset);
           protected:
             void RenderBoardRow(Board * board, int offset, bool inverse);
           public:
