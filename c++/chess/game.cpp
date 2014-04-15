@@ -30,14 +30,13 @@ Game::~Game(){
 void Game::Start(){
 	renderer->StartGame();
 	whitePlayerType = renderer->GetPlayerType(Colour::White);
-	blackPlayerType = renderer->GetPlayerType(Colour::Black);
-
 	if(whitePlayerType == PlayerType::CPU){
-		whiteAI = aiPlayers.at(0)->CreateInstance(Colour::White);
+			whiteAI = renderer->GetAIType(aiPlayers)->CreateInstance(Colour::White);
 	}
 
+	blackPlayerType = renderer->GetPlayerType(Colour::Black);
 	if(blackPlayerType == PlayerType::CPU){
-		blackAI = aiPlayers.at(0)->CreateInstance(Colour::Black);
+		blackAI = renderer->GetAIType(aiPlayers)->CreateInstance(Colour::Black);
 	}
 
 	vector<Move *> moves = vector<Move *>();
@@ -199,3 +198,4 @@ void Game::ProcessContinue(Colour previousPlayer, pair<Move *, MovePieceResult> 
 		status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
 	}
 }
+

@@ -3,7 +3,9 @@
 
 #include "ChessRenderer.h"
 #include "chess.h"
+#include "aitype.h"
 #include <utility>
+#include <string>
 
 using namespace Chess;
 
@@ -26,6 +28,7 @@ namespace Chess {
             virtual void RenderBoard(Board * board, bool inverse);
             virtual void StartGame();
             virtual PlayerType GetPlayerType(Colour colour);
+            virtual AIType * GetAIType(vector<AIType *> aiTypes);
             virtual pair<Move *, MovePieceResult> MakeMove(Colour colour, Board * board);
             virtual void RenderMessage(string message);
             virtual Piece * PromotePiece(Colour colour, Board * board);

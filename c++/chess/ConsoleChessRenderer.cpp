@@ -6,9 +6,11 @@
 #include "ChessUtils.h"
 #include "Move.h"
 #include <utility>
+#include <sstream>
 
 using namespace Chess::Renderer;
 using namespace Chess;
+using namespace std;
 
 ConsoleChessRenderer::~ConsoleChessRenderer(){}
 
@@ -313,5 +315,40 @@ bool ConsoleChessRenderer::ConfirmChoice(string message){
 		cin >> input;
 	}
 	return (input == "Y" || input == "y");
+}
+
+AIType * ConsoleChessRenderer::GetAIType(vector<AIType *> aiTypes){
+	cout << "\nPlease choose the AI for this player:\n";
+
+	for(int i=0; i<(int)aiTypes.size(); i++){
+		cout << "\n   " << i+1 << "   " << aiTypes.at(i)->GetName() << "\n   " << aiTypes.at(i)->GetDescription();
+	}
+
+	string input;
+	AIType * type = nullptr;
+	while(type == nullptr){
+		cout << "\nOption: ";
+		cin >> input;
+
+		stringstream stream(input);
+		int value;
+		stream >> value;
+
+
+		if(!stream){
+			cout << "\n Incorrect entry, please try again.";
+			continue;
+		}
+
+		value -= 1;
+		if(value >= 0 && value < (int)aiTypes.size()){
+			type = aiTypes.at(value);
+		}
+		else{
+			cout << "\n Incorrect entry, please try again.";
+		}
+	}
+
+	return type;
 }
 

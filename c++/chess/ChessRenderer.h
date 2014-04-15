@@ -4,6 +4,7 @@
 #include "Board.h"
 #include "Chess.h"
 #include <string>
+#include "aiType.h"
 
 using namespace Chess;
 using namespace std;
@@ -15,6 +16,7 @@ namespace Chess {
             virtual void RenderBoard(Board * board, bool inverse) = 0;
             virtual void StartGame() = 0;
             virtual PlayerType GetPlayerType(Colour colour) = 0;
+            virtual AIType * GetAIType(vector<AIType *> aiTypes) = 0;
             virtual pair<Move *, MovePieceResult> MakeMove(Colour colour, Board * board) = 0;
             virtual void RenderMessage(string message) = 0;
             virtual void RenderMoves(vector<Move *> moves) = 0;

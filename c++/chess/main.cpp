@@ -17,6 +17,7 @@ int main()
 	BaseRenderer * renderer = new ConsoleChessRenderer();
 	Game game = Game(renderer);
 	game.AddAIPlayer(new AIType_Jarvis());
+
 	game.Start();
     int x = 0;
 	cin >> x;
