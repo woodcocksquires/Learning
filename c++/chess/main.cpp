@@ -16,6 +16,7 @@ int main()
 	srand(time(NULL));
 	BaseRenderer * renderer = new ConsoleChessRenderer();
 	Game game = Game(renderer);
+	game.AddAI();
 	game.AddAIPlayer(new AIType_Jarvis());
 
 	game.Start();

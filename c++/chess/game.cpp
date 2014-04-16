@@ -4,6 +4,9 @@
 #include <utility>
 #include "ai.h"
 #include "aitype.h"
+#include "lua.hpp"
+#include "dirent.h"
+#include <iostream>
 
 using namespace Chess;
 using namespace Chess::Renderer;
@@ -19,12 +22,16 @@ Game::Game(BaseRenderer * _renderer){
     whitePlayerType = blackPlayerType = PlayerType::Human;
     whiteAI = blackAI = nullptr;
     aiPlayers = vector<AIType *>();
+    luaState = luaL_newstate();
+    luaL_openlibs(luaState);
 }
 
 Game::~Game(){
 	for(int a=0; a<(int)aiPlayers.size(); a++){
 		delete aiPlayers.at(a);
 	}
+
+	CloseLuaState();
 }
 
 void Game::Start(){
@@ -197,5 +204,71 @@ void Game::ProcessContinue(Colour previousPlayer, pair<Move *, MovePieceResult> 
 	if(!board->TestPlayerHasMoves(activePlayer)){
 		status = (status == GameStatus::InCheck ? GameStatus::Mate : GameStatus::Stalemate);
 	}
+}
+
+void Game::AddAI(){
+	int iErr = 0;
+	DIR *dir;
+	struct dirent * ent;
+	if((dir = opendir("scripts")) != NULL){
+		while((ent = readdir(dir)) != NULL){
+			if(string(ent->d_name) != "." && string(ent->d_name) != ".."){
+				if ((iErr = luaL_loadfile (luaState, "scripts/test.lua")) == 0){
+					cout << "\nLoaded " + string(ent->d_name);
+				}
+				else{
+					cout << "\nUnable to load " + string(ent->d_name);
+				}
+			}
+		}
+		closedir(dir);
+	}
+	else{
+		perror("");
+	}
+	cout << "\n";
+
+	if ((iErr = lua_pcall (luaState, 0, LUA_MULTRET, 0)) == 0)
+   {
+	  // Push the function name onto the stack
+	  lua_pushstring (luaState, "helloWorld");
+
+	  // Function is located in the Global Table
+	  lua_gettable (luaState, LUA_GLOBALSINDEX);
+	  lua_pcall (luaState, 0, 0, 0);
+
+	  lua_pushstring (luaState, "helloWorld2");
+
+	  	  // Function is located in the Global Table
+	  	  lua_gettable (luaState, LUA_GLOBALSINDEX);
+	  	  lua_pcall (luaState, 0, 0, 0);
+   }
+
+
+	//lua_State * lua = luaState;
+
+	/*if ((iErr = luaL_loadfile (lua, "scripts/test.lua")) == 0)
+	{
+	   // Call main...
+	   if ((iErr = lua_pcall (lua, 0, LUA_MULTRET, 0)) == 0)
+	   {
+	      // Push the function name onto the stack
+	      lua_pushstring (lua, "helloWorld");
+	      // Function is located in the Global Table
+	      lua_gettable (lua, LUA_GLOBALSINDEX);
+	      lua_pcall (lua, 0, 0, 0);
+	   }
+	   else{
+		   CloseLuaState();
+	   }
+	}
+	else{
+		CloseLuaState();
+	}*/
+
+}
+
+void Game::CloseLuaState(){
+	lua_close(luaState);
 }
 
